@@ -27,13 +27,13 @@ public final class CloudUnit implements PersistenceConfigurationProvider {
         LOGGER.info("CloudUnit production environment ; using system environment properties.");
 
         final Properties properties = ConfigUtils.loadProperties("env/cloudunit.properties");
+        final String connectionUrlTemplate = properties.getProperty("jdbc.connection.url");
 
         final String host = System.getenv(properties.getProperty("env.database.host"));
         final String username = System.getenv(properties.getProperty("env.database.user"));
         final String password = System.getenv(properties.getProperty("env.database.password"));
         final String dbName = System.getenv(properties.getProperty("env.database.name"));
 
-        final String url = properties.getProperty("jdbc.connection.url");
 
         LOGGER.info("Host: '{}' ; Username: '{}' ; Password: '{}' ; DbName: '{}'", host, username, password, dbName);
 
@@ -46,7 +46,7 @@ public final class CloudUnit implements PersistenceConfigurationProvider {
 
             @Override
             public String getConnectionUrl() {
-                return url.replace("{host}", host).replace("{dbName}", dbName);
+                return connectionUrlTemplate.replace("{host}", host).replace("{dbName}", dbName);
             }
 
             @Override

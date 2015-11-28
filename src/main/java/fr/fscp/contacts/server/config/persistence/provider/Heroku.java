@@ -30,6 +30,7 @@ public final class Heroku implements PersistenceConfigurationProvider {
 
         final Properties properties = ConfigUtils.loadProperties("env/heroku.properties");
         final String envURI = System.getenv(properties.getProperty("env.database.uri"));
+        final String connectionUrlTemplate = properties.getProperty("jdbc.connection.url");
 
         final URI dbUri;
         try {
@@ -39,8 +40,6 @@ public final class Heroku implements PersistenceConfigurationProvider {
         } catch (final URISyntaxException e) {
             throw new IllegalArgumentException("Invalid heroku environment URI: " + envURI);
         }
-
-        final String connectionUrlTemplate = properties.getProperty("jdbc.url");
 
         final String host = dbUri.getHost();
         final String port = String.valueOf(dbUri.getPort());
