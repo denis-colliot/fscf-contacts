@@ -20,4 +20,3 @@ catalina.base_IS_UNDEFINED
 src/main/webapp/fscf/
 **/i18n/Constants.java
 **/i18n/Messages.java
-local.properties
