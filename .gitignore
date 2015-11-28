@@ -17,8 +17,7 @@ target
 
 # Project files/folders that should be ignored.
 catalina.base_IS_UNDEFINED
-src/main/webapp/WEB-INF/lib/
-src/main/webapp/WEB-INF/deploy/
+src/main/webapp/fscf/
 **/i18n/Constants.java
 **/i18n/Messages.java
-persistence.properties
+local.properties

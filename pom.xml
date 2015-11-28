@@ -44,6 +44,8 @@
         <version.plugin.maven-compiler>3.3</version.plugin.maven-compiler>
         <version.plugin.maven-war>2.6</version.plugin.maven-war>
         <version.plugin.tomcat7>2.2</version.plugin.tomcat7>
+        <version.plugin.maven-dependency>2.10</version.plugin.maven-dependency>
+        <version.plugin.jetty-runner>9.3.6.v20151106</version.plugin.jetty-runner>
 
         <!-- Dependencies versions. -->
         <version.junit>4.11</version.junit>
@@ -321,9 +323,7 @@
                 </executions>
                 <configuration>
                     <logLevel>${gwt.logLevel}</logLevel>
-                    <webappDirectory>${project.build.webapp.directory}</webappDirectory>
-                    <hostedWebapp>${project.build.webapp.directory}</hostedWebapp>
-                    <generateDirectory>${basedir}/src/main/java</generateDirectory>
+                    <copyWebapp>true</copyWebapp>
                     <persistentunitcachedir>${project.build.directory}</persistentunitcachedir>
 
                     <i18nConstantsBundles>
@@ -348,6 +348,29 @@
                 <configuration>
                     <webappDirectory>${project.build.webapp.directory}</webappDirectory>
                 </configuration>
+            </plugin>
+
+            <!-- Webapp-runner plugin. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${version.plugin.maven-dependency}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals><goal>copy</goal></goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.eclipse.jetty</groupId>
+                                    <artifactId>jetty-runner</artifactId>
+                                    <version>${version.plugin.jetty-runner}</version>
+                                    <destFileName>jetty-runner.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>

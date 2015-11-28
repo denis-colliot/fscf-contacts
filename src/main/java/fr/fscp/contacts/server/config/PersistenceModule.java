@@ -3,6 +3,7 @@ package fr.fscp.contacts.server.config;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.persist.jpa.JpaPersistModule;
+import fr.fscp.contacts.server.config.persistence.PersistenceProperties;
 import fr.fscp.contacts.server.dao.AuthenticationDAO;
 import fr.fscp.contacts.server.dao.PostDAO;
 import fr.fscp.contacts.server.dao.impl.AuthenticationDAOImpl;
@@ -53,7 +54,7 @@ public class PersistenceModule extends AbstractModule {
      * @return The local persistence properties file name.
      */
     protected String getPersistencePropertiesFile() {
-        return "persistence.properties";
+        return "env/local.properties";
     }
 
 }
