@@ -345,9 +345,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.plugin.maven-war}</version>
-                <configuration>
-                    <webappDirectory>${project.build.webapp.directory}</webappDirectory>
-                </configuration>
             </plugin>
 
             <!-- Webapp-runner plugin. -->
