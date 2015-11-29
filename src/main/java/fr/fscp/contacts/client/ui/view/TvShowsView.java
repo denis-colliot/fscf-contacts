@@ -20,7 +20,7 @@ public class TvShowsView extends AbstractView implements TvShowsPresenter.View {
      * {@link UiBinder} interface adapted to {@link TvShowsView}.
      */
     @UiTemplate("TvShowsView.ui.xml")
-    static interface ViewUiBinder extends UiBinder<Widget, TvShowsView> {
+    interface ViewUiBinder extends UiBinder<Widget, TvShowsView> {
     }
 
     /**

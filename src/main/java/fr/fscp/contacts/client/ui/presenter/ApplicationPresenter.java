@@ -39,7 +39,7 @@ public final class ApplicationPresenter extends AbstractPresenter<ApplicationPre
      * Application view.
      */
     @ImplementedBy(ApplicationView.class)
-    public static interface View extends ViewInterface, HasPageMessage {
+    public interface View extends ViewInterface, HasPageMessage {
 
         /**
          * Hides the lodaing panel.

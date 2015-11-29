@@ -35,7 +35,7 @@ public final class ApplicationView extends AbstractView implements ApplicationPr
      * {@link com.google.gwt.uibinder.client.UiBinder} interface adapted to {@link ApplicationView}.
      */
     @UiTemplate("ApplicationView.ui.xml")
-    static interface ViewUiBinder extends UiBinder<Widget, ApplicationView> {
+    interface ViewUiBinder extends UiBinder<Widget, ApplicationView> {
     }
 
     @UiField

@@ -1,6 +1,5 @@
 package fr.fscp.contacts.client.ui.presenter;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.inject.ImplementedBy;
 import com.google.inject.Inject;
 import fr.fscp.contacts.client.config.Injector;
@@ -21,7 +20,7 @@ public class TripsPresenter extends AbstractPagePresenter<TripsPresenter.View> {
      * View interface.
      */
     @ImplementedBy(TripsView.class)
-    public static interface View extends ViewInterface {
+    public interface View extends ViewInterface {
 
     }
 

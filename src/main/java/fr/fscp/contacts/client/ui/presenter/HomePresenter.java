@@ -20,7 +20,7 @@ public class HomePresenter extends AbstractPagePresenter<HomePresenter.View> {
      * View interface.
      */
     @ImplementedBy(HomeView.class)
-    public static interface View extends ViewInterface {
+    public interface View extends ViewInterface {
 
     }
 

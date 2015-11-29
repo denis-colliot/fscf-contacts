@@ -20,7 +20,7 @@ public class TripsView extends AbstractView implements TripsPresenter.View {
      * {@link UiBinder} interface adapted to {@link TripsView}.
      */
     @UiTemplate("TripsView.ui.xml")
-    static interface ViewUiBinder extends UiBinder<Widget, TripsView> {
+    interface ViewUiBinder extends UiBinder<Widget, TripsView> {
     }
 
     /**

@@ -18,7 +18,7 @@ public class HomeView extends AbstractView implements HomePresenter.View {
      * {@link UiBinder} interface adapted to {@link HomeView}.
      */
     @UiTemplate("HomeView.ui.xml")
-    static interface ViewUiBinder extends UiBinder<Widget, HomeView> {
+    interface ViewUiBinder extends UiBinder<Widget, HomeView> {
     }
 
     @Override

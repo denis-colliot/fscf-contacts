@@ -20,7 +20,7 @@ public class TvShowsPresenter extends AbstractPagePresenter<TvShowsPresenter.Vie
      * View interface.
      */
     @ImplementedBy(TvShowsView.class)
-    public static interface View extends ViewInterface {
+    public interface View extends ViewInterface {
 
     }
 
