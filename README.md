@@ -2,7 +2,7 @@
 
 Contacts database for [FSCF association](http://www.fscf.asso.fr) (*Fédération Sportive et Culturelle de France*).
 
-Application access: [http://fscf-contacts.herokuapp.com](http://fscf-contacts.herokuapp.com)
+Demo application access: [http://fscf-contacts.herokuapp.com](http://fscf-contacts.herokuapp.com) (may be shutdown)
 
 ## Architecture
 The project's architecture is built around [GWT](http://www.gwtproject.org) 2.7.0.
