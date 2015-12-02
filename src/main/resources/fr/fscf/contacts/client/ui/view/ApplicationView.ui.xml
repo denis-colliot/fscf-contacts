@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+    xmlns:m="urn:import:gwt.material.design.client.ui">
+
+    <ui:style>
+        header, main, footer {
+            padding-left: 300px;
+        }
+        .container {
+            padding: 35px;
+        }
+    </ui:style>
+
+    <g:HTMLPanel>
+        <m:MaterialNavBar ui:field="navBar"  waves="LIGHT" backgroundColor="blue" title="ApplicationName">
+            <m:MaterialNavSection float="RIGHT">
+                <m:MaterialTooltip text="Menu">
+                    <m:MaterialLink ui:field="navLinkTrips" iconType="SEARCH" textColor="white" waves="LIGHT" />
+                </m:MaterialTooltip>
+                <m:MaterialTooltip text="Starter">
+                    <m:MaterialLink ui:field="navLinkTvShows" iconType="MORE_VERT" textColor="white" waves="LIGHT" />
+                </m:MaterialTooltip>
+            </m:MaterialNavSection>
+        </m:MaterialNavBar>
+
+        <m:MaterialContainer>
+            <g:HTML ui:field="message" />
+
+            <g:SimplePanel ui:field="container" styleName="{style.container}">
+                <!-- Dynamic content. -->
+            </g:SimplePanel>
+        </m:MaterialContainer>
+
+        <m:MaterialFooter backgroundColor="blue">
+            <m:MaterialFooterCopyright>
+                <m:MaterialLabel text="© 2015 Denis Colliot" />
+            </m:MaterialFooterCopyright>
+        </m:MaterialFooter>
+    </g:HTMLPanel>
+
+</ui:UiBinder>

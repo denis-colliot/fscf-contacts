@@ -33,6 +33,6 @@
         <appender-ref ref="CONSOLE_APPENDER" />
     </root>
 
-    <logger name="fr.fscp.contacts" level="TRACE" />
+    <logger name="fr.fscf.contacts" level="TRACE" />
 
 </configuration>

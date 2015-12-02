@@ -3,7 +3,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>fr.fscp</groupId>
+    <groupId>fr.fscf</groupId>
     <artifactId>contacts</artifactId>
     <packaging>war</packaging>
     <version>0.0.1</version>
@@ -24,7 +24,6 @@
         <project.build.target.jdk>1.8</project.build.target.jdk>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.release.name>${project.artifactId}-${project.version}</project.build.release.name>
-        <project.build.webapp.directory>src/main/webapp</project.build.webapp.directory>
 
         <!-- GWT configuration. -->
         <!-- Available levels: ERROR, WARN, INFO, TRACE, DEBUG, SPAM, ALL. -->
@@ -51,7 +50,7 @@
         <version.junit>4.11</version.junit>
         <version.h2>1.4.188</version.h2>
         <version.gwt>2.7.0</version.gwt>
-        <version.gwt-material>1.3.3</version.gwt-material>
+        <version.gwt-material>1.4</version.gwt-material>
         <version.guice>4.0</version.guice>
         <version.gin>2.1.2</version.gin>
         <version.commons-fileupload>1.3.1</version.commons-fileupload>
@@ -335,7 +334,7 @@
 
                     <!-- For gwt:run command. -->
                     <runTarget>/</runTarget>
-                    <module>fr.fscp.contacts.AppModule</module>
+                    <module>fr.fscf.contacts.AppModule</module>
                     <extraJvmArgs>-Xmx1G -Xss256M</extraJvmArgs>
                 </configuration>
             </plugin>

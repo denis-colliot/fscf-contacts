@@ -18,6 +18,6 @@ target
 # Project files/folders that should be ignored.
 catalina.base_IS_UNDEFINED
 src/main/webapp/fscf/
-**/i18n/Constants.java
-**/i18n/Messages.java
+target/generated-sources/gwt/fr/fscf/contacts/client/i18n/Constants.java
+target/generated-sources/gwt/fr/fscf/contacts/client/i18n/Messages.java
 local.properties

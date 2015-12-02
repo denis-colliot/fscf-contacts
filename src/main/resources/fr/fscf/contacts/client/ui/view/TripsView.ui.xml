@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:b='urn:import:fr.fscf.contacts.client.ui.widget.button'
+    xmlns:m="urn:import:gwt.material.design.client.ui">
+
+    <ui:style>
+    </ui:style>
+
+    <g:HTMLPanel>
+
+        <g:HTML HTML="Trips view..." />
+
+        <b:Button ui:field="blueButton" text="Mon bouton" enabled="false" />
+        <b:Button ui:field="orangeButton" text="Mon bouton orange" backgroundColor="orange" />
+
+    </g:HTMLPanel>
+
+</ui:UiBinder>
