@@ -1,8 +1,6 @@
 package fr.fscf.contacts.server.security;
 
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import fr.fscf.contacts.server.dao.PostDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,9 +17,6 @@ public class AuthenticationFilter implements Filter {
      * Logger.
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationFilter.class);
-
-    @Inject
-    private PostDAO postDAO;
 
     /**
      * {@inheritDoc}
@@ -49,8 +44,6 @@ public class AuthenticationFilter implements Filter {
         LOGGER.trace("(TODO) Authentication security.");
 
         // TODO Authentication security implementation.
-
-        LOGGER.trace("[_TEST ONLY: TO REMOVE_] Posts: {}", postDAO.find(null));
 
         filterChain.doFilter(servletRequest, servletResponse);
     }

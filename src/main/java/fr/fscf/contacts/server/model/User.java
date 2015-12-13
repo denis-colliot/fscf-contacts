@@ -1,50 +1,39 @@
 package fr.fscf.contacts.server.model;
 
 import fr.fscf.contacts.server.model.base.AbstractEntity;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Table;
 
 /**
  * Created by Denis on 24/04/15.
  */
-@Entity
-@Table(name = "t_user_us")
+@javax.persistence.Entity
+@Table(name = "t_utilisateur_ut")
 @AttributeOverrides({
-        @AttributeOverride(name = "id", column = @Column(name = "us_id", nullable = false))
+        @AttributeOverride(name = "id", column = @Column(name = "ut_id", nullable = false))
 })
 public class User extends AbstractEntity<Long> {
 
-    @Column(name = "us_name", nullable = false)
+    @Column(name = "ut_nom", nullable = false)
     private String name;
 
-    @Column(name = "us_first_name", nullable = false)
+    @Column(name = "ut_prenom", nullable = false)
     private String firstName;
 
-    @Column(name = "us_login", nullable = false)
+    @Column(name = "ut_login", nullable = false)
     private String login;
 
-    @Column(name = "us_password", nullable = false)
+    @Column(name = "ut_password", nullable = false)
     private String password;
 
-    @Column(name = "us_email", nullable = true)
+    @Column(name = "ut_email", nullable = true)
     private String email;
 
-    @Column(name = "us_active", nullable = true)
+    @Column(name = "ut_actif", nullable = true)
     private Boolean active;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void appendToString(final ToStringBuilder builder) {
-        builder.append("name", name);
-        builder.append("firstName", firstName);
-        builder.append("login", login);
-        builder.append("password", "[PROTECTED]");
-        builder.append("email", email);
-        builder.append("active", active);
-    }
 
     public String getName() {
         return name;

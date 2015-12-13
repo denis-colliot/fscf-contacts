@@ -49,6 +49,7 @@
         <!-- Dependencies versions. -->
         <version.junit>4.11</version.junit>
         <version.h2>1.4.188</version.h2>
+        <version.assertJ>3.2.0</version.assertJ>
         <version.gwt>2.7.0</version.gwt>
         <version.gwt-material>1.4</version.gwt-material>
         <version.guice>4.0</version.guice>
@@ -79,6 +80,7 @@
 
     <dependencies>
 
+        <!-- TESTS. -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -89,6 +91,12 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>${version.h2}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${version.assertJ}</version>
             <scope>test</scope>
         </dependency>
 

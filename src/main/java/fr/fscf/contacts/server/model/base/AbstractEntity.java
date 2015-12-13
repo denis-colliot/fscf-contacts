@@ -1,9 +1,10 @@
 package fr.fscf.contacts.server.model.base;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -15,11 +16,6 @@ import java.util.Date;
  */
 @MappedSuperclass
 public abstract class AbstractEntity<K extends Serializable> implements Entity<K> {
-
-    /**
-     * Serial version UID.
-     */
-    private static final long serialVersionUID = -7822034341683441998L;
 
     // GenerationType.AUTO does not seem to work properly with H2 test database.
     @Id
@@ -42,53 +38,26 @@ public abstract class AbstractEntity<K extends Serializable> implements Entity<K
 
     /**
      * <p>
-     * <b><em>Default {@code toString} method only displays centralized properties.</em><br/>
-     * See {@link #appendToString(ToStringBuilder)} to append other properties to {@code toString} builder.</b>
+     * <b><em>Default {@code toString} method rendering all entity's properties.</em><br/>
+     * See {@link #toStringExcludedFields()} to exclude specific properties.</b>
      * </p>
      * {@inheritDoc}
      *
-     * @see #appendToString(ToStringBuilder)
+     * @see #toStringExcludedFields()
      */
     @Override
     public final String toString() {
-
-        final ToStringBuilder builder = new ToStringBuilder(this);
-
-        // Entity id.
-        builder.append("id", getId());
-
-        // Appends child entity specific properties.
-        appendToString(builder);
-
-        builder.append("creationDate", getCreationDate());
-        builder.append("creationUser", getCreationUser());
-        builder.append("updateDate", getUpdateDate());
-        builder.append("updateUser", getUpdateUser());
-
-        return builder.toString();
+        return ReflectionToStringBuilder.toStringExclude(this, toStringExcludedFields());
     }
 
     /**
-     * <p>
-     * Allows sub entities to append other properties to the given {@code builder}.
-     * </p>
-     * <p>
-     * <em>Entity's {@code id}, {@code creation[date/user]} and {@code update[date/user]} properties have already been
-     * appended to the {@code builder}.</em>
-     * </p>
-     * <p>
-     * Use given builder this way:
-     * <p>
-     * <pre>
-     * builder.append(&quot;Property name&quot;, property);
-     * </pre>
-     * <p>
-     * </p>
+     * Returns the properties names excluded from {@code toString()} process.
      *
-     * @param builder
-     *         The {@code toString} builder (never {@code null}).
+     * @return The excluded properties names.
      */
-    protected abstract void appendToString(final ToStringBuilder builder);
+    protected Collection<String> toStringExcludedFields() {
+        return null;
+    }
 
     /**
      * <p>

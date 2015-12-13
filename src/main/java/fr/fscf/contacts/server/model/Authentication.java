@@ -1,7 +1,6 @@
 package fr.fscf.contacts.server.model;
 
 import fr.fscf.contacts.server.model.base.AbstractEntity;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,8 +15,8 @@ import java.util.Date;
  *
  * @author Denis
  */
-@Entity
-@Table(name = "t_authentication_au")
+@javax.persistence.Entity
+@Table(name = "t_authentification_au")
 @AttributeOverrides({
         @AttributeOverride(name = "id", column = @Column(name = "au_id", nullable = false))
 })
@@ -28,11 +27,11 @@ public class Authentication extends AbstractEntity<String> {
      */
     private static final long serialVersionUID = 1653320385158332573L;
 
-    @Column(name = "au_date_created")
+    @Column(name = "au_date_creation")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
 
-    @Column(name = "au_date_last_active")
+    @Column(name = "au_date_derniere_activite")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateLastActive;
 
@@ -43,7 +42,7 @@ public class Authentication extends AbstractEntity<String> {
     // --------------------------------------------------------------------------------
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "us_id", nullable = false)
+    @JoinColumn(name = "ut_id", nullable = false)
     @NotNull
     private User user;
 
@@ -69,16 +68,6 @@ public class Authentication extends AbstractEntity<String> {
         setUser(user);
         setDateCreated(now);
         setDateLastActive(now);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void appendToString(final ToStringBuilder builder) {
-        builder.append("dateCreated", dateCreated);
-        builder.append("dateLastActive", dateLastActive);
-        builder.append("user", user);
     }
 
     // --------------------------------------------------------------------------------

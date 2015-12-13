@@ -4,10 +4,10 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import fr.fscf.contacts.server.config.persistence.PersistenceProperties;
+import fr.fscf.contacts.server.dao.AssociationDAO;
 import fr.fscf.contacts.server.dao.AuthenticationDAO;
-import fr.fscf.contacts.server.dao.PostDAO;
+import fr.fscf.contacts.server.dao.impl.AssociationDAOImpl;
 import fr.fscf.contacts.server.dao.impl.AuthenticationDAOImpl;
-import fr.fscf.contacts.server.dao.impl.PostDAOImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +45,7 @@ public class PersistenceModule extends AbstractModule {
         bind(Validator.class).toInstance(validator);
 
         bind(AuthenticationDAO.class).to(AuthenticationDAOImpl.class).in(Singleton.class);
-        bind(PostDAO.class).to(PostDAOImpl.class).in(Singleton.class);
+        bind(AssociationDAO.class).to(AssociationDAOImpl.class).in(Singleton.class);
     }
 
     /**
