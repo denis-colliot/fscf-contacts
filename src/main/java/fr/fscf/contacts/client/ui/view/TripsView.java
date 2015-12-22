@@ -52,8 +52,8 @@ public class TripsView extends AbstractView implements TripsPresenter.View {
         orangeButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                blueButton.setLoading(!blueButton.isLoading());
-                blueButton.setText(blueButton.isLoading() ? "Loading..." : "Not loading");
+                blueButton.setEnabled(!blueButton.isEnabled());
+                blueButton.setText(blueButton.isEnabled() ? "Enabled..." : "Not Enabled");
             }
         });
     }

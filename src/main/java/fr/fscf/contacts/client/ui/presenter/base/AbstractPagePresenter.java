@@ -1,7 +1,6 @@
 package fr.fscf.contacts.client.ui.presenter.base;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.inject.Inject;
 import fr.fscf.contacts.client.AppEntryPoint;
 import fr.fscf.contacts.client.config.Injector;
 import fr.fscf.contacts.client.event.bus.EventBus;
@@ -15,6 +14,8 @@ import fr.fscf.contacts.client.ui.view.base.AbstractView;
 import fr.fscf.contacts.client.ui.view.base.ViewInterface;
 import fr.fscf.contacts.client.ui.view.base.ViewPopupInterface;
 import fr.fscf.contacts.client.util.MessageType;
+
+import javax.inject.Inject;
 
 /**
  * <p>

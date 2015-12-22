@@ -1,6 +1,6 @@
 package fr.fscf.contacts.shared.security.impl;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.security.SecureDispatchAsync;
 import fr.fscf.contacts.server.dao.AuthenticationDAO;

@@ -4,13 +4,13 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
-import com.google.inject.Inject;
 import fr.fscf.contacts.client.event.bus.EventBus;
 import fr.fscf.contacts.client.event.page.*;
 import fr.fscf.contacts.client.ui.presenter.base.Presenter;
 import fr.fscf.contacts.client.ui.view.base.AbstractPopupView;
 import fr.fscf.contacts.shared.util.Pair;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -252,7 +252,8 @@ public class PageManager implements ValueChangeHandler<String>, PageChangedHandl
      * Returns the current page <b>token</b>.
      *
      * @param includeCurrentPopup
-     *         Set to <code>true</code> to get the current popup's page token if any popup is currently displayed, set to
+     *         Set to <code>true</code> to get the current popup's page token if any popup is currently displayed, set
+     *         to
      *         <code>false</code> to get the current non-popup page token even if a popup is currently displayed.
      * @return the current page token or {@code null}.
      */
@@ -274,7 +275,8 @@ public class PageManager implements ValueChangeHandler<String>, PageChangedHandl
      * Returns the current page request.
      *
      * @param includeCurrentPopup
-     *         Set to <code>true</code> to get the current popup's page request if any popup is currently displayed, set
+     *         Set to <code>true</code> to get the current popup's page request if any popup is currently displayed,
+     *         set
      *         to <code>false</code> to get the current non-popup page request even if a popup is currently displayed.
      * @return the current page request or {@code null}.
      */
@@ -309,8 +311,11 @@ public class PageManager implements ValueChangeHandler<String>, PageChangedHandl
      * Returns the current {@link Presenter.PagePresenter} instance.
      *
      * @param includeCurrentPopup
-     *         Set to <code>true</code> to get the current popup's {@link Presenter.PagePresenter} if any popup is currently
-     *         displayed, set to <code>false</code> to get the current non-popup {@link Presenter.PagePresenter} even if a popup is
+     *         Set to <code>true</code> to get the current popup's {@link Presenter.PagePresenter} if any popup is
+     *         currently
+     *         displayed, set to <code>false</code> to get the current non-popup {@link Presenter.PagePresenter} even
+     *         if
+     *         a popup is
      *         currently displayed.
      * @return the current {@link Presenter.PagePresenter} instance or {@code null}.
      */
@@ -360,13 +365,13 @@ public class PageManager implements ValueChangeHandler<String>, PageChangedHandl
      *         The tracked page name.
      */
     private static native void trackPage(final String pageName) /*-{
-                                                                                                                            try {
-																															$wnd._gaq.push([ '_setAccount', 'UA-000000000-1' ]);
-																															$wnd._gaq.push([ '_trackPageview', pageName ]);
-																															$wnd._gaq.push([ '_trackPageLoadTime' ]);
-																															} catch (err) {
-																															// Custom exception handling.
-																															}
-																															}-*/;
+        try {
+            $wnd._gaq.push(['_setAccount', 'UA-000000000-1']);
+            $wnd._gaq.push(['_trackPageview', pageName]);
+            $wnd._gaq.push(['_trackPageLoadTime']);
+        } catch (err) {
+            // Custom exception handling.
+        }
+    }-*/;
 
 }

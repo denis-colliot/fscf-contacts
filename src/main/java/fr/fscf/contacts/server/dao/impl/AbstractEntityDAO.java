@@ -7,7 +7,7 @@ import fr.fscf.contacts.server.model.Entity;
 /**
  * Created by Denis on 24/04/15.
  */
-abstract class AbstractEntityDAO<E extends Entity<?>> extends AbstractDAO<E, Long> implements EntityDAO<E> {
+abstract class AbstractEntityDAO<E extends Entity> extends AbstractDAO<E, Long> implements EntityDAO<E> {
 
     // Implement specific methods here.
 

@@ -27,10 +27,8 @@ public class Button implements IsWidget, Loadable, HasClickHandlers {
 
     /**
      * Map storing button handlers with their registration.
-     *
-     * @see ButtonHandlerRegistration
      */
-    private final HashMap<ButtonHandlerRegistration, ClickHandler> handlers;
+    private final Map<HandlerRegistration, ClickHandler> handlers;
 
     /**
      * Loading state of the button.
@@ -60,6 +58,18 @@ public class Button implements IsWidget, Loadable, HasClickHandlers {
         }
     }
 
+    private void setHandlersEnabled(final boolean enabled) {
+        if (enabled) {
+            for (final ClickHandler handler : handlers.values()) {
+                innerButton.addClickHandler(handler);
+            }
+        } else {
+            for (final HandlerRegistration registration : handlers.keySet()) {
+                registration.removeHandler();
+            }
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -77,22 +87,12 @@ public class Button implements IsWidget, Loadable, HasClickHandlers {
         if (!this.loading && loading) {
             innerButton.setEnabled(false);
             // TODO replaceIcon(IconImageBundle.ICONS.loading());
-
-            for (final ButtonHandlerRegistration registration : handlers.keySet()) {
-                registration.getInnerHandlerRegistration().removeHandler();
-            }
+            setHandlersEnabled(false);
 
         } else if (this.loading && !loading) {
             innerButton.setEnabled(initialEnabledState);
             // TODO setIcon(getIcon());
-
-            for (final Map.Entry<ButtonHandlerRegistration, ClickHandler> entry : handlers.entrySet()) {
-                final ButtonHandlerRegistration handlerRegistration = entry.getKey();
-                final ClickHandler handler = entry.getValue();
-
-                // Updates handler registration.
-                handlerRegistration.setHandlerRegistration(innerButton.addClickHandler(handler));
-            }
+            setHandlersEnabled(initialEnabledState);
         }
 
         this.loading = loading;
@@ -110,19 +110,13 @@ public class Button implements IsWidget, Loadable, HasClickHandlers {
      * {@inheritDoc}
      */
     @Override
-    public ButtonHandlerRegistration addClickHandler(final ClickHandler handler) {
-        final HandlerRegistration registration;
-        if (isEnabled()) {
-            // Activates handler if button is enabled.
-            registration = innerButton.addClickHandler(handler);
-
-        } else {
-            // Does not activate handler if button is disabled (it will be activated when button is enabled).
-            registration = null;
+    public HandlerRegistration addClickHandler(final ClickHandler handler) {
+        final HandlerRegistration registration = innerButton.addClickHandler(handler);
+        handlers.put(registration, handler);
+        if (!isEnabled()) {
+            registration.removeHandler();
         }
-        final ButtonHandlerRegistration buttonHandlerRegistration = new ButtonHandlerRegistration(handlers, registration);
-        handlers.put(buttonHandlerRegistration, handler);
-        return buttonHandlerRegistration;
+        return registration;
     }
 
     /**
@@ -140,6 +134,7 @@ public class Button implements IsWidget, Loadable, HasClickHandlers {
     public void setEnabled(boolean enabled) {
         innerButton.setEnabled(enabled);
         initialEnabledState = enabled;
+        setHandlersEnabled(enabled);
     }
 
     public String getText() {

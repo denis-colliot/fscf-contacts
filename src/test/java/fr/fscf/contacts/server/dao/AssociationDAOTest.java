@@ -1,10 +1,10 @@
 package fr.fscf.contacts.server.dao;
 
-import com.google.inject.Inject;
 import fr.fscf.contacts.server.model.Association;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.inject.Inject;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;

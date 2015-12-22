@@ -1,6 +1,6 @@
 package fr.fscf.contacts.server.dispatch.impl;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.navigation.PageRequest;
 import fr.fscf.contacts.client.navigation.RequestParameter;

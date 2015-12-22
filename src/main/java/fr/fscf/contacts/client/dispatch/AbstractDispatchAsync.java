@@ -1,11 +1,11 @@
 package fr.fscf.contacts.client.dispatch;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.inject.Inject;
-import fr.fscf.contacts.shared.command.result.base.Result;
 import fr.fscf.contacts.client.ui.widget.Loadable;
 import fr.fscf.contacts.shared.command.base.Command;
+import fr.fscf.contacts.shared.command.result.base.Result;
 
+import javax.inject.Inject;
 import java.util.Collection;
 
 /**

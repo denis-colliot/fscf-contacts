@@ -2,41 +2,57 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'
-    xmlns:m="urn:import:gwt.material.design.client.ui">
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:m="urn:import:gwt.material.design.client.ui">
 
     <ui:style>
-        header, main, footer {
-            padding-left: 300px;
+        @def footerHeight 80px;
+        body {
+            height: 100%;
         }
         .container {
+            min-height: 100%;
+            position: relative;
+        }
+        .body {
+            padding-bottom: footerHeight;
+        }
+        .content {
             padding: 35px;
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: footerHeight;
         }
     </ui:style>
 
-    <g:HTMLPanel>
-        <m:MaterialNavBar ui:field="navBar"  waves="LIGHT" backgroundColor="blue" title="ApplicationName">
-            <m:MaterialNavSection float="RIGHT">
+    <g:HTMLPanel styleName="{style.container}">
+        <m:MaterialNavBar ui:field="navBar" backgroundColor="blue">
+            <m:MaterialNavBrand float="RIGHT">FSCF Contacts</m:MaterialNavBrand>
+
+            <m:MaterialNavSection float="LEFT">
                 <m:MaterialTooltip text="Menu">
-                    <m:MaterialLink ui:field="navLinkTrips" iconType="SEARCH" textColor="white" waves="LIGHT" />
+                    <m:MaterialLink ui:field="navLinkTrips" text="Trips" iconType="SEARCH" textColor="white" waves="LIGHT"/>
                 </m:MaterialTooltip>
                 <m:MaterialTooltip text="Starter">
-                    <m:MaterialLink ui:field="navLinkTvShows" iconType="MORE_VERT" textColor="white" waves="LIGHT" />
+                    <m:MaterialLink ui:field="navLinkTvShows" text="Other" iconType="MORE_VERT" textColor="white" waves="LIGHT"/>
                 </m:MaterialTooltip>
             </m:MaterialNavSection>
         </m:MaterialNavBar>
 
-        <m:MaterialContainer>
-            <g:HTML ui:field="message" />
+        <m:MaterialContainer styleName="{style.body}">
+            <g:HTML ui:field="message"/>
 
-            <g:SimplePanel ui:field="container" styleName="{style.container}">
+            <g:SimplePanel ui:field="container" styleName="container {style.content}">
                 <!-- Dynamic content. -->
             </g:SimplePanel>
         </m:MaterialContainer>
 
-        <m:MaterialFooter backgroundColor="blue">
+        <m:MaterialFooter styleName="{style.footer}" backgroundColor="blue">
             <m:MaterialFooterCopyright>
-                <m:MaterialLabel text="© 2015 Denis Colliot" />
+                <m:MaterialLabel text="© 2015 FSCF"/>
             </m:MaterialFooterCopyright>
         </m:MaterialFooter>
     </g:HTMLPanel>

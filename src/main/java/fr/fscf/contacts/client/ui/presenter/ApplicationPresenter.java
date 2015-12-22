@@ -5,12 +5,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.ImplementedBy;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import fr.fscf.contacts.client.config.Injector;
-import fr.fscf.contacts.client.ui.view.base.ViewPopupInterface;
-import fr.fscf.contacts.client.util.MessageType;
-import fr.fscf.contacts.shared.util.ClientUtils;
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.navigation.Zone;
 import fr.fscf.contacts.client.ui.presenter.base.AbstractPresenter;
@@ -18,8 +13,13 @@ import fr.fscf.contacts.client.ui.presenter.base.Presenter;
 import fr.fscf.contacts.client.ui.view.ApplicationView;
 import fr.fscf.contacts.client.ui.view.base.HasPageMessage;
 import fr.fscf.contacts.client.ui.view.base.ViewInterface;
+import fr.fscf.contacts.client.ui.view.base.ViewPopupInterface;
+import fr.fscf.contacts.client.util.MessageType;
+import fr.fscf.contacts.shared.util.ClientUtils;
 import gwt.material.design.client.ui.MaterialNavBar;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.Map;
 

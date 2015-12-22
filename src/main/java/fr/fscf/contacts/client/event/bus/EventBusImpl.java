@@ -3,7 +3,7 @@ package fr.fscf.contacts.client.event.bus;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.google.inject.Singleton;
 import fr.fscf.contacts.client.config.Injector;
 import fr.fscf.contacts.client.dispatch.CommandResultHandler;

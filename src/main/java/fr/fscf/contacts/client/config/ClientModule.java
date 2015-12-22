@@ -1,7 +1,6 @@
 package fr.fscf.contacts.client.config;
 
 import com.google.gwt.inject.client.AbstractGinModule;
-import com.google.inject.Singleton;
 import fr.fscf.contacts.client.dispatch.DispatchAsync;
 import fr.fscf.contacts.client.dispatch.ExceptionHandler;
 import fr.fscf.contacts.client.event.bus.EventBus;
@@ -9,6 +8,8 @@ import fr.fscf.contacts.client.event.bus.EventBusImpl;
 import fr.fscf.contacts.client.navigation.PageManager;
 import fr.fscf.contacts.client.security.SecureDispatchAsync;
 import fr.fscf.contacts.client.security.SecureExceptionHandler;
+
+import javax.inject.Singleton;
 
 /**
  * GIN module to bind presenters and views.

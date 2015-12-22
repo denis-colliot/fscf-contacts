@@ -1,12 +1,12 @@
 package fr.fscf.contacts.server.config.dispatch;
 
 import com.google.inject.Binding;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.TypeLiteral;
-import fr.fscf.contacts.server.dispatch.CommandHandlerRegistry;
 import fr.fscf.contacts.server.dispatch.CommandHandler;
+import fr.fscf.contacts.server.dispatch.CommandHandlerRegistry;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**

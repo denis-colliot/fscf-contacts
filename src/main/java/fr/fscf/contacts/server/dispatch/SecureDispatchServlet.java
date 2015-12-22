@@ -1,7 +1,7 @@
 package fr.fscf.contacts.server.dispatch;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.google.inject.Singleton;
 import fr.fscf.contacts.client.security.SecureDispatchAsync;
 import fr.fscf.contacts.client.security.SecureDispatchService;

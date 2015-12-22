@@ -3,7 +3,7 @@ package fr.fscf.contacts.client.security;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException;
 import com.google.gwt.user.client.rpc.InvocationException;
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import fr.fscf.contacts.client.i18n.I18N;
 import fr.fscf.contacts.client.ui.notification.N10N;
 import fr.fscf.contacts.shared.dispatch.CommandException;
