@@ -4,17 +4,17 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'
 	xmlns:b='urn:import:fr.fscf.contacts.client.ui.widget.button'
-    xmlns:m="urn:import:gwt.material.design.client.ui">
+    xmlns:m="urn:import:org.gwtbootstrap3.client.ui">
 
     <ui:style>
     </ui:style>
 
     <g:HTMLPanel>
 
-        <g:HTML HTML="Trips view..." />
+        <g:HTML HTML="Contacts view..." />
 
-        <b:Button ui:field="blueButton" text="Mon bouton" enabled="false" />
-        <b:Button ui:field="orangeButton" text="Mon bouton orange" backgroundColor="orange" />
+        <b:Button ui:field="blueButton" text="Mon bouton" enabled="false" type="PRIMARY" />
+        <b:Button ui:field="orangeButton" text="Mon bouton orange" type="WARNING" />
 
     </g:HTMLPanel>
 

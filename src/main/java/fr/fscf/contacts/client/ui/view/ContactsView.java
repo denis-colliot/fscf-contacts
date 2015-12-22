@@ -9,17 +9,17 @@ import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
-import fr.fscf.contacts.client.ui.presenter.TripsPresenter;
+import fr.fscf.contacts.client.ui.presenter.ContactsPresenter;
 import fr.fscf.contacts.client.ui.view.base.AbstractView;
 import fr.fscf.contacts.client.ui.widget.button.Button;
 
 /**
- * Trips view.
+ * Contacts view.
  *
  * @author Denis
  */
 @Singleton
-public class TripsView extends AbstractView implements TripsPresenter.View {
+public class ContactsView extends AbstractView implements ContactsPresenter.View {
 
     @UiField
     Button blueButton;
@@ -28,10 +28,10 @@ public class TripsView extends AbstractView implements TripsPresenter.View {
     Button orangeButton;
 
     /**
-     * {@link UiBinder} interface adapted to {@link TripsView}.
+     * {@link UiBinder} interface adapted to {@link ContactsView}.
      */
-    @UiTemplate("TripsView.ui.xml")
-    interface ViewUiBinder extends UiBinder<Widget, TripsView> {
+    @UiTemplate("ContactsView.ui.xml")
+    interface ViewUiBinder extends UiBinder<Widget, ContactsView> {
     }
 
     /**

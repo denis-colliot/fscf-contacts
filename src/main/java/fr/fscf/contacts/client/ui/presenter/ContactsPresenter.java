@@ -5,34 +5,34 @@ import fr.fscf.contacts.client.config.Injector;
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.navigation.PageRequest;
 import fr.fscf.contacts.client.ui.presenter.base.AbstractPagePresenter;
-import fr.fscf.contacts.client.ui.view.TvShowsView;
+import fr.fscf.contacts.client.ui.view.ContactsView;
 import fr.fscf.contacts.client.ui.view.base.ViewInterface;
 
 import javax.inject.Inject;
 
 /**
- * TV Shows presenter.
+ * Contacts presenter.
  *
  * @author Denis
  */
-public class TvShowsPresenter extends AbstractPagePresenter<TvShowsPresenter.View> {
+public class ContactsPresenter extends AbstractPagePresenter<ContactsPresenter.View> {
 
     /**
      * View interface.
      */
-    @ImplementedBy(TvShowsView.class)
+    @ImplementedBy(ContactsView.class)
     public interface View extends ViewInterface {
 
     }
 
     @Inject
-    protected TvShowsPresenter(final View view, final Injector injector) {
+    protected ContactsPresenter(final View view, final Injector injector) {
         super(view, injector);
     }
 
     @Override
     public Page getPage() {
-        return Page.TV_SHOWS;
+        return Page.CONTACTS;
     }
 
     @Override

@@ -16,7 +16,6 @@ import fr.fscf.contacts.client.ui.view.base.ViewInterface;
 import fr.fscf.contacts.client.ui.view.base.ViewPopupInterface;
 import fr.fscf.contacts.client.util.MessageType;
 import fr.fscf.contacts.shared.util.ClientUtils;
-import gwt.material.design.client.ui.MaterialNavBar;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -62,11 +61,11 @@ public final class ApplicationPresenter extends AbstractPresenter<ApplicationPre
          */
         void initZones(Map<Zone, ViewInterface> zoneViews);
 
-        MaterialNavBar getNavBar();
+        HasClickHandlers getNavLinkContacts();
 
-        HasClickHandlers getNavLinkTrips();
+        HasClickHandlers getNavLinkContact();
 
-        HasClickHandlers getNavLinkTvShows();
+        HasClickHandlers getNavLinkAssociation();
 
     }
 
@@ -100,8 +99,9 @@ public final class ApplicationPresenter extends AbstractPresenter<ApplicationPre
     @Override
     public void bind() {
 
-        view.getNavLinkTrips().addClickHandler(buildNavHandler(Page.TRIPS));
-        view.getNavLinkTvShows().addClickHandler(buildNavHandler(Page.TV_SHOWS));
+        view.getNavLinkContacts().addClickHandler(buildNavHandler(Page.CONTACTS));
+        view.getNavLinkContact().addClickHandler(buildNavHandler(Page.CONTACT));
+        view.getNavLinkAssociation().addClickHandler(buildNavHandler(Page.ASSOCIATION));
 
         // Add global application bindings here.
     }
@@ -165,7 +165,6 @@ public final class ApplicationPresenter extends AbstractPresenter<ApplicationPre
      *         The new page title.
      */
     public void setPageTitle(final String pageTitle) {
-        view.getNavBar().setTitle(pageTitle);
     }
 
     /**

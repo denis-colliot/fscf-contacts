@@ -32,7 +32,7 @@ public class NotificationWidget extends AbstractPopupWidget<PopupPanel> {
      *
      * @author Denis
      */
-    public static interface NotificationStyle extends CssResource {
+    public interface NotificationStyle extends CssResource {
 
         int marginRight();
 

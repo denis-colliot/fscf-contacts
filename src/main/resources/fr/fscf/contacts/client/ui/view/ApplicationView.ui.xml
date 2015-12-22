@@ -3,58 +3,89 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:m="urn:import:gwt.material.design.client.ui">
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
 
     <ui:style>
-        @def footerHeight 80px;
+        @def navbarHeight 50px;
+        @def footerHeight 60px;
         body {
             height: 100%;
         }
         .container {
             min-height: 100%;
-            position: relative;
+            position: absolute;
+            padding-top: navbarHeight;
+            padding-bottom: footerHeight;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        .menu-item i {
+            margin-right: 5px;
         }
         .body {
-            padding-bottom: footerHeight;
+            min-height: 100%;
         }
         .content {
             padding: 35px;
         }
         .footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
             height: footerHeight;
+            background: #484e5c;
+            text-align: center;
+            color: #8f96a5;
+            font-size: 80%;
+        }
+        .footer .copyright {
+            padding-top: 20px;
         }
     </ui:style>
 
     <g:HTMLPanel styleName="{style.container}">
-        <m:MaterialNavBar ui:field="navBar" backgroundColor="blue">
-            <m:MaterialNavBrand float="RIGHT">FSCF Contacts</m:MaterialNavBrand>
+        <b:Navbar addStyleNames="{style.navbar}">
+            <b:NavbarHeader>
+                <b:NavbarBrand>FSCF</b:NavbarBrand>
+                <b:NavbarCollapseButton dataTarget="#navbar-collapse"/>
+            </b:NavbarHeader>
 
-            <m:MaterialNavSection float="LEFT">
-                <m:MaterialTooltip text="Menu">
-                    <m:MaterialLink ui:field="navLinkTrips" text="Trips" iconType="SEARCH" textColor="white" waves="LIGHT"/>
-                </m:MaterialTooltip>
-                <m:MaterialTooltip text="Starter">
-                    <m:MaterialLink ui:field="navLinkTvShows" text="Other" iconType="MORE_VERT" textColor="white" waves="LIGHT"/>
-                </m:MaterialTooltip>
-            </m:MaterialNavSection>
-        </m:MaterialNavBar>
+            <b:NavbarCollapse b:id="navbar-collapse">
+                <b:NavbarNav>
+                    <b:ListDropDown>
+                        <b:AnchorButton dataToggle="DROPDOWN" icon="BARS">Menu</b:AnchorButton>
+                        <b:DropDownMenu>
+                            <b:AnchorListItem ui:field="contactsLink" addStyleNames="{style.menu-item}" icon="SEARCH">
+                                Rechercher des contacts
+                            </b:AnchorListItem>
+                            <b:AnchorListItem ui:field="contactLink" addStyleNames="{style.menu-item}" icon="PLUS">
+                                Ajouter un contact
+                            </b:AnchorListItem>
+                            <b:AnchorListItem ui:field="associationLink" addStyleNames="{style.menu-item}" icon="PLUS">
+                                Ajouter une association
+                            </b:AnchorListItem>
+                        </b:DropDownMenu>
+                    </b:ListDropDown>
+                </b:NavbarNav>
+            </b:NavbarCollapse>
+        </b:Navbar>
 
-        <m:MaterialContainer styleName="{style.body}">
+        <g:FlowPanel styleName="{style.body}">
             <g:HTML ui:field="message"/>
 
-            <g:SimplePanel ui:field="container" styleName="container {style.content}">
+            <g:SimplePanel ui:field="container" styleName="{style.content}">
                 <!-- Dynamic content. -->
             </g:SimplePanel>
-        </m:MaterialContainer>
+        </g:FlowPanel>
 
-        <m:MaterialFooter styleName="{style.footer}" backgroundColor="blue">
-            <m:MaterialFooterCopyright>
-                <m:MaterialLabel text="© 2015 FSCF"/>
-            </m:MaterialFooterCopyright>
-        </m:MaterialFooter>
+        <g:FlowPanel styleName="{style.footer}">
+            <g:HTML styleName="{style.copyright}" text="© 2015 FSCF" />
+        </g:FlowPanel>
     </g:HTMLPanel>
 
 </ui:UiBinder>

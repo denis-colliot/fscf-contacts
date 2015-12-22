@@ -73,8 +73,9 @@ public class AppEntryPoint implements EntryPoint {
         // Pages.
         injector.getLoginPresenter();
         injector.getHomePresenter();
-        injector.getTripsPresenter();
-        injector.getTvShowsPresenter();
+        injector.getContactsPresenter();
+        injector.getContactPresenter();
+        injector.getAssociationPresenter();
 
         // Propagates the network state.
         injector.getPageManager().fireCurrentPlace();

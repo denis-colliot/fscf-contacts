@@ -28,7 +28,7 @@ public class EventBusImpl extends HandlerManager implements EventBus {
     /**
      * Page where anonymous users are redirected using "{@code navigate(null)}".
      */
-    private static final Page DEFAULT_ANONYMOUS_PAGE = Page.TRIPS;
+    private static final Page DEFAULT_ANONYMOUS_PAGE = Page.CONTACTS;
 
     /**
      * Page where authenticated users are redirected using "{@code navigate(null)}".

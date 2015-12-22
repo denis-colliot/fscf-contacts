@@ -14,9 +14,10 @@ public enum Page implements IsSerializable {
 
     HOME("home"),
     LOGIN("login"),
-    TRIPS("trips"),
-    TV_SHOWS("tv-shows"),
-    ME("me");
+    CONTACTS("contacts"),
+    CONTACT("contact"),
+    ASSOCIATIONS("associations"),
+    ASSOCIATION("association");
 
     private final String parentKey;
 
@@ -200,9 +201,9 @@ public enum Page implements IsSerializable {
                 return I18N.CONSTANTS.page_title_login();
             case HOME:
                 return I18N.CONSTANTS.page_title_home();
-            case TRIPS:
+            case CONTACTS:
                 return I18N.CONSTANTS.page_title_trips();
-            case TV_SHOWS:
+            case CONTACT:
                 return I18N.CONSTANTS.page_title_tvShows();
             default:
                 return PropertyName.error(page.token);

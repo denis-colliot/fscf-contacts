@@ -7,6 +7,7 @@ import fr.fscf.contacts.client.navigation.PageManager;
 import fr.fscf.contacts.client.ui.presenter.*;
 import fr.fscf.contacts.client.dispatch.DispatchAsync;
 import fr.fscf.contacts.client.security.AuthenticationProvider;
+import fr.fscf.contacts.server.model.Association;
 
 /**
  * GIN injector.
@@ -27,7 +28,8 @@ public interface Injector extends Ginjector {
     LoginPresenter getLoginPresenter();
     HomePresenter getHomePresenter();
 
-    TripsPresenter getTripsPresenter();
-    TvShowsPresenter getTvShowsPresenter();
+    ContactsPresenter getContactsPresenter();
+    ContactPresenter getContactPresenter();
+    AssociationPresenter getAssociationPresenter();
 
 }

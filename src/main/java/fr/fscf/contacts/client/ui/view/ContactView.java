@@ -5,22 +5,22 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
-import fr.fscf.contacts.client.ui.presenter.TvShowsPresenter;
+import fr.fscf.contacts.client.ui.presenter.ContactPresenter;
 import fr.fscf.contacts.client.ui.view.base.AbstractView;
 
 /**
- * TV Shows view.
+ * Contact view.
  *
  * @author Denis
  */
 @Singleton
-public class TvShowsView extends AbstractView implements TvShowsPresenter.View {
+public class ContactView extends AbstractView implements ContactPresenter.View {
 
     /**
-     * {@link UiBinder} interface adapted to {@link TvShowsView}.
+     * {@link UiBinder} interface adapted to {@link ContactView}.
      */
-    @UiTemplate("TvShowsView.ui.xml")
-    interface ViewUiBinder extends UiBinder<Widget, TvShowsView> {
+    @UiTemplate("ContactView.ui.xml")
+    interface ViewUiBinder extends UiBinder<Widget, ContactView> {
     }
 
     /**

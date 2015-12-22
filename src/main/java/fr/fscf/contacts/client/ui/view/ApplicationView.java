@@ -7,14 +7,13 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.ui.*;
 import com.google.inject.Singleton;
+import fr.fscf.contacts.client.navigation.Zone;
 import fr.fscf.contacts.client.ui.presenter.ApplicationPresenter;
 import fr.fscf.contacts.client.ui.view.base.AbstractView;
-import fr.fscf.contacts.client.util.MessageType;
-import fr.fscf.contacts.client.navigation.Zone;
 import fr.fscf.contacts.client.ui.view.base.ViewInterface;
 import fr.fscf.contacts.client.ui.widget.Loadable;
-import gwt.material.design.client.ui.MaterialLink;
-import gwt.material.design.client.ui.MaterialNavBar;
+import fr.fscf.contacts.client.util.MessageType;
+import org.gwtbootstrap3.client.ui.Navbar;
 
 import java.util.Map;
 
@@ -45,13 +44,13 @@ public final class ApplicationView extends AbstractView implements ApplicationPr
     HasOneWidget container;
 
     @UiField
-    MaterialNavBar navBar;
+    HasClickHandlers contactsLink;
 
     @UiField
-    MaterialLink navLinkTrips;
+    HasClickHandlers contactLink;
 
     @UiField
-    MaterialLink navLinkTvShows;
+    HasClickHandlers associationLink;
 
     /**
      * Instantiates the application frame.
@@ -151,18 +150,18 @@ public final class ApplicationView extends AbstractView implements ApplicationPr
     }
 
     @Override
-    public MaterialNavBar getNavBar() {
-        return navBar;
+    public HasClickHandlers getNavLinkContacts() {
+        return contactsLink;
     }
 
     @Override
-    public HasClickHandlers getNavLinkTrips() {
-        return navLinkTrips;
+    public HasClickHandlers getNavLinkContact() {
+        return contactLink;
     }
 
     @Override
-    public HasClickHandlers getNavLinkTvShows() {
-        return navLinkTvShows;
+    public HasClickHandlers getNavLinkAssociation() {
+        return associationLink;
     }
 
 }

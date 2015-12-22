@@ -8,6 +8,6 @@
     <ui:style>
     </ui:style>
 
-    <g:HTML HTML="Home view 2..." />
+    <g:HTML HTML="Association view..." />
 
 </ui:UiBinder>

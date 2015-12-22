@@ -19,8 +19,8 @@
     <set-configuration-property name="log_pattern" value="[%-5p] {%d{yyyy/MM/dd HH:mm:ss.SSS}} - %m%n" />
     <set-property name="log_DivLogger" value="DISABLED" />
 
-    <!-- Material Design. -->
-    <inherits name="gwt.material.design.GwtMaterialWithJQuery" />
+    <!-- GWT-Boo. -->
+    <inherits name="org.gwtbootstrap3.GwtBootstrap3" />
 
     <!-- Default locale. -->
     <extend-property name="locale" values="fr,en" />
