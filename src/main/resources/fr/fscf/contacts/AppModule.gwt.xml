@@ -14,6 +14,12 @@
     <!-- GIN (Google INjector) -->
     <inherits name="com.google.gwt.inject.Inject" />
 
+    <!-- Client validation -->
+    <inherits name="org.hibernate.validator.HibernateValidator" />
+    <replace-with class="fr.fscf.contacts.client.validation.SampleValidatorFactory">
+        <when-type-is class="javax.validation.ValidatorFactory" />
+    </replace-with>
+
     <!-- Logging configuration (client side): gwt-log. -->
     <inherits name="com.allen_sauer.gwt.log.gwt-log-TRACE" /> <!-- Available levels: TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF. -->
     <set-configuration-property name="log_pattern" value="[%-5p] {%d{yyyy/MM/dd HH:mm:ss.SSS}} - %m%n" />

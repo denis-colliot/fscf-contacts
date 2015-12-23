@@ -3,19 +3,20 @@ package fr.fscf.contacts.client.event.bus;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
-import javax.inject.Inject;
 import com.google.inject.Singleton;
 import fr.fscf.contacts.client.config.Injector;
 import fr.fscf.contacts.client.dispatch.CommandResultHandler;
 import fr.fscf.contacts.client.event.page.PageRequestEvent;
+import fr.fscf.contacts.client.event.zone.ZoneRequestEvent;
 import fr.fscf.contacts.client.i18n.I18N;
 import fr.fscf.contacts.client.navigation.*;
+import fr.fscf.contacts.client.ui.notification.N10N;
 import fr.fscf.contacts.client.ui.presenter.base.Presenter;
 import fr.fscf.contacts.client.ui.widget.Loadable;
 import fr.fscf.contacts.shared.command.SecureNavigationCommand;
 import fr.fscf.contacts.shared.command.result.SecureNavigationResult;
-import fr.fscf.contacts.client.event.zone.ZoneRequestEvent;
-import fr.fscf.contacts.client.ui.notification.N10N;
+
+import javax.inject.Inject;
 
 /**
  * Application event bus implementation.
@@ -28,19 +29,19 @@ public class EventBusImpl extends HandlerManager implements EventBus {
     /**
      * Page where anonymous users are redirected using "{@code navigate(null)}".
      */
-    private static final Page DEFAULT_ANONYMOUS_PAGE = Page.CONTACTS;
+    private static final Page DEFAULT_ANONYMOUS_PAGE = Page.HOME;
 
     /**
      * Page where authenticated users are redirected using "{@code navigate(null)}".
      */
-    private static final Page DEFAULT_AUTHENTICATED_PAGE = Page.HOME;
+    private static final Page DEFAULT_AUTHENTICATED_PAGE = Page.CONTACTS;
 
     /**
      * Callback interface used to handle {@link PageRequestEvent} dispatch action.
      *
      * @author Denis
      */
-    private static interface PageRequestEventCallback {
+    private interface PageRequestEventCallback {
 
         /**
          * Method called once the dispatch action is complete.

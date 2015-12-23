@@ -6,6 +6,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
+import fr.fscf.contacts.client.ui.widget.Enablable;
 import fr.fscf.contacts.client.ui.widget.Loadable;
 import org.gwtbootstrap3.client.ui.constants.ButtonType;
 import org.gwtbootstrap3.client.ui.constants.IconType;
@@ -18,7 +19,7 @@ import java.util.Map;
  *
  * @author Denis
  */
-public class Button implements IsWidget, Loadable, HasClickHandlers {
+public class Button implements IsWidget, Loadable, Enablable, HasClickHandlers {
 
     /**
      * Inner button widget.
@@ -127,10 +128,12 @@ public class Button implements IsWidget, Loadable, HasClickHandlers {
         innerButton.fireEvent(event);
     }
 
+    @Override
     public boolean isEnabled() {
         return innerButton.isEnabled();
     }
 
+    @Override
     public void setEnabled(boolean enabled) {
         innerButton.setEnabled(enabled);
         initialEnabledState = enabled;

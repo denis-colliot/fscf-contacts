@@ -34,7 +34,7 @@
             min-height: 100%;
         }
         .content {
-            padding: 35px;
+            padding: 35px 12% 35px;
         }
         .footer {
             height: footerHeight;
@@ -51,7 +51,7 @@
     <g:HTMLPanel styleName="{style.container}">
         <b:Navbar addStyleNames="{style.navbar}">
             <b:NavbarHeader>
-                <b:NavbarBrand>FSCF</b:NavbarBrand>
+                <b:NavbarBrand ui:field="brand">FSCF</b:NavbarBrand>
                 <b:NavbarCollapseButton dataTarget="#navbar-collapse"/>
             </b:NavbarHeader>
 
@@ -75,13 +75,13 @@
             </b:NavbarCollapse>
         </b:Navbar>
 
-        <g:FlowPanel styleName="{style.body}">
+        <b:Container fluid="true" styleName="{style.body}">
             <g:HTML ui:field="message"/>
 
             <g:SimplePanel ui:field="container" styleName="{style.content}">
                 <!-- Dynamic content. -->
             </g:SimplePanel>
-        </g:FlowPanel>
+        </b:Container>
 
         <g:FlowPanel styleName="{style.footer}">
             <g:HTML styleName="{style.copyright}" text="© 2015 FSCF" />

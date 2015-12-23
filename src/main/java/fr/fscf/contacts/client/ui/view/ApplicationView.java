@@ -1,6 +1,5 @@
 package fr.fscf.contacts.client.ui.view;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -13,8 +12,8 @@ import fr.fscf.contacts.client.ui.view.base.AbstractView;
 import fr.fscf.contacts.client.ui.view.base.ViewInterface;
 import fr.fscf.contacts.client.ui.widget.Loadable;
 import fr.fscf.contacts.client.util.MessageType;
-import org.gwtbootstrap3.client.ui.Navbar;
 
+import javax.inject.Inject;
 import java.util.Map;
 
 /**
@@ -38,25 +37,28 @@ public final class ApplicationView extends AbstractView implements ApplicationPr
     }
 
     @UiField
-    HTML message;
+    protected HasClickHandlers brand;
 
     @UiField
-    HasOneWidget container;
+    protected HTML message;
 
     @UiField
-    HasClickHandlers contactsLink;
+    protected HasOneWidget container;
 
     @UiField
-    HasClickHandlers contactLink;
+    protected HasClickHandlers contactsLink;
 
     @UiField
-    HasClickHandlers associationLink;
+    protected HasClickHandlers contactLink;
+
+    @UiField
+    protected HasClickHandlers associationLink;
 
     /**
      * Instantiates the application frame.
      */
-    public ApplicationView() {
-        final ViewUiBinder uiBinder = GWT.create(ViewUiBinder.class);
+    @Inject
+    public ApplicationView(final ViewUiBinder uiBinder) {
         initWidget(uiBinder.createAndBindUi(this));
 
         RootPanel.get().add(this);
@@ -147,6 +149,11 @@ public final class ApplicationView extends AbstractView implements ApplicationPr
     public void setPageMessage(String html, MessageType type) {
         message.setHTML(html);
         MessageType.applyStyleName(message, type);
+    }
+
+    @Override
+    public HasClickHandlers getNavLinkBrand() {
+        return brand;
     }
 
     @Override

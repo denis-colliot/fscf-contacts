@@ -23,8 +23,6 @@ Style imported by "ApplicationView.ui.xml"
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
 }
 /* title */
-@external .navbar;
-@external .navbar-brand;
 .navbar .navbar-brand {
     color: #fff; /* navbarDefaultColor */
 }

@@ -61,6 +61,8 @@ public final class ApplicationPresenter extends AbstractPresenter<ApplicationPre
          */
         void initZones(Map<Zone, ViewInterface> zoneViews);
 
+        HasClickHandlers getNavLinkBrand();
+
         HasClickHandlers getNavLinkContacts();
 
         HasClickHandlers getNavLinkContact();
@@ -99,6 +101,7 @@ public final class ApplicationPresenter extends AbstractPresenter<ApplicationPre
     @Override
     public void bind() {
 
+        view.getNavLinkBrand().addClickHandler(buildNavHandler(null));
         view.getNavLinkContacts().addClickHandler(buildNavHandler(Page.CONTACTS));
         view.getNavLinkContact().addClickHandler(buildNavHandler(Page.CONTACT));
         view.getNavLinkAssociation().addClickHandler(buildNavHandler(Page.ASSOCIATION));
