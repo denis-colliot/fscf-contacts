@@ -1,6 +1,6 @@
 package fr.fscf.contacts.server.model;
 
-import fr.fscf.contacts.server.model.base.AbstractEntity;
+import fr.fscf.contacts.server.model.base.AbstractEntityAutoId;
 
 import javax.persistence.*;
 
@@ -14,7 +14,7 @@ import javax.persistence.*;
 })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "en_type")
-public abstract class Entity extends AbstractEntity<Long> {
+public abstract class Entity extends AbstractEntityAutoId<Long> {
 
     @Column(name = "en_nom", nullable = false)
     private String name;

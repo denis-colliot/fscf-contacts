@@ -1,11 +1,11 @@
-package fr.fscf.contacts.shared.security.impl;
+package fr.fscf.contacts.server.security.impl;
 
+import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.server.model.User;
 import fr.fscf.contacts.server.servlet.base.ServletExecutionContext;
 import fr.fscf.contacts.shared.command.SecureNavigationCommand;
-import fr.fscf.contacts.shared.servlet.Servlets;
-import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.shared.command.base.Command;
+import fr.fscf.contacts.shared.servlet.Servlets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,6 +54,10 @@ final class AccessRights {
         // Pages.
         sperm(pageToken(Page.LOGIN), GrantType.ANONYMOUS_ONLY);
         sperm(pageToken(Page.HOME), GrantType.AUTHENTICATED_ONLY);
+        sperm(pageToken(Page.ASSOCIATIONS), GrantType.AUTHENTICATED_ONLY);
+        sperm(pageToken(Page.ASSOCIATION), GrantType.AUTHENTICATED_ONLY);
+        sperm(pageToken(Page.CONTACTS), GrantType.AUTHENTICATED_ONLY);
+        sperm(pageToken(Page.CONTACT), GrantType.AUTHENTICATED_ONLY);
 
         // Commands.
         // sperm(commandToken(AddOrgUnit.class), GrantType.AUTHENTICATED_ONLY);

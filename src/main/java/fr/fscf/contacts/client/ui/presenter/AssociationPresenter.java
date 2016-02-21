@@ -1,6 +1,5 @@
 package fr.fscf.contacts.client.ui.presenter;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -15,10 +14,6 @@ import fr.fscf.contacts.client.ui.view.base.ViewInterface;
 import fr.fscf.contacts.shared.dto.AssociationDTO;
 
 import javax.inject.Inject;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-import java.util.ArrayList;
-import java.util.Set;
 
 /**
  * Association presenter.
@@ -37,12 +32,9 @@ public class AssociationPresenter extends AbstractPagePresenter<AssociationPrese
 
     }
 
-    private final Validator validator;
-
     @Inject
-    protected AssociationPresenter(final View view, final Injector injector, final Validator validator) {
+    protected AssociationPresenter(final View view, final Injector injector) {
         super(view, injector);
-        this.validator = validator;
     }
 
     @Override
@@ -55,13 +47,10 @@ public class AssociationPresenter extends AbstractPagePresenter<AssociationPrese
         view.getFormSubmitButton().addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
+                if (!validator.validate(view)) {
+                    return;
+                }
                 final AssociationDTO dto = view.getDriver().flush();
-                final Set<ConstraintViolation<AssociationDTO>> violations = validator.validate(dto);
-
-                Log.info("Violations: " + violations);
-                Log.info("Has errors: " + view.getDriver().hasErrors());
-
-                view.getDriver().setConstraintViolations(new ArrayList<ConstraintViolation<?>>(violations));
             }
         });
     }

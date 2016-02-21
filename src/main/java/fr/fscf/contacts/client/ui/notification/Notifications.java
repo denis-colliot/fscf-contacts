@@ -1,15 +1,8 @@
 package fr.fscf.contacts.client.ui.notification;
 
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.PopupPanel;
-import fr.fscf.contacts.client.ui.widget.popup.AbstractPopupWidget;
-import fr.fscf.contacts.client.ui.widget.popup.NotificationWidget;
-import fr.fscf.contacts.shared.util.ClientUtils;
 import fr.fscf.contacts.client.util.MessageType;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.gwtbootstrap3.extras.notify.client.constants.NotifyType;
+import org.gwtbootstrap3.extras.notify.client.ui.Notify;
 
 /**
  * Displays messages into a notification tray.
@@ -17,13 +10,6 @@ import java.util.List;
  * @author Denis
  */
 final class Notifications {
-
-    /**
-     * Delay (in ms) between notifications.
-     */
-    private static final int DEFAULT_DELAY = 1000;
-
-    private static final List<NotificationWidget> POPUPS = new ArrayList<>();
 
     private Notifications() {
         // Provides only static methods.
@@ -39,48 +25,30 @@ final class Notifications {
      * @param type
      *         The message's type.
      */
-    public static void show(final String title, final String html, MessageType type) {
+    public static void show(final String title, final String html, final MessageType type) {
+        Notify.notify(title, html, getNotifyType(type));
+    }
 
-        final String nonNullTitle = ClientUtils.isNotBlank(title) ? title : MessageType.getTitle(type);
+    private static NotifyType getNotifyType(MessageType type) {
 
-        final NotificationWidget notificationWidget = new NotificationWidget(nonNullTitle, html);
+        if (type == null) {
+            type = MessageType.DEFAULT;
+        }
 
-        // Shows it.
-        notificationWidget.getPopup().setPopupPositionAndShow(new PopupPanel.PositionCallback() {
-
-            @Override
-            public void setPosition(int offsetWidth, int offsetHeight) {
-
-                final int marginRight = notificationWidget.style().marginRight();
-                final int marginBottom = notificationWidget.style().marginBottom();
-                final int popupHeight = notificationWidget.style().popupHeight();
-                final int popupPadding = notificationWidget.style().popupPadding();
-
-                final int left = (Window.getClientWidth() + Window.getScrollLeft()) - offsetWidth - marginRight;
-                final int top = (Window.getClientHeight() + Window.getScrollTop()) - offsetHeight - marginBottom;
-
-                notificationWidget.getPopup().setZIndex(AbstractPopupWidget.getCurrentZIndex() + 1);
-                notificationWidget.getPopup().setPopupPosition(left, top);
-
-                for (final NotificationWidget nw : POPUPS) {
-                    nw.getPopup().setPopupPosition(nw.getPopup().getPopupLeft(),
-                            nw.getPopup().getPopupTop() - (popupHeight + marginBottom + popupPadding + popupPadding));
-                }
-
-                POPUPS.add(notificationWidget);
-
-                // Starts the timer.
-                new Timer() {
-
-                    @Override
-                    public void run() {
-                        notificationWidget.getPopup().hide();
-                        POPUPS.remove(notificationWidget);
-                    }
-
-                }.schedule(DEFAULT_DELAY);
-            }
-        });
+        switch (type) {
+            case ERROR:
+                return NotifyType.DANGER;
+            case VALID:
+                return NotifyType.SUCCESS;
+            case WARNING:
+                return NotifyType.WARNING;
+            case INFO:
+                return NotifyType.INFO;
+            case QUESTION:
+                return NotifyType.INFO;
+            default:
+                throw new IllegalArgumentException("Unsupported message type: " + type);
+        }
     }
 
 }

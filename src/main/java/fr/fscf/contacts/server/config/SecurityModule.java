@@ -3,7 +3,7 @@ package fr.fscf.contacts.server.config;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import fr.fscf.contacts.server.security.SecureSessionValidator;
-import fr.fscf.contacts.shared.security.impl.AuthenticationSecureSessionValidator;
+import fr.fscf.contacts.server.security.impl.AuthenticationSecureSessionValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

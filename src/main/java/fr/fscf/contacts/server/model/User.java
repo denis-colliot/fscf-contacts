@@ -1,6 +1,6 @@
 package fr.fscf.contacts.server.model;
 
-import fr.fscf.contacts.server.model.base.AbstractEntity;
+import fr.fscf.contacts.server.model.base.AbstractEntityAutoId;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @AttributeOverrides({
         @AttributeOverride(name = "id", column = @Column(name = "ut_id", nullable = false))
 })
-public class User extends AbstractEntity<Long> {
+public class User extends AbstractEntityAutoId<Long> {
 
     @Column(name = "ut_nom", nullable = false)
     private String name;

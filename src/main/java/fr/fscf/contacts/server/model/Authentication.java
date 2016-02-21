@@ -4,6 +4,7 @@ import fr.fscf.contacts.server.model.base.AbstractEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -17,15 +18,23 @@ import java.util.Date;
  */
 @javax.persistence.Entity
 @Table(name = "t_authentification_au")
-@AttributeOverrides({
-        @AttributeOverride(name = "id", column = @Column(name = "au_id", nullable = false))
-})
 public class Authentication extends AbstractEntity<String> {
 
     /**
      * Serial version UID.
      */
     private static final long serialVersionUID = 1653320385158332573L;
+
+    /**
+     * The secure id of this Authentication, which is a 128-bit random number represented as a 32-character hexadecimal
+     * string.
+     */
+    @Id
+    @Column(name = "au_id", unique = true, nullable = false, length = 128)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SecureSequenceGenerator")
+    @org.hibernate.annotations.GenericGenerator(name = "SecureSequenceGenerator", strategy = "fr.fscf.contacts.server.auth.SecureSequenceGenerator")
+    @Size(max = 128)
+    private String id;
 
     @Column(name = "au_date_creation")
     @Temporal(TemporalType.TIMESTAMP)
@@ -75,6 +84,16 @@ public class Authentication extends AbstractEntity<String> {
     // GETTERS & SETTERS.
     //
     // --------------------------------------------------------------------------------
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public User getUser() {
         return this.user;

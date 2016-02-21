@@ -3,7 +3,7 @@ package fr.fscf.contacts.server.config;
 /**
  * Created on 26/08/15.
  *
- * @author Denis Colliot (denis.colliot@zenika.com)
+ * @author Denis
  */
 public class PersistenceTestModule extends PersistenceModule {
 

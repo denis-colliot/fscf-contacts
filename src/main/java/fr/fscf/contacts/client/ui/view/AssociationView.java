@@ -37,12 +37,18 @@ public class AssociationView extends AbstractView implements AssociationPresente
     protected Input name;
 
     @UiField
-    @Ignore
     protected Input address;
 
     @UiField
     @Ignore
+    protected Input additionalAddress;
+
+    @UiField
     protected Input zipCode;
+
+    @UiField
+    @Ignore
+    protected Input city;
 
     @UiField
     @Ignore

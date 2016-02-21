@@ -10,7 +10,7 @@ public final class Cookies {
     /**
      * Authentication token cookie name.
      */
-    private static final String COOKIE_NAME_PREFIX = "sigmah-";
+    private static final String COOKIE_NAME_PREFIX = "fscf-";
 
     /**
      * Authentication token cookie name.

@@ -29,7 +29,7 @@ public class EventBusImpl extends HandlerManager implements EventBus {
     /**
      * Page where anonymous users are redirected using "{@code navigate(null)}".
      */
-    private static final Page DEFAULT_ANONYMOUS_PAGE = Page.HOME;
+    private static final Page DEFAULT_ANONYMOUS_PAGE = Page.LOGIN;
 
     /**
      * Page where authenticated users are redirected using "{@code navigate(null)}".
@@ -222,6 +222,8 @@ public class EventBusImpl extends HandlerManager implements EventBus {
             protected void onCommandSuccess(final SecureNavigationResult result) {
 
                 final boolean wasAuthenticated = !injector.getAuthenticationProvider().isAnonymous();
+
+                Log.debug("Secure navigation result: " + result);
 
                 // Sets the authentication.
                 injector.getAuthenticationProvider().updateCache(result.getAuthentication());

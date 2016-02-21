@@ -9,9 +9,9 @@
     </ui:style>
 
     <g:HTMLPanel>
-        <b:PageHeader text="Ajouter une association"/>
+        <b:PageHeader text="Saisie d'une association"/>
 
-        <b:Form type="HORIZONTAL">
+        <b:Row>
             <b:FormGroup>
                 <b:FormLabel showRequiredIndicator="true" for="name" addStyleNames="col-md-2 col-lg-2">Nom</b:FormLabel>
                 <g:FlowPanel styleName="col-md-10 col-lg-10">
@@ -29,15 +29,31 @@
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel for="zipCode" addStyleNames="col-lg-2">Code Postal</b:FormLabel>
+                <b:FormLabel for="additionalAddress" addStyleNames="col-lg-2">Complément d'adresse</b:FormLabel>
                 <g:FlowPanel styleName="col-lg-10">
+                    <b:Input ui:field="additionalAddress" type="TEXT" b:id="address"/>
+                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+            <b:FormGroup addStyleNames="col-lg-12">
+                <b:FormLabel for="zipCode" addStyleNames="col-lg-2">Code Postal</b:FormLabel>
+                <g:FlowPanel styleName="col-lg-4">
                     <b:Input ui:field="zipCode" type="TEXT" b:id="zipCode"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
             </b:FormGroup>
 
+            <b:FormGroup>
+                <b:FormLabel for="city" addStyleNames="col-lg-2">Ville</b:FormLabel>
+                <g:FlowPanel styleName="col-lg-10">
+                    <b:Input ui:field="city" type="TEXT" b:id="city"/>
+                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
+                </g:FlowPanel>
+            </b:FormGroup>
+
             <b:Button ui:field="formSubmitButton" type="PRIMARY" pull="RIGHT">Ajouter l'association</b:Button>
-        </b:Form>
+        </b:Row>
     </g:HTMLPanel>
 
 </ui:UiBinder>

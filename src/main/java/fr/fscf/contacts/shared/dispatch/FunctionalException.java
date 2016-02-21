@@ -16,7 +16,7 @@ import fr.fscf.contacts.shared.util.ClientUtils;
  *
  * @author Denis
  */
-public class FunctionalException extends DispatchException {
+public class FunctionalException extends CommandException {
 
     /**
      * The functional error codes with corresponding {@code i18n} messages.

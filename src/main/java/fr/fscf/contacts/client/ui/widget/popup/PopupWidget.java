@@ -20,7 +20,7 @@ public class PopupWidget extends AbstractPopupWidget<PopupPanel> {
      * {@link UiBinder} interface adapted to {@link AbstractPopupView}.
      */
     @UiTemplate("PopupWidget.ui.xml")
-    static interface PopupViewUiBinder extends UiBinder<Widget, PopupWidget> {
+    interface PopupViewUiBinder extends UiBinder<Widget, PopupWidget> {
     }
 
     @UiField(provided = true)

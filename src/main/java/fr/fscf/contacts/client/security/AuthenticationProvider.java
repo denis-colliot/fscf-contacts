@@ -4,10 +4,12 @@ import com.google.gwt.user.client.Cookies;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import fr.fscf.contacts.client.event.bus.EventBus;
+import fr.fscf.contacts.client.navigation.Zone;
 import fr.fscf.contacts.shared.Language;
 import fr.fscf.contacts.shared.command.result.Authentication;
 import fr.fscf.contacts.shared.util.ClientUtils;
 
+import javax.inject.Inject;
 import java.util.Date;
 
 /**
@@ -28,6 +30,9 @@ public class AuthenticationProvider implements Provider<Authentication> {
      * </p>
      */
     private Authentication authentication = new Authentication();
+
+    @Inject
+    private EventBus eventBus;
 
     /**
      * Returns the current authentication.<br/>
@@ -79,6 +84,8 @@ public class AuthenticationProvider implements Provider<Authentication> {
 
         // Caches the authentication data.
         this.authentication = authentication;
+
+        eventBus.updateZone(Zone.AUTH_BANNER);
     }
 
     /**
@@ -102,6 +109,8 @@ public class AuthenticationProvider implements Provider<Authentication> {
         // Caches the authentication data.
         authentication.setAuthenticationToken(Cookies.getCookie(fr.fscf.contacts.shared.util.Cookies.AUTH_TOKEN_COOKIE));
         this.authentication = authentication;
+
+        eventBus.updateZone(Zone.AUTH_BANNER);
     }
 
     /**
@@ -119,6 +128,8 @@ public class AuthenticationProvider implements Provider<Authentication> {
         Cookies.removeCookie(fr.fscf.contacts.shared.util.Cookies.AUTH_TOKEN_COOKIE, fr.fscf.contacts.shared.util.Cookies.COOKIE_PATH);
 
         authentication = new Authentication(authentication.getLanguage());
+
+        eventBus.updateZone(Zone.AUTH_BANNER);
 
         return true;
     }

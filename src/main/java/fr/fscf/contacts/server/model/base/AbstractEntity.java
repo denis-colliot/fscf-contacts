@@ -2,7 +2,8 @@ package fr.fscf.contacts.server.model.base;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -16,13 +17,6 @@ import java.util.Date;
  */
 @MappedSuperclass
 public abstract class AbstractEntity<K extends Serializable> implements Entity<K> {
-
-    // GenerationType.AUTO does not seem to work properly with H2 test database.
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "hibernate_sequence", allocationSize = 1)
-    @Column(name = "id")
-    private K id;
 
     @Column(name = "creation_date", nullable = false)
     private Date creationDate;
@@ -99,16 +93,6 @@ public abstract class AbstractEntity<K extends Serializable> implements Entity<K
             return false;
         }
         return true;
-    }
-
-    @Override
-    public K getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(K id) {
-        this.id = id;
     }
 
     @Override

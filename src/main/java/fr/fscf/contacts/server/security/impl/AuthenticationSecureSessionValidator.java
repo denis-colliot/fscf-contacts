@@ -1,6 +1,5 @@
-package fr.fscf.contacts.shared.security.impl;
+package fr.fscf.contacts.server.security.impl;
 
-import javax.inject.Inject;
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.security.SecureDispatchAsync;
 import fr.fscf.contacts.server.dao.AuthenticationDAO;
@@ -8,13 +7,15 @@ import fr.fscf.contacts.server.dispatch.SecureDispatchServlet;
 import fr.fscf.contacts.server.model.Authentication;
 import fr.fscf.contacts.server.model.User;
 import fr.fscf.contacts.server.security.SecureSessionValidator;
-import fr.fscf.contacts.shared.servlet.Servlets;
 import fr.fscf.contacts.shared.command.base.Command;
 import fr.fscf.contacts.shared.command.result.base.Result;
+import fr.fscf.contacts.shared.servlet.Servlets;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.inject.Inject;
 
 /**
  * <p>
@@ -26,7 +27,6 @@ import org.slf4j.LoggerFactory;
  *
  * @author Denis
  * @see SecureDispatchServlet
- * @see org.sigmah.server.servlet.base.AbstractServlet
  */
 public class AuthenticationSecureSessionValidator implements SecureSessionValidator {
 

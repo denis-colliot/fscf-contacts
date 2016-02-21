@@ -4,15 +4,16 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
-import javax.inject.Inject;
-import fr.fscf.contacts.client.config.Injector;
-import fr.fscf.contacts.client.event.bus.EventBus;
 import fr.fscf.contacts.client.AppEntryPoint;
+import fr.fscf.contacts.client.config.Injector;
 import fr.fscf.contacts.client.dispatch.DispatchAsync;
+import fr.fscf.contacts.client.event.bus.EventBus;
 import fr.fscf.contacts.client.ui.view.base.AbstractView;
 import fr.fscf.contacts.client.ui.view.base.HasSubView;
 import fr.fscf.contacts.client.ui.view.base.ViewInterface;
+import fr.fscf.contacts.client.validation.Validator;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +67,11 @@ public abstract class AbstractPresenter<V extends ViewInterface> implements Pres
     protected final DispatchAsync dispatch;
 
     /**
+     * Application bean validator.
+     */
+    protected final Validator validator;
+
+    /**
      * Flag indicating if the presenter has already been initialized.<br/>
      * Each presenter is initialized only once.
      */
@@ -89,6 +95,7 @@ public abstract class AbstractPresenter<V extends ViewInterface> implements Pres
         this.injector = injector;
         this.eventBus = injector.getEventBus();
         this.dispatch = injector.getDispatch();
+        this.validator = injector.getValidator();
         this.view = view;
         this.handlerRegistrations = new ArrayList<HandlerRegistration>();
 

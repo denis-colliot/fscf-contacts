@@ -1,10 +1,10 @@
 package fr.fscf.contacts.shared.command.result;
 
+import fr.fscf.contacts.client.security.AuthenticationProvider;
 import fr.fscf.contacts.client.util.ToStringBuilder;
 import fr.fscf.contacts.server.servlet.base.ServletExecutionContext;
 import fr.fscf.contacts.shared.Language;
 import fr.fscf.contacts.shared.command.result.base.Result;
-import fr.fscf.contacts.client.security.AuthenticationProvider;
 
 /**
  * <p>
@@ -126,7 +126,7 @@ public class Authentication implements Result {
      * Sets the authentication token.
      * </p>
      * <p>
-     * <em>Should <b>only</b> be called by {@link org.sigmah.server.handler.LoginCommandHandler} or {@link
+     * <em>Should <b>only</b> be called by {@link fr.fscf.contacts.shared.command.AuthenticateCommand} or {@link
      * AuthenticationProvider}.</em>
      * </p>
      *

@@ -47,7 +47,7 @@ public class AppEntryPoint implements EntryPoint {
                     Log.error("Uncaught exception on client-side.", e);
                 }
                 // TODO [i18n] Uncaught exception error message.
-                N10N.error("An unexpected error has occured.");
+                N10N.error("An unexpected error has occurred.");
             }
         });
 

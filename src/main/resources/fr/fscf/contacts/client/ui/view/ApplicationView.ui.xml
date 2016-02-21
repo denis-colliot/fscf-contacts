@@ -5,6 +5,8 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
 
+    <ui:with field="res" type="fr.fscf.contacts.client.res.AppResources"></ui:with>
+
     <ui:style>
         @def navbarHeight 50px;
         @def footerHeight 60px;
@@ -26,6 +28,12 @@
             top: 0;
             left: 0;
             width: 100%;
+        }
+        .logo {
+            height: 50px;
+            width: auto;
+            padding: 5px 0px 5px 15px;
+            float: left;
         }
         .menu-item i {
             margin-right: 5px;
@@ -51,6 +59,7 @@
     <g:HTMLPanel styleName="{style.container}">
         <b:Navbar addStyleNames="{style.navbar}">
             <b:NavbarHeader>
+                <g:Image resource="{res.appLogo}" styleName="{style.logo}" />
                 <b:NavbarBrand ui:field="brand">FSCF</b:NavbarBrand>
                 <b:NavbarCollapseButton dataTarget="#navbar-collapse"/>
             </b:NavbarHeader>

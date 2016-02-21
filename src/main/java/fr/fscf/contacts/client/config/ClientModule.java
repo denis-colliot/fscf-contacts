@@ -1,8 +1,6 @@
 package fr.fscf.contacts.client.config;
 
 import com.google.gwt.inject.client.AbstractGinModule;
-import com.google.gwt.validation.client.impl.Validation;
-import com.google.inject.Provides;
 import fr.fscf.contacts.client.dispatch.DispatchAsync;
 import fr.fscf.contacts.client.dispatch.ExceptionHandler;
 import fr.fscf.contacts.client.event.bus.EventBus;
@@ -31,14 +29,9 @@ public class ClientModule extends AbstractGinModule {
         // Dispatch & security.
         bind(ExceptionHandler.class).to(SecureExceptionHandler.class).in(Singleton.class);
         bind(DispatchAsync.class).to(SecureDispatchAsync.class).in(Singleton.class);
+        bind(Validator.class).in(Singleton.class);
 
         // Presenters rely on "@ImplementedBy" annotation on their view interface.
-    }
-
-    @Provides
-    @Singleton
-    public Validator validatorProvider() {
-        return Validation.buildDefaultValidatorFactory().getValidator();
     }
 
 }

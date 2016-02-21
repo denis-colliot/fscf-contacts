@@ -1,12 +1,11 @@
 package fr.fscf.contacts.client.ui.notification;
 
-import com.google.gwt.user.client.ui.SimplePanel;
-import fr.fscf.contacts.client.event.ClosePopupEvent;
-import fr.fscf.contacts.client.event.ClosePopupHandler;
-import fr.fscf.contacts.client.ui.widget.popup.IsPopupWidget;
-import fr.fscf.contacts.client.ui.widget.popup.PopupWidget;
-import fr.fscf.contacts.shared.util.ClientUtils;
+import com.google.gwt.user.client.ui.HTML;
 import fr.fscf.contacts.client.util.MessageType;
+import fr.fscf.contacts.shared.util.ClientUtils;
+import org.gwtbootstrap3.client.ui.Modal;
+import org.gwtbootstrap3.client.ui.ModalBody;
+import org.gwtbootstrap3.client.ui.constants.ModalBackdrop;
 
 /**
  * Displays messages into a modal popup.
@@ -19,29 +18,21 @@ final class Messages {
         // Provides only static methods.
     }
 
-    // CSS.
-    private static final String CSS_POPUP = "notification";
+    // Initialize the alert widget.
+    private static final Modal modal;
 
-    // Initialize the popup widget.
-    private static final IsPopupWidget popup;
-
-    private static boolean visible;
+    private static final ModalBody modalBody;
 
     static {
 
-        popup = new PopupWidget(true, false);
-        popup.setContent(new SimplePanel()); // not used.
-        popup.addStyleName(CSS_POPUP);
+        modal = new Modal();
+        modal.setDataBackdrop(ModalBackdrop.STATIC);
+        modal.setDataKeyboard(true);
+        modal.setFade(true);
+        modal.setClosable(true);
 
-        visible = false;
-        popup.setClosePopupHandler(new ClosePopupHandler() {
-
-            @Override
-            public void onClosePopup(ClosePopupEvent event) {
-                visible = false;
-            }
-
-        });
+        modalBody = new ModalBody();
+        modal.add(modalBody);
 
     }
 
@@ -49,7 +40,9 @@ final class Messages {
      * Clears the current message.
      */
     private static void clear() {
-        popup.setPageMessage(null, null);
+        modal.setTitle(null);
+        modalBody.clear();
+        modal.hide();
     }
 
     /**
@@ -68,13 +61,29 @@ final class Messages {
 
         clear();
 
-        popup.setTitle(ClientUtils.isNotBlank(title) ? title : MessageType.getTitle(type));
-        popup.setPageMessage(html, type);
+        modal.setTitle(ClientUtils.isNotBlank(title) ? title : MessageType.getTitle(type));
+        modalBody.add(new HTML(html));
 
-        if (!visible) {
-            popup.center();
-            visible = true;
+        type = type != null ? type : MessageType.DEFAULT;
+        switch (type) {
+            case ERROR:
+                modal.setColor("red");
+                break;
+            case INFO:
+                modal.setColor("blue");
+                break;
+            case WARNING:
+                modal.setColor("orange");
+                break;
+            case VALID:
+                modal.setColor("green");
+                break;
+            case QUESTION:
+                modal.setColor("blue");
+                break;
         }
+
+        modal.show();
     }
 
 }
