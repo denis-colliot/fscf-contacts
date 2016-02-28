@@ -6,7 +6,7 @@ import fr.fscf.contacts.server.model.Association;
 /**
  * Created by Denis on 24/04/15.
  */
-public class AssociationDAOImpl extends AbstractEntityDAO<Association> implements AssociationDAO {
+public class AssociationDAOImpl extends AbstractStructureDAO<Association> implements AssociationDAO {
 
     // Implement specific methods here.
 

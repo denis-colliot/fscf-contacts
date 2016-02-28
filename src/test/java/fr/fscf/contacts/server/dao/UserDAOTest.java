@@ -21,24 +21,36 @@ public class UserDAOTest extends AbstractDAOTest {
         final User user = new User();
         user.setName("Doe");
         user.setFirstName("John");
-        user.setLogin("john.doe");
+        user.setEmail("j.doe@email.com");
         user.setPassword("p4ssw0rd");
         user.setActive(true);
-        user.setEmail("j.doe@email.com");
 
         userDAO.persist(user, null);
     }
 
     @Test
     public void find() {
-        final User user = userDAO.findByLogin("john.doe");
+        final User user = userDAO.findByLogin("j.doe@email.com");
 
         assertThat(user).isNotNull();
         assertThat(user.getId()).isNotNull();
         assertThat(user.getName()).isEqualTo("Doe");
         assertThat(user.getFirstName()).isEqualTo("John");
 
-        assertThat(userDAO.findByLogin("john.doe2")).isNull();
+        assertThat(userDAO.findByLogin("j.doe2@email.com")).isNull();
+    }
+
+    @Test
+    public void test() {
+        final User user = userDAO.findByLogin("tony@starkindustries.com");
+        assertThat(user).isNotNull();
+        assertThat(user.getStructures()).isNotEmpty();
+        assertThat(user.getFeatures()).isNotEmpty();
+
+        final User user2 = userDAO.findByLogin("clark.kent@dailyplanet.com");
+        assertThat(user2).isNotNull();
+        assertThat(user2.getStructures()).isEmpty();
+        assertThat(user2.getFeatures()).isEmpty();
     }
 
 }

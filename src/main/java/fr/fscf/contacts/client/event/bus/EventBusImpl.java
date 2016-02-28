@@ -27,16 +27,6 @@ import javax.inject.Inject;
 public class EventBusImpl extends HandlerManager implements EventBus {
 
     /**
-     * Page where anonymous users are redirected using "{@code navigate(null)}".
-     */
-    private static final Page DEFAULT_ANONYMOUS_PAGE = Page.LOGIN;
-
-    /**
-     * Page where authenticated users are redirected using "{@code navigate(null)}".
-     */
-    private static final Page DEFAULT_AUTHENTICATED_PAGE = Page.CONTACTS;
-
-    /**
      * Callback interface used to handle {@link PageRequestEvent} dispatch action.
      *
      * @author Denis
@@ -90,7 +80,7 @@ public class EventBusImpl extends HandlerManager implements EventBus {
     public void logout() {
 
         // Clears the session.
-        injector.getAuthenticationProvider().clearAuthentication();
+        injector.getAuthenticationProvider().logout();
 
         // Navigates to default page.
         navigate(null);
@@ -208,11 +198,11 @@ public class EventBusImpl extends HandlerManager implements EventBus {
 
         } else if (injector.getAuthenticationProvider().isAnonymous()) {
             // Page is invalid and user anonymous: redirecting user to default anonymous page.
-            accessedPageEvent = new PageRequestEvent(DEFAULT_ANONYMOUS_PAGE);
+            accessedPageEvent = new PageRequestEvent(Page.DEFAULT_ANONYMOUS_PAGE);
 
         } else {
             // Page is invalid and user authenticated: redirecting user to default home page.
-            accessedPageEvent = new PageRequestEvent(DEFAULT_AUTHENTICATED_PAGE);
+            accessedPageEvent = new PageRequestEvent(Page.DEFAULT_AUTHENTICATED_PAGE);
         }
 
         // Executing command securing the navigation event.
@@ -237,6 +227,7 @@ public class EventBusImpl extends HandlerManager implements EventBus {
 
                     if (event.isFromHistory()) {
                         // Directly from URL.
+                        N10N.errorNotif(I18N.CONSTANTS.navigation_unauthorized_access());
                         callback.onPageRequestEventComplete(null);
 
                     } else {

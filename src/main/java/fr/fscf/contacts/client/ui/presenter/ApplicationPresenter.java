@@ -88,7 +88,7 @@ public final class ApplicationPresenter extends AbstractPresenter<ApplicationPre
 
         // TODO Zone views initialization.
 //        zoneViews.put(Zone.APP_LOADER, injector.getAppLoaderPresenter().getView());
-//        zoneViews.put(Zone.AUTH_BANNER, injector.getAuthenticationBannerPresenter().getView());
+        zoneViews.put(Zone.AUTH_BANNER, injector.getAuthenticationZonePresenter().getView());
 //        zoneViews.put(Zone.MENU_BANNER, injector.getMenuBannerPresenter().getView());
 //        zoneViews.put(Zone.MESSAGE_BANNER, injector.getMessageBannerPresenter().getView());
 

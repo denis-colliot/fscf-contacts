@@ -31,6 +31,7 @@
     <!-- GWT-Bootstrap3. -->
     <inherits name="org.gwtbootstrap3.GwtBootstrap3" />
     <inherits name="org.gwtbootstrap3.extras.notify.Notify" />
+    <inherits name="org.gwtbootstrap3.extras.bootbox.Bootbox" />
 
     <!-- Default locale. -->
     <extend-property name="locale" values="fr,en" />

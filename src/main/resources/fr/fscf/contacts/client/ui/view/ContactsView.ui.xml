@@ -13,9 +13,6 @@
 
         <g:HTML HTML="Contacts view..." />
 
-        <b:Button ui:field="blueButton" text="Mon bouton" enabled="false" type="PRIMARY" />
-        <b:Button ui:field="orangeButton" text="Mon bouton orange" type="WARNING" />
-
     </g:HTMLPanel>
 
 </ui:UiBinder>

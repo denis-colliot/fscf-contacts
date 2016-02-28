@@ -2,10 +2,9 @@ package fr.fscf.contacts.server.security.impl;
 
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.server.model.User;
+import fr.fscf.contacts.server.model.referential.GrantType;
 import fr.fscf.contacts.server.servlet.base.ServletExecutionContext;
 import fr.fscf.contacts.shared.command.SecureNavigationCommand;
-import fr.fscf.contacts.shared.command.base.Command;
-import fr.fscf.contacts.shared.servlet.Servlets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,11 +13,17 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static fr.fscf.contacts.server.security.impl.SecuredResources.commandToken;
+import static fr.fscf.contacts.server.security.impl.SecuredResources.pageToken;
+
 /**
  * Access rights configuration.
  *
  * @author Denis
+ * @deprecated The access rights grant system should rely on database configuration,
+ * see {@link AuthenticationSecureSessionValidator} implementation.
  */
+@Deprecated
 final class AccessRights {
 
     /**
@@ -83,7 +88,9 @@ final class AccessRights {
      * @param originPageToken
      *         The origin page token <em>(TODO Not used yet)</em>.
      * @return {@code true} if the user is granted, {@code false} otherwise.
+     * @deprecated See {@link AccessRights} deprecated javadoc.
      */
+    @Deprecated
     static boolean isGranted(final User user, final String token, final String originPageToken) {
 
         if (grantedTokens.contains(token)) {
@@ -108,12 +115,7 @@ final class AccessRights {
 
         } else {
             // Authenticated user.
-            if (grantType != null && grantType == GrantType.ANONYMOUS_ONLY) {
-                granted = false;
-
-            } else {
-                granted = true;
-            }
+            granted = grantType == null || grantType != GrantType.ANONYMOUS_ONLY;
         }
 
         return granted;
@@ -121,79 +123,9 @@ final class AccessRights {
 
     // -------------------------------------------------------------------------------------
     //
-    // TOKEN METHODS.
-    //
-    // -------------------------------------------------------------------------------------
-
-    /**
-     * Return the <em>resource</em> token for the given servlet arguments.
-     *
-     * @param servlet
-     *         The {@link Servlets.Servlet} name.
-     * @param method
-     *         The {@link Servlets.Servlet} method.
-     * @return the <em>resource</em> token for the given servlet arguments, or {@code null}.
-     */
-    static String servletToken(final Servlets.Servlet servlet, final Servlets.ServletMethod method) {
-        if (servlet == null || method == null) {
-            return null;
-        }
-        return servlet.name() + '#' + method.name();
-    }
-
-    /**
-     * Return the <em>resource</em> token for the given {@code commandClass}.
-     *
-     * @param commandClass
-     *         The {@link Command} class.
-     * @return the <em>resource</em> token for the given {@code commandClass}, or {@code null}.
-     */
-    @SuppressWarnings("rawtypes")
-    static String commandToken(final Class<? extends Command> commandClass) {
-        if (commandClass == null) {
-            return null;
-        }
-        return commandClass.getName();
-    }
-
-    /**
-     * Return the <em>resource</em> token for the given {@code page}.
-     *
-     * @param page
-     *         The {@link Page} instance.
-     * @return the <em>resource</em> token for the given {@code page}, or {@code null}.
-     */
-    static String pageToken(final Page page) {
-        if (page == null) {
-            return null;
-        }
-        return page.getToken();
-    }
-
-    // -------------------------------------------------------------------------------------
-    //
     // UTILITY METHODS.
     //
     // -------------------------------------------------------------------------------------
-
-    private static enum GrantType {
-
-        /**
-         * Access granted to <em>anonymous</em> user <b>only</b>.
-         */
-        ANONYMOUS_ONLY,
-
-        /**
-         * Access granted to <em>authenticated</em> users <b>only</b>.
-         */
-        AUTHENTICATED_ONLY,
-
-        /**
-         * Access granted to <em>anonymous</em> <b>and</b> <em>authenticated</em> users.
-         */
-        BOTH;
-
-    }
 
     /**
      * <p>

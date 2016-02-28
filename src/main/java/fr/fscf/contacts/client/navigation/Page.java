@@ -14,6 +14,7 @@ public enum Page implements IsSerializable {
 
     HOME("home"),
     LOGIN("login"),
+    LABS("labs"),
     CONTACTS("contacts"),
     CONTACT("contact"),
     ASSOCIATIONS("associations"),
@@ -28,6 +29,16 @@ public enum Page implements IsSerializable {
     private String pageTitle;
 
     /**
+     * Page where anonymous users are redirected using "{@code EventBus.navigate(null)}".
+     */
+    public static final Page DEFAULT_ANONYMOUS_PAGE = Page.LOGIN;
+
+    /**
+     * Page where authenticated users are redirected using "{@code EventBus.navigate(null)}".
+     */
+    public static final Page DEFAULT_AUTHENTICATED_PAGE = Page.CONTACTS;
+
+    /**
      * Instantiates a new {@code Page} object.
      *
      * @param token
@@ -35,7 +46,7 @@ public enum Page implements IsSerializable {
      * @throws IllegalArgumentException
      *         If the page token is invalid or non-unique.
      */
-    private Page(final String token) {
+    Page(final String token) {
         this(null, token, false);
     }
 
@@ -49,7 +60,7 @@ public enum Page implements IsSerializable {
      * @throws IllegalArgumentException
      *         If the page token is invalid or non-unique.
      */
-    private Page(final String parentKey, final String token) {
+    Page(final String parentKey, final String token) {
         this(parentKey, token, false);
     }
 
@@ -63,7 +74,7 @@ public enum Page implements IsSerializable {
      * @throws IllegalArgumentException
      *         If the page token is invalid or non-unique.
      */
-    private Page(final String token, final boolean skipHistory) {
+    Page(final String token, final boolean skipHistory) {
         this(null, token, skipHistory);
     }
 
@@ -79,7 +90,7 @@ public enum Page implements IsSerializable {
      * @throws IllegalArgumentException
      *         If the page token is invalid or non-unique.
      */
-    private Page(final String parentKey, final String token, final boolean skipHistory) {
+    Page(final String parentKey, final String token, final boolean skipHistory) {
         this.parentKey = parentKey;
         this.token = (parentKey != null ? parentKey + Pages.KEY_SUFFIX : "") + token;
         this.skipHistory = skipHistory;

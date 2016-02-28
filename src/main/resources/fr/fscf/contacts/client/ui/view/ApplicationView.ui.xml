@@ -5,7 +5,7 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
 
-    <ui:with field="res" type="fr.fscf.contacts.client.res.AppResources"></ui:with>
+    <ui:with field="res" type="fr.fscf.contacts.client.res.AppResources"/>
 
     <ui:style>
         @def navbarHeight 50px;
@@ -32,7 +32,7 @@
         .logo {
             height: 50px;
             width: auto;
-            padding: 5px 0px 5px 15px;
+            padding: 5px 0 5px 15px;
             float: left;
         }
         .menu-item i {
@@ -64,7 +64,8 @@
                 <b:NavbarCollapseButton dataTarget="#navbar-collapse"/>
             </b:NavbarHeader>
 
-            <b:NavbarCollapse b:id="navbar-collapse">
+            <b:NavbarCollapse ui:field="navbar" b:id="navbar-collapse">
+
                 <b:NavbarNav>
                     <b:ListDropDown>
                         <b:AnchorButton dataToggle="DROPDOWN" icon="BARS">Menu</b:AnchorButton>
@@ -81,6 +82,7 @@
                         </b:DropDownMenu>
                     </b:ListDropDown>
                 </b:NavbarNav>
+
             </b:NavbarCollapse>
         </b:Navbar>
 

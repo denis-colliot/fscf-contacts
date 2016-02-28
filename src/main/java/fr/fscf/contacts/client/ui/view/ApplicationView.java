@@ -40,6 +40,9 @@ public final class ApplicationView extends AbstractView implements ApplicationPr
     protected HasClickHandlers brand;
 
     @UiField
+    protected HasWidgets.ForIsWidget navbar;
+
+    @UiField
     protected HTML message;
 
     @UiField
@@ -123,6 +126,7 @@ public final class ApplicationView extends AbstractView implements ApplicationPr
     public void initZones(final Map<Zone, ViewInterface> zoneViews) {
 
         // TODO init zones.
+        navbar.add(zoneViews.get(Zone.AUTH_BANNER));
 
     }
 

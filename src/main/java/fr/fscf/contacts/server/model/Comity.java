@@ -1,6 +1,6 @@
 package fr.fscf.contacts.server.model;
 
-import fr.fscf.contacts.server.model.referential.EntityType;
+import fr.fscf.contacts.server.model.referential.StructureType;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.FetchType;
@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
  * Departmental comity model.
  */
 @javax.persistence.Entity
-@DiscriminatorValue(EntityType.COMITE_DEP)
-public class Comity extends Entity {
+@DiscriminatorValue(StructureType.COMITE_DEPARTEMENTAL)
+public class Comity extends Structure {
 
     /**
      * Parent entity.

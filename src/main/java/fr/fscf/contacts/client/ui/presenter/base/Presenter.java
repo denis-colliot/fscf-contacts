@@ -110,7 +110,7 @@ public interface Presenter<V extends ViewInterface> {
      *
      * @author Denis
      */
-    public static interface PagePresenter<V extends ViewInterface> extends Presenter<V> {
+    interface PagePresenter<V extends ViewInterface> extends Presenter<V> {
 
         /**
          * Returns the {@link Page} object associated to the page presenter.
@@ -142,7 +142,7 @@ public interface Presenter<V extends ViewInterface> {
      *
      * @author Denis
      */
-    public static interface ZonePresenter<V extends ViewInterface> extends Presenter<V> {
+    interface ZonePresenter<V extends ViewInterface> extends Presenter<V> {
 
         /**
          * Returns the {@link Zone} object associated to the zone presenter.

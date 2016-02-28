@@ -1,6 +1,6 @@
 package fr.fscf.contacts.server.model;
 
-import fr.fscf.contacts.server.model.referential.EntityType;
+import fr.fscf.contacts.server.model.referential.StructureType;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.FetchType;
@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
  * Association model.
  */
 @javax.persistence.Entity
-@DiscriminatorValue(EntityType.ASSOCIATION)
-public class Association extends Entity {
+@DiscriminatorValue(StructureType.ASSOCIATION)
+public class Association extends Structure {
 
     /**
      * Parent entity.

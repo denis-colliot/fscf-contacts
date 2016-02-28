@@ -1,7 +1,10 @@
 package fr.fscf.contacts.client.ui.presenter;
 
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DomEvent;
 import com.google.inject.ImplementedBy;
 import fr.fscf.contacts.client.config.Injector;
 import fr.fscf.contacts.client.dispatch.CommandResultHandler;
@@ -54,7 +57,8 @@ public class LoginPresenter extends AbstractPagePresenter<LoginPresenter.View> {
         view.getLoginForm().addSubmitHandler(new AbstractForm.SubmitHandler() {
             @Override
             public void onSubmit(AbstractForm.SubmitEvent event) {
-                onFormSubmit();
+                final NativeEvent clickEvent = Document.get().createClickEvent(0, 0, 0, 0, 0, false, false, false, false);
+                DomEvent.fireNativeEvent(clickEvent, view.getLoginButton());
             }
         });
 

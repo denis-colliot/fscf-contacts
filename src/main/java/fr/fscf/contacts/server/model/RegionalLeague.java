@@ -1,6 +1,6 @@
 package fr.fscf.contacts.server.model;
 
-import fr.fscf.contacts.server.model.referential.EntityType;
+import fr.fscf.contacts.server.model.referential.StructureType;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.FetchType;
@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
  * Regional league model.
  */
 @javax.persistence.Entity
-@DiscriminatorValue(EntityType.LIGUE_REG)
-public class RegionalLeague extends Entity {
+@DiscriminatorValue(StructureType.LIGUE_REGIONALE)
+public class RegionalLeague extends Structure {
 
     /**
      * Parent entity.

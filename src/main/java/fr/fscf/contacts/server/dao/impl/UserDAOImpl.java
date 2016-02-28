@@ -19,7 +19,7 @@ public class UserDAOImpl extends AbstractDAO<User, Long> implements UserDAO {
         final CriteriaQuery<User> query = builder.createQuery(entityClass);
         final Root<User> root = query.from(User.class);
 
-        query.where(builder.like(root.get(User_.login), login));
+        query.where(builder.equal(root.get(User_.email), login));
         final List<User> users = find(query);
 
         if (CollectionUtils.size(users) > 1) {

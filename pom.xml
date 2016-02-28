@@ -51,7 +51,7 @@
         <version.h2>1.4.188</version.h2>
         <version.assertJ>3.2.0</version.assertJ>
         <version.gwt>2.7.0</version.gwt>
-        <version.gwt-bootstrap3>0.9.2</version.gwt-bootstrap3>
+        <version.gwt-bootstrap3>0.9.3</version.gwt-bootstrap3>
         <version.guice>4.0</version.guice>
         <version.gin>2.1.2</version.gin>
         <version.commons-fileupload>1.3.1</version.commons-fileupload>

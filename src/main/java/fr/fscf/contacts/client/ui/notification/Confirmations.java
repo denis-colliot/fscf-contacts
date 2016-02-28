@@ -1,14 +1,10 @@
 package fr.fscf.contacts.client.ui.notification;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.HTML;
-import fr.fscf.contacts.client.ui.widget.button.Button;
-import fr.fscf.contacts.client.ui.widget.popup.IsPopupWidget;
-import fr.fscf.contacts.client.ui.widget.popup.PopupWidget;
 import fr.fscf.contacts.client.util.MessageType;
 import fr.fscf.contacts.shared.util.ClientUtils;
-import fr.fscf.contacts.client.i18n.I18N;
+import org.gwtbootstrap3.extras.bootbox.client.Bootbox;
+import org.gwtbootstrap3.extras.bootbox.client.options.BootboxSize;
+import org.gwtbootstrap3.extras.bootbox.client.options.ConfirmOptions;
 
 /**
  * Displays confirmation message (with yes/no buttons) in a modal popup.
@@ -19,69 +15,6 @@ final class Confirmations {
 
     private Confirmations() {
         // Provides only static methods.
-    }
-
-    // CSS.
-    private static final String CSS_POPUP = "notification";
-
-    private static final String CSS_POPUP2 = "confirmation";
-
-    private static final String CSS_FORM = "form-panel";
-
-    // Initialize the popup widget.
-    private static final IsPopupWidget popup;
-
-    private static boolean visible;
-
-    private static ConfirmCallback yesCallback;
-
-    private static ConfirmCallback noCallback;
-
-    static {
-
-        // Buttons.
-        final Button yes = new Button(I18N.CONSTANTS.yes(), new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent clickEvent) {
-                if (yesCallback != null) {
-                    yesCallback.onAction();
-                }
-                popup.hide();
-                visible = false;
-            }
-        });
-        final Button no = new Button(I18N.CONSTANTS.no(), new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent clickEvent) {
-                if (noCallback != null) {
-                    noCallback.onAction();
-                }
-                popup.hide();
-                visible = false;
-            }
-        });
-
-        // TODO Form panel.
-//        final FormPanel form = Forms.panel(CSS_FORM);
-//        form.setPadding(0);
-//        form.addButton(yes);
-//        form.addButton(no);
-
-        // Popup.
-        popup = new PopupWidget();
-        popup.setContent(new HTML("<b>TODO: Confirmation popup content.</b>"));
-        popup.addStyleName(CSS_POPUP);
-        popup.addStyleName(CSS_POPUP2);
-
-        visible = false;
-
-    }
-
-    /**
-     * Clears the current message.
-     */
-    private static void clear() {
-        popup.setPageMessage(null, null);
     }
 
     /**
@@ -98,20 +31,31 @@ final class Confirmations {
      * @param noCallback
      *         The callback for the no action.
      */
-    static void show(final String title, final String html, ConfirmCallback yesCallback, ConfirmCallback noCallback) {
+    static void show(final String title, final String html, final ConfirmCallback yesCallback, final ConfirmCallback noCallback) {
 
-        clear();
+        final ConfirmOptions options = ConfirmOptions.newOptions(html);
+        options.setSize(BootboxSize.SMALL);
+        options.setAnimate(false);
+        options.setBackdrop(false);
+        options.setTitle(ClientUtils.isNotBlank(title) ? title : MessageType.getTitle(MessageType.QUESTION));
+        options.setCloseButton(false);
 
-        Confirmations.yesCallback = yesCallback;
-        Confirmations.noCallback = noCallback;
+        options.setCallback(new org.gwtbootstrap3.extras.bootbox.client.callback.ConfirmCallback() {
+            @Override
+            public void callback(final boolean result) {
+                if (result) {
+                    if (yesCallback != null) {
+                        yesCallback.onAction();
+                    }
+                } else {
+                    if (noCallback != null) {
+                        noCallback.onAction();
+                    }
+                }
+            }
+        });
 
-        popup.setTitle(ClientUtils.isNotBlank(title) ? title : MessageType.getTitle(MessageType.QUESTION));
-        popup.setPageMessage(html, MessageType.QUESTION);
-
-        if (!visible) {
-            popup.center();
-            visible = true;
-        }
+        Bootbox.confirm(options);
     }
 
 }

@@ -87,12 +87,12 @@ public class Button implements IsWidget, Loadable, Enablable, HasClickHandlers {
 
         if (!this.loading && loading) {
             innerButton.setEnabled(false);
-            innerButton.state().loading();
+//            innerButton.state().loading();
             setHandlersEnabled(false);
 
         } else if (this.loading && !loading) {
             innerButton.setEnabled(initialEnabledState);
-            innerButton.state().reset();
+//            innerButton.state().reset();
             setHandlersEnabled(initialEnabledState);
         }
 

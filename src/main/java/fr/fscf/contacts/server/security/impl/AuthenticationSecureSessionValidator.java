@@ -3,10 +3,14 @@ package fr.fscf.contacts.server.security.impl;
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.security.SecureDispatchAsync;
 import fr.fscf.contacts.server.dao.AuthenticationDAO;
+import fr.fscf.contacts.server.dao.FeatureDAO;
 import fr.fscf.contacts.server.dispatch.SecureDispatchServlet;
 import fr.fscf.contacts.server.model.Authentication;
+import fr.fscf.contacts.server.model.Feature;
 import fr.fscf.contacts.server.model.User;
+import fr.fscf.contacts.server.model.referential.GrantType;
 import fr.fscf.contacts.server.security.SecureSessionValidator;
+import fr.fscf.contacts.server.servlet.base.ServletExecutionContext;
 import fr.fscf.contacts.shared.command.base.Command;
 import fr.fscf.contacts.shared.command.result.base.Result;
 import fr.fscf.contacts.shared.servlet.Servlets;
@@ -16,6 +20,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.util.Optional;
+
+import static fr.fscf.contacts.server.security.impl.SecuredResources.*;
 
 /**
  * <p>
@@ -41,14 +48,22 @@ public class AuthenticationSecureSessionValidator implements SecureSessionValida
     private final AuthenticationDAO authenticationDAO;
 
     /**
+     * The injected {@code FeatureDAO}.
+     */
+    private final FeatureDAO featureDAO;
+
+    /**
      * AuthenticationSecureSessionValidator initialization.
      *
      * @param authenticationDAO
      *         Injected DAO.
+     * @param featureDAO
+     *         Injected DAO.
      */
     @Inject
-    public AuthenticationSecureSessionValidator(final AuthenticationDAO authenticationDAO) {
+    public AuthenticationSecureSessionValidator(final AuthenticationDAO authenticationDAO, final FeatureDAO featureDAO) {
         this.authenticationDAO = authenticationDAO;
+        this.featureDAO = featureDAO;
     }
 
     /**
@@ -56,7 +71,7 @@ public class AuthenticationSecureSessionValidator implements SecureSessionValida
      */
     @Override
     public Access validate(final String authenticationToken, final Servlets.Servlet servlet, final Servlets.ServletMethod method, final String originPageToken) {
-        return validate(authenticationToken, AccessRights.servletToken(servlet, method), originPageToken);
+        return validate(authenticationToken, servletToken(servlet, method), originPageToken);
     }
 
     /**
@@ -64,7 +79,8 @@ public class AuthenticationSecureSessionValidator implements SecureSessionValida
      */
     @Override
     public Access validate(final String authenticationToken, final SecureDispatchAsync.CommandExecution<? extends Command<?>, ? extends Result> commandExecution) {
-        return validate(authenticationToken, AccessRights.commandToken(commandExecution.getCommand().getClass()), commandExecution.getCurrentPageToken());
+        return validate(authenticationToken, commandToken(commandExecution.getCommand().getClass()),
+                commandExecution.getCurrentPageToken());
     }
 
     /**
@@ -72,7 +88,7 @@ public class AuthenticationSecureSessionValidator implements SecureSessionValida
      */
     @Override
     public boolean isUserGranted(final User user, final Page page) {
-        return isUserGranted(user, AccessRights.pageToken(page), null);
+        return isUserGranted(user, pageToken(page), null);
     }
 
     /**
@@ -170,7 +186,7 @@ public class AuthenticationSecureSessionValidator implements SecureSessionValida
      * @param resourceToken
      *         The resource token to secure.
      * @param originPageToken
-     *         The origin page token, may be {@code null}.
+     *         The origin page token, may be {@code null} (not used yet).
      * @return {@code true} if the {@code user} is granted to access {@code resourceToken}, {@code false} otherwise.
      */
     private boolean isUserGranted(final User user, final String resourceToken, final String originPageToken) {
@@ -182,7 +198,50 @@ public class AuthenticationSecureSessionValidator implements SecureSessionValida
             return false;
         }
 
-        return AccessRights.isGranted(user, resourceToken, originPageToken);
+        if (grantedTokens.contains(resourceToken)) {
+            // Granted tokens ; avoids profile aggregation if user is authenticated.
+            return true;
+        }
+
+        final GrantType grantType;
+        if (pageToken(Page.DEFAULT_AUTHENTICATED_PAGE).equals(resourceToken)) {
+            // Ensures that an authenticated user ALWAYS has an authorized default page.
+            grantType = GrantType.AUTHENTICATED_ONLY;
+
+        } else if (pageToken(Page.DEFAULT_ANONYMOUS_PAGE).equals(resourceToken)) {
+            // Ensures that an anonymous user ALWAYS has an authorized default page.
+            grantType = GrantType.ANONYMOUS_ONLY;
+
+        } else {
+            final Long userId = Optional.ofNullable(user).map(User::getId).orElse(null);
+
+            final Feature feature;
+            if (featureDAO.existToken(resourceToken)) {
+                // Retrieving resource token corresponding feature.
+                feature = featureDAO.findUserFeature(resourceToken, userId);
+            } else {
+                // Looking for "missing token" feature.
+                feature = featureDAO.findByToken(MISSING_TOKEN);
+            }
+
+            if (feature == null) {
+                return false;
+            }
+            grantType = feature.getGrantType();
+        }
+
+        final boolean granted;
+
+        if (user == null || ServletExecutionContext.ANONYMOUS_USER.equals(user)) {
+            // Anonymous user.
+            granted = grantType != null && grantType != GrantType.AUTHENTICATED_ONLY;
+
+        } else {
+            // Authenticated user.
+            granted = grantType == null || grantType != GrantType.ANONYMOUS_ONLY;
+        }
+
+        return granted;
     }
 
 }

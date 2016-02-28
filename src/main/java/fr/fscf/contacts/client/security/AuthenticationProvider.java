@@ -44,6 +44,8 @@ public class AuthenticationProvider implements Provider<Authentication> {
     @Override
     public Authentication get() {
 
+        // Content of this method should NOT fire a 'Zone.AUTH_BANNER' update event.
+
         if (isAnonymous()) {
             clearAuthentication();
 
@@ -114,6 +116,14 @@ public class AuthenticationProvider implements Provider<Authentication> {
     }
 
     /**
+     * Logs out the current authenticated user (if any) and updates necessary zones.
+     */
+    public void logout() {
+        clearAuthentication();
+        eventBus.updateZone(Zone.AUTH_BANNER);
+    }
+
+    /**
      * <p>
      * Clears the current authentication (cookies + cached authentication data).
      * </p>
@@ -123,13 +133,11 @@ public class AuthenticationProvider implements Provider<Authentication> {
      *
      * @return {@code true} if the authentication has been successfully cleared.
      */
-    public boolean clearAuthentication() {
+    private boolean clearAuthentication() {
 
         Cookies.removeCookie(fr.fscf.contacts.shared.util.Cookies.AUTH_TOKEN_COOKIE, fr.fscf.contacts.shared.util.Cookies.COOKIE_PATH);
 
         authentication = new Authentication(authentication.getLanguage());
-
-        eventBus.updateZone(Zone.AUTH_BANNER);
 
         return true;
     }

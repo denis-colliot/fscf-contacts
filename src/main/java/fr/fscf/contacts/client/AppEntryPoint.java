@@ -70,9 +70,13 @@ public class AppEntryPoint implements EntryPoint {
         // Application presenters.
         injector.getApplicationPresenter();
 
+        // Zones.
+        injector.getAuthenticationZonePresenter();
+
         // Pages.
         injector.getLoginPresenter();
         injector.getHomePresenter();
+        injector.getLabsPresenter();
         injector.getContactsPresenter();
         injector.getContactPresenter();
         injector.getAssociationPresenter();

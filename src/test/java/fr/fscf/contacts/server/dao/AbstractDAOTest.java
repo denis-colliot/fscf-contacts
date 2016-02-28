@@ -37,6 +37,7 @@ public abstract class AbstractDAOTest extends EntityManagerProvider {
     @Before
     public final void createDatabase() {
         executeScript("db/create-test-db.sql");
+        executeScript("db/insert-test-db.sql");
     }
 
     @After
