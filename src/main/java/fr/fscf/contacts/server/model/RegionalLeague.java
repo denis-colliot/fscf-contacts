@@ -21,6 +21,13 @@ public class RegionalLeague extends Structure {
     @JoinColumn(name = "parent_id", nullable = true)
     private Federation parent;
 
+    public RegionalLeague() {
+    }
+
+    public RegionalLeague(Long id) {
+        super(id);
+    }
+
     public Federation getParent() {
         return parent;
     }

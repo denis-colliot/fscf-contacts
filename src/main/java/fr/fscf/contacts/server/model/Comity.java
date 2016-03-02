@@ -21,6 +21,13 @@ public class Comity extends Structure {
     @JoinColumn(name = "parent_id", nullable = true)
     private RegionalLeague parent;
 
+    public Comity() {
+    }
+
+    public Comity(Long id) {
+        super(id);
+    }
+
     public RegionalLeague getParent() {
         return parent;
     }

@@ -1,10 +1,11 @@
 package fr.fscf.contacts.server.dao.base;
 
 import com.google.inject.persist.Transactional;
-import fr.fscf.contacts.server.model.base.Entity;
-import fr.fscf.contacts.server.util.Pagination;
 import fr.fscf.contacts.server.model.User;
+import fr.fscf.contacts.server.model.base.AbstractPK;
+import fr.fscf.contacts.server.model.base.Entity;
 import fr.fscf.contacts.server.util.Injectors;
+import fr.fscf.contacts.server.util.Pagination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,6 +61,10 @@ public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> e
     @Override
     public final CriteriaBuilder getCriteriaBuilder() {
         return super.builder();
+    }
+
+    protected final CriteriaQuery<E> createQuery() {
+        return getCriteriaBuilder().createQuery(entityClass);
     }
 
     // --------------------------------------------------------------------------------
@@ -268,7 +273,8 @@ public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> e
             return null;
         }
 
-        if (entity.getId() == null) {
+        if (entity.getId() == null ||
+                entity.getId() instanceof AbstractPK && ((AbstractPK) entity.getId()).empty()) {
             // Creation.
             entity.setCreationDate(new Date());
             entity.setCreationUser(logUser(user));

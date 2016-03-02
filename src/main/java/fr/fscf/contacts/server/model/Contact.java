@@ -3,90 +3,75 @@ package fr.fscf.contacts.server.model;
 import fr.fscf.contacts.server.model.base.AbstractEntity;
 
 import javax.persistence.*;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static fr.fscf.contacts.server.model.util.Entities.*;
 
 /**
- * Abstract structure.
+ * Application contact.
  */
-@javax.persistence.Entity
-@Table(name = "t_structure_st")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "st_type")
-public abstract class Structure extends AbstractEntity<Long> {
+@Entity
+@Table(name = "t_contact_co")
+public class Contact extends AbstractEntity<Long> {
 
     // GenerationType.AUTO does not seem to work properly with H2 test database.
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_GENERATOR)
     @SequenceGenerator(name = SEQUENCE_GENERATOR, sequenceName = HIBERNATE_SEQUENCE, allocationSize = ALLOCATION_SIZE)
-    @Column(name = STRUCTURE_ID)
+    @Column(name = CONTACT_ID)
     private Long id;
 
-    @Column(name = "st_nom", nullable = false)
+    @Column(name = "co_nom", nullable = false)
     private String name;
 
-    @Column(name = "st_email")
+    @Column(name = "co_prenom", nullable = false)
+    private String firstName;
+
+    @Column(name = "co_email")
     private String email;
 
-    @Column(name = "st_telephone")
+    @Column(name = "co_telephone")
     private String phone;
 
-    @Column(name = "st_site_web")
-    private String website;
-
-    @Column(name = "st_adresse")
+    @Column(name = "co_adresse")
     private String address;
 
-    @Column(name = "st_adresse_compl")
+    @Column(name = "co_adresse_compl")
     private String additionalAddress;
 
-    @Column(name = "st_code_postal")
+    @Column(name = "co_code_postal")
     private String zipCode;
 
-    @Column(name = "st_ville")
+    @Column(name = "co_ville")
     private String city;
 
-    @Column(name = "st_cedex")
+    @Column(name = "co_cedex")
     private String cedex;
 
-    @Column(name = "st_email2")
+    @Column(name = "co_email2")
     private String email2;
 
-    @Column(name = "st_telephone2")
+    @Column(name = "co_telephone2")
     private String phone2;
 
-    @Column(name = "st_commentaire")
-    private String comment;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contact")
+    private List<Affectation> affectations;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = HABILITATION_TABLE,
-            joinColumns = @JoinColumn(name = STRUCTURE_ID), inverseJoinColumns = @JoinColumn(name = USER_ID))
-    private List<User> users;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = HABILITATION_TABLE,
-            joinColumns = @JoinColumn(name = STRUCTURE_ID), inverseJoinColumns = @JoinColumn(name = FEATURE_ID))
-    private List<Feature> features;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = DEPARTMENT_ID, nullable = true)
-    private Department department;
-
-    protected Structure() {
+    public Contact() {
     }
 
-    protected Structure(Long id) {
+    public Contact(Long id) {
         this.id = id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Collection<String> toStringExcludedFields() {
-        return Arrays.asList(Structure_.users.getName(),
-                Structure_.features.getName(),
-                Structure_.department.getName());
+        return Collections.singletonList(Contact_.affectations.getName());
     }
 
     @Override
@@ -107,6 +92,14 @@ public abstract class Structure extends AbstractEntity<Long> {
         this.name = name;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -121,14 +114,6 @@ public abstract class Structure extends AbstractEntity<Long> {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
     }
 
     public String getAddress() {
@@ -187,35 +172,11 @@ public abstract class Structure extends AbstractEntity<Long> {
         this.phone2 = phone2;
     }
 
-    public String getComment() {
-        return comment;
+    public List<Affectation> getAffectations() {
+        return affectations;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public List<Feature> getFeatures() {
-        return features;
-    }
-
-    public void setFeatures(List<Feature> features) {
-        this.features = features;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setAffectations(List<Affectation> affectations) {
+        this.affectations = affectations;
     }
 }

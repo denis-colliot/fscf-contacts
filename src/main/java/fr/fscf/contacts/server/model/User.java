@@ -49,6 +49,13 @@ public class User extends AbstractEntity<Long> {
             joinColumns = @JoinColumn(name = USER_ID), inverseJoinColumns = @JoinColumn(name = FEATURE_ID))
     private List<Feature> features;
 
+    public User() {
+    }
+
+    public User(Long id) {
+        this.id = id;
+    }
+
     /**
      * {@inheritDoc}
      */

@@ -1,7 +1,6 @@
 package fr.fscf.contacts.server.dao;
 
 import fr.fscf.contacts.server.model.Association;
-import org.junit.Before;
 import org.junit.Test;
 
 import javax.inject.Inject;
@@ -16,15 +15,6 @@ public class AssociationDAOTest extends AbstractDAOTest {
 
     @Inject
     private AssociationDAO associationDAO;
-
-    @Before
-    public void before() {
-        final Association association = new Association();
-        association.setName("Mon association");
-        association.setEmail("email@association.com");
-
-        associationDAO.persist(association, null);
-    }
 
     @Test
     public void insert() {

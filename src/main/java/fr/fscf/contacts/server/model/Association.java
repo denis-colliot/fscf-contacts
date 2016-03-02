@@ -21,6 +21,13 @@ public class Association extends Structure {
     @JoinColumn(name = "parent_id", nullable = true)
     private Comity parent;
 
+    public Association() {
+    }
+
+    public Association(Long id) {
+        super(id);
+    }
+
     public Comity getParent() {
         return parent;
     }

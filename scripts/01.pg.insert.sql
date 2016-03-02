@@ -23,7 +23,17 @@ INSERT INTO tr_habilitation_ha (ut_id, fe_id, st_id) VALUES
 (1, 106, 1000),
 (2, 101, 1000),
 (2, 102, 1000),
-(3, 103, 1000),
-(4, 104, 1000),
-(5, 105, 1000),
-(6, 106, 1000);
+(2, 103, 1000),
+(2, 104, 1000),
+(2, 105, 1000),
+(2, 106, 1000);
+
+INSERT INTO t_fonction_fo (fo_id, fo_nom) VALUES
+(1, 'Pratiquant(e)'),
+(2, 'Président(e) de la fédération'),
+(3, 'Président(e) de ligue régionale'),
+(4, 'Président(e) de comité départemental'),
+(5, 'Président(e) d''association'),
+(6, 'Agent de développement'),
+(7, 'Référent(e) des pratiques artistiques et culturelles'),
+(8, 'Responsable de section');

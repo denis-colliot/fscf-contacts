@@ -11,6 +11,11 @@ import javax.persistence.DiscriminatorValue;
 @DiscriminatorValue(StructureType.FEDERATION)
 public class Federation extends Structure {
 
-    // Entity inherited implementation.
+    public Federation() {
+    }
+
+    public Federation(Long id) {
+        super(id);
+    }
 
 }

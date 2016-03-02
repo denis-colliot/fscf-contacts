@@ -24,6 +24,8 @@ public final class Entities {
     public static final String STRUCTURE_ID = "st_id";
     public static final String REGION_ID = "re_id";
     public static final String DEPARTMENT_ID = "de_id";
+    public static final String CONTACT_ID = "co_id";
+    public static final String FUNCTION_ID = "fo_id";
 
     // --
     // Relational tables.

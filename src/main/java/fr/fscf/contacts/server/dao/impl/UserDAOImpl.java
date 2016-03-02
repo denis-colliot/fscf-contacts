@@ -16,7 +16,7 @@ public class UserDAOImpl extends AbstractDAO<User, Long> implements UserDAO {
     @Override
     public User findByLogin(final String login) {
         final CriteriaBuilder builder = getCriteriaBuilder();
-        final CriteriaQuery<User> query = builder.createQuery(entityClass);
+        final CriteriaQuery<User> query = createQuery();
         final Root<User> root = query.from(User.class);
 
         query.where(builder.equal(root.get(User_.email), login));

@@ -86,6 +86,51 @@ CREATE TABLE t_structure_st (
                                                        'COMITE_DEPARTEMENTAL', 'ASSOCIATION', 'SECTION'))
 );
 
+CREATE TABLE t_contact_co (
+  co_id bigint not null,
+  co_nom text not null,
+  co_prenom text not null,
+  co_email text,
+  co_telephone text,
+  co_adresse text,
+  co_adresse_compl text,
+  co_code_postal text,
+  co_ville text,
+  co_cedex text,
+  co_email2 text,
+  co_telephone2 text,
+  creation_date timestamp not null DEFAULT now(),
+  creation_user text,
+  update_date timestamp,
+  update_user text,
+  CONSTRAINT pk_t_contact_co PRIMARY KEY(co_id)
+);
+
+CREATE TABLE t_fonction_fo (
+  fo_id bigint not null,
+  fo_nom text not null,
+  creation_date timestamp not null DEFAULT now(),
+  creation_user text,
+  update_date timestamp,
+  update_user text,
+  CONSTRAINT pk_t_fonction_fo PRIMARY KEY(fo_id),
+  CONSTRAINT un_t_fonction_fo_nom UNIQUE(fo_nom)
+);
+
+CREATE TABLE t_affectation_af (
+  co_id bigint not null,
+  st_id bigint not null,
+  fo_id bigint not null,
+  af_fonction_detaillee text,
+  af_statut text not null,
+  creation_date timestamp not null DEFAULT now(),
+  creation_user text,
+  update_date timestamp,
+  update_user text,
+  CONSTRAINT pk_t_affectation_af PRIMARY KEY(co_id, st_id, fo_id),
+  CONSTRAINT ck_t_affectation_af_statut CHECK (af_statut IN ('BENEVOLE', 'SALARIE'))
+);
+
 -------------------------------------------
 --
 -- TERRITORIAL TABLES.
@@ -132,3 +177,7 @@ ALTER TABLE t_structure_st ADD CONSTRAINT fk_t_structure_st_parente FOREIGN KEY 
 ALTER TABLE t_structure_st ADD CONSTRAINT fk_t_structure_st_department FOREIGN KEY (de_id) REFERENCES t_departement_de (de_id);
 
 ALTER TABLE t_departement_de ADD CONSTRAINT fk_t_departement_de_region FOREIGN KEY (re_id) REFERENCES t_region_re (re_id);
+
+ALTER TABLE t_affectation_af ADD CONSTRAINT fk_t_affectation_af_contact FOREIGN KEY (co_id) REFERENCES t_contact_co (co_id);
+ALTER TABLE t_affectation_af ADD CONSTRAINT fk_t_affectation_af_structure FOREIGN KEY (st_id) REFERENCES t_structure_st (st_id);
+ALTER TABLE t_affectation_af ADD CONSTRAINT fk_t_affectation_af_fonction FOREIGN KEY (fo_id) REFERENCES t_fonction_fo (fo_id);
