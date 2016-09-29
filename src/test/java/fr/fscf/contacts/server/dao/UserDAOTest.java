@@ -1,7 +1,6 @@
 package fr.fscf.contacts.server.dao;
 
 import fr.fscf.contacts.server.model.User;
-import org.junit.Before;
 import org.junit.Test;
 
 import javax.inject.Inject;
@@ -15,18 +14,6 @@ public class UserDAOTest extends AbstractDAOTest {
 
     @Inject
     private UserDAO userDAO;
-
-    @Before
-    public void before() {
-        final User user = new User();
-        user.setName("Doe");
-        user.setFirstName("John");
-        user.setEmail("j.doe@email.com");
-        user.setPassword("p4ssw0rd");
-        user.setActive(true);
-
-        userDAO.persist(user, null);
-    }
 
     @Test
     public void find() {
