@@ -3,18 +3,9 @@ package fr.fscf.contacts.server.config;
 import com.google.inject.AbstractModule;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import fr.fscf.contacts.server.config.persistence.PersistenceProperties;
-import fr.fscf.contacts.server.dao.FeatureDAO;
-import fr.fscf.contacts.server.dao.FederationDAO;
-import fr.fscf.contacts.server.dao.UserDAO;
-import fr.fscf.contacts.server.model.Feature;
-import fr.fscf.contacts.server.model.Federation;
-import fr.fscf.contacts.server.model.User;
-import fr.fscf.contacts.server.model.referential.GrantType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -55,7 +46,7 @@ public class PersistenceModule extends AbstractModule {
      * Callback executed once JPA Service Module has been installed.
      */
     protected void onJpaModuleInstalled() {
-        bind(DatabaseInitialization.class).asEagerSingleton();
+        // Default implementation does nothing.
     }
 
     /**
@@ -65,87 +56,6 @@ public class PersistenceModule extends AbstractModule {
      */
     protected String getPersistencePropertiesFile() {
         return "env/local.properties";
-    }
-
-    @Singleton
-    private static class DatabaseInitialization {
-
-        @Inject
-        public DatabaseInitialization(final UserDAO userDAO,
-                                      final FeatureDAO featureDAO,
-                                      final FederationDAO federationDAO) {
-
-            // --
-            // USERS.
-            // --
-
-            final User denis = new User();
-            denis.setName("Colliot");
-            denis.setFirstName("Denis");
-            denis.setEmail("denis.colliot@gmail.com");
-            denis.setPassword("$2a$10$sZ0Xr5EaDM6JWpnkis1bDuLJOop6vpaMolCvOYJhEpPcidu0tkXp6");
-            denis.setActive(true);
-
-            final User sebastien = new User();
-            sebastien.setName("Bouvet");
-            sebastien.setFirstName("Sébastien");
-            sebastien.setEmail("bouvet.sebastien@gmail.com");
-            sebastien.setPassword("$2a$10$sZ0Xr5EaDM6JWpnkis1bDuLJOop6vpaMolCvOYJhEpPcidu0tkXp6");
-            sebastien.setActive(true);
-
-            userDAO.persist(denis, null);
-            userDAO.persist(sebastien, null);
-
-            // --
-            // FEATURES.
-            // --
-
-            final Feature missing = new Feature();
-            missing.setToken("*");
-            missing.setGrantType(GrantType.BOTH);
-
-            final Feature contacts = new Feature();
-            contacts.setToken("contacts");
-            contacts.setGrantType(GrantType.AUTHENTICATED_ONLY);
-
-            final Feature contact = new Feature();
-            contact.setToken("contact");
-            contact.setGrantType(GrantType.AUTHENTICATED_ONLY);
-
-            final Feature associations = new Feature();
-            associations.setToken("associations");
-            associations.setGrantType(GrantType.AUTHENTICATED_ONLY);
-
-            final Feature association = new Feature();
-            association.setToken("association");
-            association.setGrantType(GrantType.AUTHENTICATED_ONLY);
-
-            final Feature users = new Feature();
-            users.setToken("users");
-            users.setGrantType(GrantType.AUTHENTICATED_ONLY);
-
-            final Feature user = new Feature();
-            user.setToken("user");
-            user.setGrantType(GrantType.AUTHENTICATED_ONLY);
-
-            featureDAO.persist(missing, null);
-            featureDAO.persist(contacts, null);
-            featureDAO.persist(contact, null);
-            featureDAO.persist(associations, null);
-            featureDAO.persist(association, null);
-            featureDAO.persist(users, null);
-            featureDAO.persist(user, null);
-
-            // --
-            // STRUCTURES.
-            // --
-
-            final Federation federation = new Federation();
-            federation.setName("Fédération nationale");
-
-            federationDAO.persist(federation, null);
-        }
-
     }
 
 }

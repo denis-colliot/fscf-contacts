@@ -2,6 +2,7 @@ package fr.fscf.contacts.server.config;
 
 import com.google.inject.persist.PersistFilter;
 import fr.fscf.contacts.client.security.SecureDispatchService;
+import fr.fscf.contacts.server.config.init.InitializationFilter;
 import fr.fscf.contacts.server.dispatch.SecureDispatchServlet;
 import fr.fscf.contacts.server.security.AuthenticationFilter;
 import fr.fscf.contacts.server.servlet.filter.CacheFilter;
@@ -16,14 +17,13 @@ import org.slf4j.LoggerFactory;
 public class ServletModule extends com.google.inject.servlet.ServletModule {
 
     /**
-     * Log.
-     */
-    private static final Logger LOG = LoggerFactory.getLogger(ServletModule.class);
-
-    /**
      * Servlet remote service endpoint.
      */
     public static final String ENDPOINT = "/fscf/";
+    /**
+     * Log.
+     */
+    private static final Logger LOG = LoggerFactory.getLogger(ServletModule.class);
 
     /**
      * {@inheritDoc}
@@ -35,6 +35,7 @@ public class ServletModule extends com.google.inject.servlet.ServletModule {
 
         // Filters.
         filter("/*").through(PersistFilter.class);
+        filter("/*").through(InitializationFilter.class);
         filter("/*").through(AuthenticationFilter.class);
         filter("/*").through(CacheFilter.class);
 
