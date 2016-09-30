@@ -61,19 +61,12 @@ public abstract class Structure extends AbstractEntity<Long> {
     @Column(name = "st_commentaire")
     private String comment;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = HABILITATION_TABLE,
-            joinColumns = @JoinColumn(name = STRUCTURE_ID), inverseJoinColumns = @JoinColumn(name = USER_ID))
-    private List<User> users;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = HABILITATION_TABLE,
-            joinColumns = @JoinColumn(name = STRUCTURE_ID), inverseJoinColumns = @JoinColumn(name = FEATURE_ID))
-    private List<Feature> features;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = DEPARTMENT_ID, nullable = true)
     private Department department;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "structure")
+    private List<Habilitation> habilitations;
 
     protected Structure() {
     }
@@ -84,9 +77,7 @@ public abstract class Structure extends AbstractEntity<Long> {
 
     @Override
     protected Collection<String> toStringExcludedFields() {
-        return Arrays.asList(Structure_.users.getName(),
-                Structure_.features.getName(),
-                Structure_.department.getName());
+        return Arrays.asList(Structure_.department.getName(), Structure_.habilitations.getName());
     }
 
     @Override
@@ -195,27 +186,19 @@ public abstract class Structure extends AbstractEntity<Long> {
         this.comment = comment;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public List<Feature> getFeatures() {
-        return features;
-    }
-
-    public void setFeatures(List<Feature> features) {
-        this.features = features;
-    }
-
     public Department getDepartment() {
         return department;
     }
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public List<Habilitation> getHabilitations() {
+        return habilitations;
+    }
+
+    public void setHabilitations(List<Habilitation> habilitations) {
+        this.habilitations = habilitations;
     }
 }

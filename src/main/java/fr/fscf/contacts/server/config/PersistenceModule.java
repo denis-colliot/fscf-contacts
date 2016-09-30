@@ -15,7 +15,7 @@ import javax.validation.ValidatorFactory;
  *
  * @author Denis
  */
-public class PersistenceModule extends AbstractModule {
+class PersistenceModule extends AbstractModule {
 
     /**
      * Logger.
@@ -26,7 +26,7 @@ public class PersistenceModule extends AbstractModule {
      * {@inheritDoc}
      */
     @Override
-    protected final void configure() {
+    protected void configure() {
 
         LOGGER.info("Initializing persistence module.");
 
@@ -38,15 +38,6 @@ public class PersistenceModule extends AbstractModule {
         final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         final Validator validator = factory.getValidator();
         bind(Validator.class).toInstance(validator);
-
-        onJpaModuleInstalled();
-    }
-
-    /**
-     * Callback executed once JPA Service Module has been installed.
-     */
-    protected void onJpaModuleInstalled() {
-        // Default implementation does nothing.
     }
 
     /**

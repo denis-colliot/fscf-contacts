@@ -1,10 +1,7 @@
 package fr.fscf.contacts.server.model;
 
-import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.server.model.base.AbstractEntity;
 import fr.fscf.contacts.server.model.referential.GrantType;
-import fr.fscf.contacts.shared.command.base.Command;
-import fr.fscf.contacts.shared.servlet.Servlets;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -34,14 +31,12 @@ public class Feature extends AbstractEntity<Long> {
     @Enumerated(EnumType.STRING)
     private GrantType grantType;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = HABILITATION_TABLE,
-            joinColumns = @JoinColumn(name = FEATURE_ID), inverseJoinColumns = @JoinColumn(name = USER_ID))
-    private List<User> users;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "feature")
+    private List<Habilitation> habilitations;
 
     @Override
     protected Collection<String> toStringExcludedFields() {
-        return Arrays.asList(Feature_.users.getName());
+        return Arrays.asList(Feature_.habilitations.getName());
     }
 
     @Override
@@ -70,11 +65,11 @@ public class Feature extends AbstractEntity<Long> {
         this.grantType = grantType;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<Habilitation> getHabilitations() {
+        return habilitations;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setHabilitations(List<Habilitation> habilitations) {
+        this.habilitations = habilitations;
     }
 }

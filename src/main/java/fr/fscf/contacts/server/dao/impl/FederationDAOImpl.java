@@ -4,7 +4,7 @@ import fr.fscf.contacts.server.dao.FederationDAO;
 import fr.fscf.contacts.server.model.Federation;
 
 /**
- * Created by Denis on 24/04/15.
+ * DAO for {@link Federation} entity.
  */
 public class FederationDAOImpl extends AbstractStructureDAO<Federation> implements FederationDAO {
 

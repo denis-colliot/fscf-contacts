@@ -41,6 +41,17 @@ public class Affectation extends AbstractEntity<AffectationPK> {
     @Enumerated(EnumType.STRING)
     private AffectationStatus status;
 
+    public Affectation() {
+    }
+
+    public Affectation(Contact contact, Structure structure, Function function, AffectationStatus status) {
+        setId(new AffectationPK(contact.getId(), structure.getId(), function.getId()));
+        setContact(contact);
+        setStructure(structure);
+        setFunction(function);
+        setStatus(status);
+    }
+
     @Override
     protected Collection<String> toStringExcludedFields() {
         return Arrays.asList(Affectation_.contact.getName(),

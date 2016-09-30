@@ -4,6 +4,7 @@ import fr.fscf.contacts.server.dao.FeatureDAO;
 import fr.fscf.contacts.server.dao.base.AbstractDAO;
 import fr.fscf.contacts.server.model.Feature;
 import fr.fscf.contacts.server.model.Feature_;
+import fr.fscf.contacts.server.model.Habilitation_;
 import fr.fscf.contacts.server.model.User_;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -72,7 +73,10 @@ public class FeatureDAOImpl extends AbstractDAO<Feature, Long> implements Featur
         if (userId != null) {
             query.where(builder.and(
                     tokenPredicate,
-                    builder.equal(feature.join(Feature_.users).get(User_.id), userId)));
+                    builder.equal(feature
+                            .join(Feature_.habilitations)
+                            .join(Habilitation_.user)
+                            .get(User_.id), userId)));
         } else {
             query.where(tokenPredicate);
         }

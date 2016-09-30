@@ -2,7 +2,7 @@ package fr.fscf.contacts.server.auth;
 
 import fr.fscf.contacts.server.model.Authentication;
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 import java.io.Serializable;
 
@@ -24,8 +24,7 @@ public class SecureSequenceGenerator implements org.hibernate.id.IdentifierGener
      * {@inheritDoc}
      */
     @Override
-    public Serializable generate(final SessionImplementor session, final Object object) throws HibernateException {
+    public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
         return SecureTokenGenerator.generate();
     }
-
 }

@@ -6,11 +6,9 @@ import org.junit.Test;
 import javax.inject.Inject;
 import java.util.List;
 
+import static fr.fscf.contacts.server.config.TestDatabaseInitialization.association;
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Created by Denis on 25/04/15.
- */
 public class AssociationDAOTest extends AbstractDAOTest {
 
     @Inject
@@ -18,7 +16,7 @@ public class AssociationDAOTest extends AbstractDAOTest {
 
     @Test
     public void insert() {
-        final String name = "Mon association";
+        final String name = "New association";
         final Association association = new Association();
         association.setName(name);
         association.setEmail("email@association.com");
@@ -37,7 +35,7 @@ public class AssociationDAOTest extends AbstractDAOTest {
 
         assertThat(associations).isNotNull();
         assertThat(associations.size()).isEqualTo(1);
-        assertThat(associations.get(0).getEmail()).isEqualTo("email@association.com");
+        assertThat(associations.get(0).getEmail()).isEqualTo(association.getEmail());
     }
 
 }

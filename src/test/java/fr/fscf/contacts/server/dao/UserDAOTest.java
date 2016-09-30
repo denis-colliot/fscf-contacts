@@ -5,39 +5,59 @@ import org.junit.Test;
 
 import javax.inject.Inject;
 
+import static fr.fscf.contacts.server.config.TestDatabaseInitialization.ironman;
+import static fr.fscf.contacts.server.config.TestDatabaseInitialization.superman;
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Created by Denis on 25/04/15.
- */
 public class UserDAOTest extends AbstractDAOTest {
 
     @Inject
     private UserDAO userDAO;
 
     @Test
-    public void find() {
-        final User user = userDAO.findByLogin("j.doe@email.com");
+    public void should_persist_user() {
+        final String email = "j.doe@email.com";
 
-        assertThat(user).isNotNull();
-        assertThat(user.getId()).isNotNull();
-        assertThat(user.getName()).isEqualTo("Doe");
-        assertThat(user.getFirstName()).isEqualTo("John");
+        // Check that user does not exist already.
+        assertThat(userDAO.findByLogin(email)).isNull();
+
+        final User newUser = new User();
+        newUser.setName("Does");
+        newUser.setFirstName("John");
+        newUser.setEmail(email);
+        newUser.setPassword("dummy");
+        userDAO.persist(newUser, null);
+
+        assertThat(newUser.getId()).isNotNull();
+
+        final User persistedUser = userDAO.findByLogin(email);
+
+        assertThat(persistedUser).isNotNull();
+        assertThat(persistedUser.getId()).isEqualTo(newUser.getId());
+        assertThat(persistedUser.getName()).isEqualTo(newUser.getName());
+        assertThat(persistedUser.getFirstName()).isEqualTo(newUser.getFirstName());
 
         assertThat(userDAO.findByLogin("j.doe2@email.com")).isNull();
     }
 
     @Test
-    public void test() {
-        final User user = userDAO.findByLogin("tony@starkindustries.com");
+    public void should_find_existing_user_by_id() {
+        final User user = userDAO.findById(ironman.getId());
         assertThat(user).isNotNull();
-        assertThat(user.getStructures()).isNotEmpty();
-        assertThat(user.getFeatures()).isNotEmpty();
+        assertThat(user.getName()).isEqualTo(ironman.getName());
+        assertThat(user.getFirstName()).isEqualTo(ironman.getFirstName());
+        assertThat(user.getHabilitations()).isNotEmpty();
+    }
 
-        final User user2 = userDAO.findByLogin("clark.kent@dailyplanet.com");
+    @Test
+    public void should_find_existing_user_by_login() {
+        final User user = userDAO.findByLogin(ironman.getEmail());
+        assertThat(user).isNotNull();
+        assertThat(user.getHabilitations()).isNotEmpty();
+
+        final User user2 = userDAO.findByLogin(superman.getEmail());
         assertThat(user2).isNotNull();
-        assertThat(user2.getStructures()).isEmpty();
-        assertThat(user2.getFeatures()).isEmpty();
+        assertThat(user2.getHabilitations()).isEmpty();
     }
 
 }
