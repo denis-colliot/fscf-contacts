@@ -61,7 +61,7 @@
         <version.commons-lang>3.4</version.commons-lang>
         <version.commons-collections>4.0</version.commons-collections>
         <version.hibernate>5.2.2.Final</version.hibernate>
-        <version.hibernate.validator>4.3.2.Final</version.hibernate.validator>
+        <version.hibernate.validator>4.2.0.Final</version.hibernate.validator>
         <version.validation-api>1.1.0.Final</version.validation-api>
         <version.el-api>2.2.4</version.el-api>
         <version.mysql.driver>5.1.35</version.mysql.driver>
