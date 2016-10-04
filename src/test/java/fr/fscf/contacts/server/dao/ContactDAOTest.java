@@ -6,7 +6,7 @@ import org.junit.Test;
 import javax.inject.Inject;
 import java.util.List;
 
-import static fr.fscf.contacts.server.config.TestDatabaseInitialization.ironman;
+import static fr.fscf.contacts.server.inject.TestDatabaseInitialization.ironman;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ContactDAOTest extends AbstractDAOTest {

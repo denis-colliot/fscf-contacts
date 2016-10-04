@@ -6,7 +6,7 @@ import org.junit.Test;
 import javax.inject.Inject;
 import java.util.List;
 
-import static fr.fscf.contacts.server.config.TestDatabaseInitialization.association;
+import static fr.fscf.contacts.server.inject.TestDatabaseInitialization.association;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AssociationDAOTest extends AbstractDAOTest {

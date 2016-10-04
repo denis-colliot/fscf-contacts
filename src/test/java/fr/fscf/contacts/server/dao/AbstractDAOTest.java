@@ -1,8 +1,8 @@
 package fr.fscf.contacts.server.dao;
 
-import fr.fscf.contacts.server.config.GuiceJUnitRunner;
-import fr.fscf.contacts.server.config.PersistenceTestModule;
-import fr.fscf.contacts.server.config.UseModules;
+import fr.fscf.contacts.server.inject.GuiceJUnitRunner;
+import fr.fscf.contacts.server.inject.PersistenceTestModule;
+import fr.fscf.contacts.server.inject.UseModules;
 import fr.fscf.contacts.server.dao.base.EntityManagerProvider;
 import org.junit.runner.RunWith;
 

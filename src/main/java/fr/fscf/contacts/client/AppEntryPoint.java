@@ -3,7 +3,7 @@ package fr.fscf.contacts.client;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import fr.fscf.contacts.client.config.Injector;
+import fr.fscf.contacts.client.inject.Injector;
 import fr.fscf.contacts.client.navigation.PageManager;
 import fr.fscf.contacts.client.ui.notification.N10N;
 

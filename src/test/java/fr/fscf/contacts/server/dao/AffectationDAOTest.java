@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import javax.inject.Inject;
 
-import static fr.fscf.contacts.server.config.TestDatabaseInitialization.*;
+import static fr.fscf.contacts.server.inject.TestDatabaseInitialization.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AffectationDAOTest extends AbstractDAOTest {

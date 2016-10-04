@@ -34,5 +34,6 @@
     </root>
 
     <logger name="fr.fscf.contacts" level="DEBUG" />
+    <logger name="fr.fscf.contacts.server.inject.TestDatabaseInitialization" level="ERROR" />
 
 </configuration>

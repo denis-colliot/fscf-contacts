@@ -1,7 +1,7 @@
 package fr.fscf.contacts.client.ui.presenter.base;
 
 import com.allen_sauer.gwt.log.client.Log;
-import fr.fscf.contacts.client.config.Injector;
+import fr.fscf.contacts.client.inject.Injector;
 import fr.fscf.contacts.client.event.zone.ZoneRequestEvent;
 import fr.fscf.contacts.client.event.zone.ZoneRequestHandler;
 import fr.fscf.contacts.client.navigation.Zone;
