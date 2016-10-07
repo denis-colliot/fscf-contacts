@@ -2,7 +2,7 @@ package fr.fscf.contacts.client.ui.presenter.base;
 
 import com.allen_sauer.gwt.log.client.Log;
 import fr.fscf.contacts.client.AppEntryPoint;
-import fr.fscf.contacts.client.config.Injector;
+import fr.fscf.contacts.client.inject.Injector;
 import fr.fscf.contacts.client.event.bus.EventBus;
 import fr.fscf.contacts.client.event.page.PageChangedEvent;
 import fr.fscf.contacts.client.event.page.PageRequestEvent;

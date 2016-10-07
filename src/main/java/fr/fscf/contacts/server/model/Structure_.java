@@ -28,9 +28,8 @@ public final class Structure_ {
     public static volatile SingularAttribute<Structure, String> website;
     public static volatile SingularAttribute<Structure, String> comment;
 
-    public static volatile ListAttribute<Structure, User> users;
-    public static volatile ListAttribute<Structure, Feature> features;
     public static volatile SingularAttribute<Structure, Department> department;
+    public static volatile ListAttribute<Structure, Habilitation> habilitations;
 
     public static volatile SingularAttribute<Structure, Date> creationDate;
     public static volatile SingularAttribute<Structure, String> creationUser;

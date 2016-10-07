@@ -9,7 +9,7 @@
     <version>0.0.1</version>
 
     <name>Application managing FSCP association's contacts.</name>
-    <url>http://blog-denisc-anonymous.eu4.cloudunit.io</url>
+    <url>http://fscf-contacts.herokuapp.com</url>
 
     <!--
     ===========================================================
@@ -40,6 +40,7 @@
         <!-- Plugins versions. -->
         <version.plugin.gwt-maven>${version.gwt}</version.plugin.gwt-maven>
         <version.plugin.maven-clean>2.6.1</version.plugin.maven-clean>
+        <version.plugin.maven-surefire>2.19.1</version.plugin.maven-surefire>
         <version.plugin.maven-compiler>3.3</version.plugin.maven-compiler>
         <version.plugin.maven-war>2.6</version.plugin.maven-war>
         <version.plugin.tomcat7>2.2</version.plugin.tomcat7>
@@ -47,9 +48,9 @@
         <version.plugin.jetty-runner>9.3.6.v20151106</version.plugin.jetty-runner>
 
         <!-- Dependencies versions. -->
-        <version.junit>4.11</version.junit>
-        <version.h2>1.4.188</version.h2>
-        <version.assertJ>3.2.0</version.assertJ>
+        <version.junit>4.12</version.junit>
+        <version.h2>1.4.192</version.h2>
+        <version.assertJ>3.5.2</version.assertJ>
         <version.gwt>2.7.0</version.gwt>
         <version.gwt-bootstrap3>0.9.3</version.gwt-bootstrap3>
         <version.guice>4.0</version.guice>
@@ -59,14 +60,14 @@
         <version.commons-email>1.3.3</version.commons-email>
         <version.commons-lang>3.4</version.commons-lang>
         <version.commons-collections>4.0</version.commons-collections>
-        <version.hibernate>4.3.9.Final</version.hibernate>
-        <version.hibernate.validator>4.1.0.Final</version.hibernate.validator>
+        <version.hibernate>5.2.2.Final</version.hibernate>
+        <version.hibernate.validator>4.2.0.Final</version.hibernate.validator>
         <version.validation-api>1.1.0.Final</version.validation-api>
         <version.el-api>2.2.4</version.el-api>
         <version.mysql.driver>5.1.35</version.mysql.driver>
-        <version.postgresql.driver>9.4-1201-jdbc41</version.postgresql.driver>
-        <version.slf4j>1.7.2</version.slf4j>
-        <version.logback>1.1.3</version.logback>
+        <version.postgresql.driver>9.4.1211.jre7</version.postgresql.driver>
+        <version.slf4j>1.7.21</version.slf4j>
+        <version.logback>1.1.7</version.logback>
         <version.gwt-log>3.3.2</version.gwt-log>
     </properties>
 
@@ -312,6 +313,13 @@
                         </fileset>
                     </filesets>
                 </configuration>
+            </plugin>
+
+            <!-- Test plugin. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${version.plugin.maven-surefire}</version>
             </plugin>
 
             <!-- Compiler plugin. -->

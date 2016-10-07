@@ -69,8 +69,7 @@ public class Authentication extends AbstractEntity<String> {
      * Creates a new session object for the given {@code user}, with a secure session id and starting at the current
      * time.
      *
-     * @param user
-     *         The user.
+     * @param user The user.
      */
     public Authentication(final User user) {
         final Date now = new Date();

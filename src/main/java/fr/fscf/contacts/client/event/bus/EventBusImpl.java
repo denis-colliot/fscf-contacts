@@ -4,7 +4,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.inject.Singleton;
-import fr.fscf.contacts.client.config.Injector;
+import fr.fscf.contacts.client.inject.Injector;
 import fr.fscf.contacts.client.dispatch.CommandResultHandler;
 import fr.fscf.contacts.client.event.page.PageRequestEvent;
 import fr.fscf.contacts.client.event.zone.ZoneRequestEvent;

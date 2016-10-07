@@ -18,7 +18,7 @@ public final class Feature_ {
     public static volatile SingularAttribute<Feature, Long> id;
     public static volatile SingularAttribute<Feature, String> token;
     public static volatile SingularAttribute<Feature, GrantType> grantType;
-    public static volatile ListAttribute<Feature, User> users;
+    public static volatile ListAttribute<Feature, Habilitation> habilitations;
 
     public static volatile SingularAttribute<Feature, Date> creationDate;
     public static volatile SingularAttribute<Feature, String> creationUser;

@@ -6,11 +6,9 @@ import org.junit.Test;
 import javax.inject.Inject;
 import java.util.Map;
 
+import static fr.fscf.contacts.server.inject.TestDatabaseInitialization.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Created by Denis on 25/04/15.
- */
 public class FeatureDAOTest extends AbstractDAOTest {
 
     @Inject
@@ -18,43 +16,43 @@ public class FeatureDAOTest extends AbstractDAOTest {
 
     @Test
     public void existToken() {
-        assertThat(featureDAO.existToken("feature_1")).isTrue();
-        assertThat(featureDAO.existToken("feature_2")).isTrue();
+        assertThat(featureDAO.existToken(feature_1.getToken())).isTrue();
+        assertThat(featureDAO.existToken(feature_2.getToken())).isTrue();
         assertThat(featureDAO.existToken("unexisting_token")).isFalse();
     }
 
     @Test
     public void findByToken() {
-        Feature feature = featureDAO.findByToken("feature_1");
+        Feature feature = featureDAO.findByToken(feature_1.getToken());
         assertThat(feature).isNotNull();
         assertThat(feature.getId()).isNotNull();
 
-        feature = featureDAO.findByToken("feature_2");
+        feature = featureDAO.findByToken(feature_2.getToken());
         assertThat(feature).isNotNull();
         assertThat(feature.getId()).isNotNull();
-        assertThat(feature.getToken()).isEqualTo("feature_2");
+        assertThat(feature.getToken()).isEqualTo(feature_2.getToken());
 
         assertThat(featureDAO.findByToken("unexisting_token")).isNull();
     }
 
     @Test
     public void findByTokens() {
-        Map<String, Feature> features = featureDAO.findByTokens("feature_1");
+        Map<String, Feature> features = featureDAO.findByTokens(feature_1.getToken());
         assertThat(features).isNotNull();
         assertThat(features.size()).isEqualTo(1);
-        assertThat(features.get("feature_1").getToken()).isEqualTo("feature_1");
+        assertThat(features.get(feature_1.getToken()).getToken()).isEqualTo(feature_1.getToken());
 
-        features = featureDAO.findByTokens("feature_1", "unexisting_token");
+        features = featureDAO.findByTokens(feature_1.getToken(), "unexisting_token");
         assertThat(features).isNotNull();
         assertThat(features.size()).isEqualTo(1);
-        assertThat(features.get("feature_1").getToken()).isEqualTo("feature_1");
+        assertThat(features.get(feature_1.getToken()).getToken()).isEqualTo(feature_1.getToken());
         assertThat(features.get("unexisting_token")).isNull();
     }
 
     @Test
     public void findUserFeatures() {
-        final String featureToken1 = "feature_1"; // User #10 is authorized.
-        final String featureToken4 = "feature_4"; // User #10 is NOT authorized.
+        final String featureToken1 = feature_1.getToken(); // User ironman is authorized.
+        final String featureToken4 = feature_4.getToken(); // User ironman is NOT authorized.
 
         // --
         // Missing arg.
@@ -76,12 +74,12 @@ public class FeatureDAOTest extends AbstractDAOTest {
         // With user id.
         // --
 
-        feature = featureDAO.findUserFeature(featureToken1, 10L);
+        feature = featureDAO.findUserFeature(featureToken1, ironman.getId());
         assertThat(feature).isNotNull();
         assertThat(feature.getId()).isNotNull();
         assertThat(feature.getToken()).isEqualTo(featureToken1);
 
-        assertThat(featureDAO.findUserFeature(featureToken4, 10L)).isNull();
+        assertThat(featureDAO.findUserFeature(featureToken4, ironman.getId())).isNull();
     }
 
 }

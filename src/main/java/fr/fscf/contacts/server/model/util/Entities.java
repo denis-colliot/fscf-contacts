@@ -31,8 +31,6 @@ public final class Entities {
     // Relational tables.
     // --
 
-    public static final String HABILITATION_TABLE = "tr_habilitation_ha";
-
     private Entities() {
     }
 }

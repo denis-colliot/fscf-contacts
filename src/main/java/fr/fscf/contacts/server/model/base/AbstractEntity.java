@@ -11,15 +11,14 @@ import java.util.Date;
 /**
  * Abstract entity, parent class of all domain entities possessing a primary key.
  *
- * @param <K>
- *         Entity primary key type.
+ * @param <K> Entity primary key type.
  * @author Denis
  */
 @MappedSuperclass
 public abstract class AbstractEntity<K extends Serializable> implements Entity<K> {
 
     @Column(name = "creation_date", nullable = false)
-    private Date creationDate;
+    private Date creationDate = new Date();
 
     @Column(name = "creation_user", nullable = true)
     private String creationUser;

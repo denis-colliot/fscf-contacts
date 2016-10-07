@@ -4,7 +4,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.inject.ImplementedBy;
-import fr.fscf.contacts.client.config.Injector;
+import fr.fscf.contacts.client.inject.Injector;
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.navigation.PageRequest;
 import fr.fscf.contacts.client.ui.presenter.base.AbstractPagePresenter;

@@ -23,13 +23,15 @@ public class ContactDAOImpl extends AbstractDAO<Contact, Long> implements Contac
                 builder.equal(contact
                         .join(Contact_.affectations)
                         .join(Affectation_.structure)
-                        .join(Structure_.users)
+                        .join(Structure_.habilitations)
+                        .join(Habilitation_.user)
                         .get(User_.id), user.getId()),
 
                 builder.equal(contact
                         .join(Contact_.affectations)
                         .join(Affectation_.structure)
-                        .join(Structure_.features)
+                        .join(Structure_.habilitations)
+                        .join(Habilitation_.feature)
                         .get(Feature_.token), "contacts")
 
         ));

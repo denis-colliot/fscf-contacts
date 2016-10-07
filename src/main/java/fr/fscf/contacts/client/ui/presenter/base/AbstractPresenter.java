@@ -5,7 +5,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import fr.fscf.contacts.client.AppEntryPoint;
-import fr.fscf.contacts.client.config.Injector;
+import fr.fscf.contacts.client.inject.Injector;
 import fr.fscf.contacts.client.dispatch.DispatchAsync;
 import fr.fscf.contacts.client.event.bus.EventBus;
 import fr.fscf.contacts.client.ui.view.base.AbstractView;

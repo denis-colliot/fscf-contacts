@@ -39,15 +39,8 @@ public class User extends AbstractEntity<Long> {
     @Column(name = "ut_actif", nullable = true)
     private Boolean active;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = HABILITATION_TABLE,
-            joinColumns = @JoinColumn(name = USER_ID), inverseJoinColumns = @JoinColumn(name = STRUCTURE_ID))
-    private List<Structure> structures;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = HABILITATION_TABLE,
-            joinColumns = @JoinColumn(name = USER_ID), inverseJoinColumns = @JoinColumn(name = FEATURE_ID))
-    private List<Feature> features;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Habilitation> habilitations;
 
     public User() {
     }
@@ -61,7 +54,7 @@ public class User extends AbstractEntity<Long> {
      */
     @Override
     protected Collection<String> toStringExcludedFields() {
-        return Arrays.asList(User_.structures.getName(), User_.features.getName());
+        return Arrays.asList(User_.habilitations.getName());
     }
 
     @Override
@@ -114,19 +107,11 @@ public class User extends AbstractEntity<Long> {
         this.active = active;
     }
 
-    public List<Structure> getStructures() {
-        return structures;
+    public List<Habilitation> getHabilitations() {
+        return habilitations;
     }
 
-    public void setStructures(List<Structure> structures) {
-        this.structures = structures;
-    }
-
-    public List<Feature> getFeatures() {
-        return features;
-    }
-
-    public void setFeatures(List<Feature> features) {
-        this.features = features;
+    public void setHabilitations(List<Habilitation> habilitations) {
+        this.habilitations = habilitations;
     }
 }
