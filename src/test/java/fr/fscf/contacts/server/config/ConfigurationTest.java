@@ -29,7 +29,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void should_use_default_value() {
+    public void should_use_default_value_or_not() {
         assertThat(configuration.getBoolean("boolean.value.true", null)).isTrue();
         assertThat(configuration.getBoolean("boolean.value.true", false)).isTrue();
         assertThat(configuration.getBoolean("boolean.value.false", null)).isFalse();

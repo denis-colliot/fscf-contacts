@@ -30,9 +30,11 @@ class PersistenceModule extends AbstractModule {
 
         LOGGER.info("Initializing persistence module.");
 
-        // Installs the JPA module.
-        install(new JpaPersistModule("app-datasource")
-                .properties(PersistenceProperties.init(getPersistencePropertiesFile())));
+        final PersistenceProperties persistenceProperties = new PersistenceProperties(getPersistencePropertiesFile());
+        bind(PersistenceProperties.class).toInstance(persistenceProperties);
+
+        // Install JpaPersist module.
+        install(new JpaPersistModule("app-datasource").properties(persistenceProperties));
 
         // JSR-303 : bean validation.
         final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();

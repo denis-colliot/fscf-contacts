@@ -95,7 +95,7 @@
         </b:Container>
 
         <g:FlowPanel styleName="{style.footer}">
-            <g:HTML styleName="{style.copyright}" text="© 2015 FSCF" />
+            <g:HTML ui:field="footerText" styleName="{style.copyright}" text="© 2015 FSCF" />
         </g:FlowPanel>
     </g:HTMLPanel>
 

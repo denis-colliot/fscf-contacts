@@ -8,24 +8,23 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.Enumeration;
 import java.util.Properties;
 
 /**
- * Persistence properties initializer.
+ * Persistence properties builder.
  *
  * @author Denis
  */
-public final class PersistenceProperties {
+@Singleton
+public final class PersistenceProperties extends Properties {
 
     /**
      * Logger.
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(PersistenceProperties.class);
-
-    private PersistenceProperties() {
-        // Only provides static methods.
-    }
 
     /**
      * <p>
@@ -36,13 +35,12 @@ public final class PersistenceProperties {
      * </p>
      *
      * @param localPersistencePropertiesFile The local persistence properties file (for development/test environment).
-     * @return The persistence properties.
      */
-    public static Properties init(final String localPersistencePropertiesFile) {
+    @Inject
+    public PersistenceProperties(final String localPersistencePropertiesFile) {
+        super();
 
         LOGGER.info("Initializing persistence properties ; System environment: {}", System.getenv());
-
-        final Properties persistenceProperties = new Properties();
 
         if (!ConfigUtils.isClasspathResourceExists(localPersistencePropertiesFile)) {
 
@@ -66,41 +64,20 @@ public final class PersistenceProperties {
             }
 
             final PersistenceConfigurationProvider.PersistenceConfiguration configuration = provider.getConfiguration();
-            persistenceProperties.setProperty("hibernate.connection.url", configuration.getConnectionUrl());
-            persistenceProperties.setProperty("hibernate.connection.username", configuration.getConnectionUsername());
-            persistenceProperties.setProperty("hibernate.connection.password", configuration.getConnectionPassword());
+            setProperty("hibernate.connection.url", configuration.getConnectionUrl());
+            setProperty("hibernate.connection.username", configuration.getConnectionUsername());
+            setProperty("hibernate.connection.password", configuration.getConnectionPassword());
 
-            copyHibernateProperties(configuration.getProperties(), persistenceProperties);
+            putAll(configuration.getProperties());
 
         } else {
 
             LOGGER.info("Development environment ; loading local persistence configuration.");
 
-            final Properties localProperties = ConfigUtils.loadProperties(localPersistencePropertiesFile);
-
-            copyHibernateProperties(localProperties, persistenceProperties);
-
+            putAll(ConfigUtils.loadProperties(localPersistencePropertiesFile));
         }
 
-        LOGGER.info("Loaded persistence configuration: {}", persistenceProperties);
-
-        return persistenceProperties;
-    }
-
-    /**
-     * Copies the hibernate properties from {@code srcProperties} to {@code destProperties}.
-     *
-     * @param srcProperties  The source properties.
-     * @param destProperties The destination properties.
-     */
-    private static void copyHibernateProperties(final Properties srcProperties, final Properties destProperties) {
-        final Enumeration<String> propertyNames = (Enumeration<String>) srcProperties.propertyNames();
-        while (propertyNames.hasMoreElements()) {
-            final String propertyName = propertyNames.nextElement();
-            if (StringUtils.startsWith(propertyName, "hibernate.")) {
-                destProperties.setProperty(propertyName, srcProperties.getProperty(propertyName));
-            }
-        }
+        LOGGER.info("Loaded persistence configuration: {}", this);
     }
 
 }

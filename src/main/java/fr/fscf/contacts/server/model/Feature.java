@@ -1,11 +1,15 @@
 package fr.fscf.contacts.server.model;
 
+import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.server.model.base.AbstractEntity;
 import fr.fscf.contacts.server.model.referential.GrantType;
+import fr.fscf.contacts.server.security.impl.SecuredResources;
+import fr.fscf.contacts.shared.command.base.Command;
 
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static fr.fscf.contacts.server.model.util.Entities.*;
@@ -34,9 +38,26 @@ public class Feature extends AbstractEntity<Long> {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "feature")
     private List<Habilitation> habilitations;
 
+    public Feature() {
+        // Empty necessary constructor.
+    }
+
+    public Feature(Page page, GrantType grantType) {
+        this(SecuredResources.pageToken(page), grantType);
+    }
+
+    public Feature(Class<? extends Command> command, GrantType grantType) {
+        this(SecuredResources.commandToken(command), grantType);
+    }
+
+    public Feature(String token, GrantType grantType) {
+        setToken(token);
+        setGrantType(grantType);
+    }
+
     @Override
     protected Collection<String> toStringExcludedFields() {
-        return Arrays.asList(Feature_.habilitations.getName());
+        return Collections.singletonList(Feature_.habilitations.getName());
     }
 
     @Override

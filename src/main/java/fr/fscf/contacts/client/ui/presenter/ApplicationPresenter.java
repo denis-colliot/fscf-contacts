@@ -3,8 +3,12 @@ package fr.fscf.contacts.client.ui.presenter;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.ImplementedBy;
+import fr.fscf.contacts.client.dispatch.CommandResultHandler;
+import fr.fscf.contacts.client.i18n.I18N;
+import fr.fscf.contacts.client.i18n.Messages;
 import fr.fscf.contacts.client.inject.Injector;
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.navigation.Zone;
@@ -15,6 +19,8 @@ import fr.fscf.contacts.client.ui.view.base.HasPageMessage;
 import fr.fscf.contacts.client.ui.view.base.ViewInterface;
 import fr.fscf.contacts.client.ui.view.base.ViewPopupInterface;
 import fr.fscf.contacts.client.util.MessageType;
+import fr.fscf.contacts.shared.GetConfigCommand;
+import fr.fscf.contacts.shared.command.result.MapResult;
 import fr.fscf.contacts.shared.util.ClientUtils;
 
 import javax.inject.Inject;
@@ -48,11 +54,9 @@ public final class ApplicationPresenter extends AbstractPresenter<ApplicationPre
         /**
          * Shows the given {@code presenterWidget} view into proper area.
          *
-         * @param presenterWidget
-         *         The presenter's view to show.
-         * @param fullPage
-         *         {@code true} if the view should be shown on <em>full page</em>, {@code false} if it should be shown
-         *         within content area.
+         * @param presenterWidget The presenter's view to show.
+         * @param fullPage        {@code true} if the view should be shown on <em>full page</em>, {@code false} if it should be shown
+         *                        within content area.
          */
         void showPresenter(IsWidget presenterWidget, boolean fullPage);
 
@@ -69,15 +73,15 @@ public final class ApplicationPresenter extends AbstractPresenter<ApplicationPre
 
         HasClickHandlers getNavLinkAssociation();
 
+        HasText getFooterText();
+
     }
 
     /**
      * Presenter initialization.
      *
-     * @param view
-     *         Presenter view interface.
-     * @param injector
-     *         Injected client injector.
+     * @param view     Presenter view interface.
+     * @param injector Injected client injector.
      */
     @Inject
     public ApplicationPresenter(final View view, final Injector injector) {
@@ -121,8 +125,7 @@ public final class ApplicationPresenter extends AbstractPresenter<ApplicationPre
     /**
      * Displays the given {@code view} on the application main content area.
      *
-     * @param presenter
-     *         The current presenter to display into application main panel.
+     * @param presenter The current presenter to display into application main panel.
      */
     public void showPresenter(final Presenter<?> presenter) {
 
@@ -158,14 +161,21 @@ public final class ApplicationPresenter extends AbstractPresenter<ApplicationPre
 
         // Hides the loading panel.
         view.hideLoadingPanel();
+
+        // Footer config info.
+        dispatch.execute(new GetConfigCommand(), new CommandResultHandler<MapResult<String, String>>() {
+            @Override
+            protected void onCommandSuccess(final MapResult<String, String> result) {
+                view.getFooterText().setText(I18N.MESSAGES.app_footer(result.get("git.commit.id.abbrev")));
+            }
+        });
     }
 
     /**
      * Updates page title. Can be used to update title after asynchronous data loading for example.<br/>
      * The title area is automatically hidden if the given {@code pageTitle} is invalid.
      *
-     * @param pageTitle
-     *         The new page title.
+     * @param pageTitle The new page title.
      */
     public void setPageTitle(final String pageTitle) {
     }
