@@ -1,6 +1,7 @@
 package fr.fscf.contacts.server.dispatch.impl;
 
 import javax.inject.Inject;
+
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.navigation.PageRequest;
 import fr.fscf.contacts.client.navigation.RequestParameter;
@@ -56,21 +57,17 @@ public class UserDispatch implements Dispatch {
         /**
          * Initializes a new user execution context.
          *
-         * @param dispatch
-         *         See {@link #dispatch}.
-         * @param user
-         *         See {@link #user}.
-         * @param request
-         *         See {@link #request}.
-         * @param originPageToken
-         *         See {@link #originPageToken}.
+         * @param dispatch        See {@link #dispatch}.
+         * @param user            See {@link #user}.
+         * @param request         See {@link #request}.
+         * @param originPageToken See {@link #originPageToken}.
          */
         private UserExecutionContext(final UserDispatch dispatch, final User user, final HttpServletRequest request, final String originPageToken) {
 
             super(user, request, originPageToken);
 
             this.dispatch = dispatch;
-            this.commandResults = new java.util.ArrayList<CommandResult<?, ?>>();
+            this.commandResults = new java.util.ArrayList<>();
             this.applicationUrl = request.getHeader("Referer").split(PageRequest.URL_TOKEN)[0];
         }
 
@@ -82,8 +79,7 @@ public class UserDispatch implements Dispatch {
          * <b>Warning: this context cannot allow sub-command execution or provide application url.</b>
          * </p>
          *
-         * @param servletContext
-         *         The servlet execution context.
+         * @param servletContext The servlet execution context.
          */
         public UserExecutionContext(final ServletExecutionContext servletContext) {
 
@@ -113,7 +109,7 @@ public class UserDispatch implements Dispatch {
 
             // Registers it and its result.
             if (allowRollback) {
-                commandResults.add(new CommandResult<C, R>(command, result));
+                commandResults.add(new CommandResult<>(command, result));
             }
 
             return result;
@@ -134,14 +130,10 @@ public class UserDispatch implements Dispatch {
         /**
          * Rollbacks a command execution.
          *
-         * @param <C>
-         *         The command type.
-         * @param <R>
-         *         The result type.
-         * @param commandResult
-         *         The command and the command result.
-         * @throws DispatchException
-         *         If the roll back failed.
+         * @param <C>           The command type.
+         * @param <R>           The result type.
+         * @param commandResult The command and the command result.
+         * @throws DispatchException If the roll back failed.
          */
         private <C extends Command<R>, R extends Result> void rollback(final CommandResult<C, R> commandResult) throws DispatchException {
             dispatch.doRollback(commandResult.getCommand(), commandResult.getResult(), this);
@@ -159,10 +151,8 @@ public class UserDispatch implements Dispatch {
         /**
          * The application URL.
          *
-         * @param page
-         *         The specific page to include into URL.
-         * @param parameters
-         *         The page parameters to include into URL.
+         * @param page       The specific page to include into URL.
+         * @param parameters The page parameters to include into URL.
          * @return The application URL.
          */
         public final String getApplicationUrl(final Page page, final Map<RequestParameter, String> parameters) {
@@ -191,15 +181,11 @@ public class UserDispatch implements Dispatch {
     /**
      * Find the given {@code command} corresponding handler.
      *
-     * @param <C>
-     *         The command type.
-     * @param <R>
-     *         The command result type.
-     * @param command
-     *         The command.
+     * @param <C>     The command type.
+     * @param <R>     The command result type.
+     * @param command The command.
      * @return the given {@code command} corresponding handler.
-     * @throws UnsupportedCommandException
-     *         If no handler cannot be found for the command.
+     * @throws UnsupportedCommandException If no handler cannot be found for the command.
      */
     private <C extends Command<R>, R extends Result> CommandHandler<C, R> findHandler(final C command) throws UnsupportedCommandException {
 
@@ -239,17 +225,12 @@ public class UserDispatch implements Dispatch {
     /**
      * Executes the given command from server side.
      *
-     * @param <C>
-     *         Command type.
-     * @param <R>
-     *         Result type.
-     * @param command
-     *         Command to execute.
-     * @param executionContext
-     *         Execution context of the servlet.
+     * @param <C>              Command type.
+     * @param <R>              Result type.
+     * @param command          Command to execute.
+     * @param executionContext Execution context of the servlet.
      * @return Execution result.
-     * @throws DispatchException
-     *         If the command handler execution fails.
+     * @throws DispatchException If the command handler execution fails.
      */
     public <C extends Command<R>, R extends Result> R execute(final C command, final ServletExecutionContext executionContext)
             throws DispatchException {
@@ -271,15 +252,11 @@ public class UserDispatch implements Dispatch {
     /**
      * Executes a command.
      *
-     * @param <C>
-     *         The command type.
-     * @param <R>
-     *         The command result type.
-     * @param context
-     *         The execution context.
+     * @param <C>     The command type.
+     * @param <R>     The command result type.
+     * @param context The execution context.
      * @return The command execution result.
-     * @throws CommandException
-     *         If the command handler execution fails.
+     * @throws CommandException If the command handler execution fails.
      */
     private <C extends Command<R>, R extends Result> R doExecute(final C command, final UserExecutionContext context) throws CommandException {
 
@@ -313,18 +290,12 @@ public class UserDispatch implements Dispatch {
     /**
      * Rollbacks a command.
      *
-     * @param <C>
-     *         The command type.
-     * @param <R>
-     *         The command result type.
-     * @param command
-     *         The command.
-     * @param result
-     *         The command result.
-     * @param context
-     *         The execution context.
-     * @throws DispatchException
-     *         If execution fails.
+     * @param <C>     The command type.
+     * @param <R>     The command result type.
+     * @param command The command.
+     * @param result  The command result.
+     * @param context The execution context.
+     * @throws DispatchException If execution fails.
      */
     private <C extends Command<R>, R extends Result> void doRollback(final C command, final R result, final UserExecutionContext context)
             throws DispatchException {
