@@ -19,11 +19,11 @@ final class PropertiesConfiguration implements Configuration {
     private final Properties properties;
 
     @Inject
-    private PropertiesConfiguration(final PersistenceProperties persistenceProperties) {
+    private PropertiesConfiguration() {
         properties = new Properties();
         properties.putAll(ConfigUtils.loadProperties("configuration.properties"));
         properties.putAll(ConfigUtils.loadProperties("git.properties"));
-        properties.putAll(persistenceProperties);
+        properties.putAll(ConfigUtils.loadProperties("environment.properties"));
     }
 
     @Override

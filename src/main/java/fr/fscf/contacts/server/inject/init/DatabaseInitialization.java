@@ -48,10 +48,10 @@ final class DatabaseInitialization {
      */
     void init() {
 
-        final boolean createModeEnabled = StringUtils.containsIgnoreCase(configuration.get("hibernate.hbm2ddl.auto"), "create");
         final boolean dataInsertEnabled = configuration.getBoolean("insert.data");
+        final boolean hasUsers = userDAO.countAll() > 0;
 
-        if (!createModeEnabled || BooleanUtils.isNotTrue(dataInsertEnabled)) {
+        if (hasUsers || BooleanUtils.isNotTrue(dataInsertEnabled)) {
             return;
         }
 
