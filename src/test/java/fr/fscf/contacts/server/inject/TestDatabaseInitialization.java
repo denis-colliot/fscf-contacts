@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import static fr.fscf.contacts.server.model.referential.AffectationStatus.BENEVOLE;
+import static fr.fscf.contacts.server.model.referential.AffectationStatus.SALARIE;
 
 @Singleton
 public final class TestDatabaseInitialization {
@@ -30,8 +31,19 @@ public final class TestDatabaseInitialization {
     public static final Federation
             federation;
 
+    public static final RegionalLeague
+            regionalLeagueBZH,
+            regionalLeagueIDF;
+
+    public static final Comity
+            comity29,
+            comity35,
+            comity56,
+            comity75,
+            comity92;
+
     public static final Association
-            association;
+            associationRennes;
 
     public static final Contact
             john,
@@ -91,9 +103,37 @@ public final class TestDatabaseInitialization {
         federation = new Federation();
         federation.setName("Fédération nationale");
 
-        association = new Association();
-        association.setName("Mon association");
-        association.setEmail("email@association.com");
+        regionalLeagueBZH = new RegionalLeague();
+        regionalLeagueBZH.setName("Ligue de Bretagne");
+//        regionalLeagueBZH.setParent(federation);
+
+        comity29 = new Comity();
+        comity29.setName("Comité du Finistère");
+//        comity29.setParent(regionalLeagueBZH);
+
+        comity35 = new Comity();
+        comity35.setName("Comité d'Ille-et-Vilaine");
+//        comity35.setParent(regionalLeagueBZH);
+
+        comity56 = new Comity();
+        comity56.setName("Comité du Morbihan");
+//        comity56.setParent(regionalLeagueBZH);
+
+        regionalLeagueIDF = new RegionalLeague();
+        regionalLeagueIDF.setName("Ligue d'Ile De France");
+//        regionalLeagueIDF.setParent(federation);
+
+        comity75 = new Comity();
+        comity75.setName("Comité de Paris");
+//        comity75.setParent(regionalLeagueIDF);
+
+        comity92 = new Comity();
+        comity92.setName("Comité des Hauts de Seine");
+//        comity92.setParent(regionalLeagueIDF);
+
+        associationRennes = new Association();
+        associationRennes.setName("Association de Rennes");
+//        associationRennes.setParent(comity35);
 
         // --
         // USERS.
@@ -188,6 +228,8 @@ public final class TestDatabaseInitialization {
                                       final AffectationDAO affectationDAO,
                                       final HabilitationDAO habilitationDAO,
                                       final FederationDAO federationDAO,
+                                      final RegionalLeagueDAO regionalLeagueDAO,
+                                      final ComityDAO comityDAO,
                                       final AssociationDAO associationDAO) {
 
         service.start(); // CRUCIAL.
@@ -203,7 +245,14 @@ public final class TestDatabaseInitialization {
         featureDAO.persist(contacts, initializationAuthor);
 
         federationDAO.persist(federation, initializationAuthor);
-        associationDAO.persist(association, initializationAuthor);
+        regionalLeagueDAO.persist(regionalLeagueBZH, initializationAuthor);
+        regionalLeagueDAO.persist(regionalLeagueIDF, initializationAuthor);
+        comityDAO.persist(comity29, initializationAuthor);
+        comityDAO.persist(comity35, initializationAuthor);
+        comityDAO.persist(comity56, initializationAuthor);
+        comityDAO.persist(comity75, initializationAuthor);
+        comityDAO.persist(comity92, initializationAuthor);
+        associationDAO.persist(associationRennes, initializationAuthor);
 
         userDAO.persist(ironman, initializationAuthor);
         userDAO.persist(batman, initializationAuthor);
@@ -226,14 +275,21 @@ public final class TestDatabaseInitialization {
 
         // FOREIGN KEYS.
 
-        habilitationDAO.persist(new Habilitation(ironman, feature_1, association), initializationAuthor);
-        habilitationDAO.persist(new Habilitation(ironman, feature_2, association), initializationAuthor);
-        habilitationDAO.persist(new Habilitation(ironman, feature_3, association), initializationAuthor);
-        habilitationDAO.persist(new Habilitation(ironman, contacts, association), initializationAuthor);
-        habilitationDAO.persist(new Habilitation(batman, feature_1, association), initializationAuthor);
-        habilitationDAO.persist(new Habilitation(batman, feature_2, association), initializationAuthor);
+        habilitationDAO.persist(new Habilitation(ironman, feature_1, federation), initializationAuthor);
+        habilitationDAO.persist(new Habilitation(ironman, feature_2, federation), initializationAuthor);
+        habilitationDAO.persist(new Habilitation(ironman, feature_3, federation), initializationAuthor);
+        habilitationDAO.persist(new Habilitation(ironman, contacts, federation), initializationAuthor);
+        habilitationDAO.persist(new Habilitation(batman, feature_1, federation), initializationAuthor);
+        habilitationDAO.persist(new Habilitation(batman, feature_2, federation), initializationAuthor);
+        habilitationDAO.persist(new Habilitation(batman, contacts, comity35), initializationAuthor);
 
-        affectationDAO.persist(new Affectation(albert, association, regional_league_president, BENEVOLE), initializationAuthor);
+        // AFFECTATIONS.
+
+        affectationDAO.persist(new Affectation(al, federation, federation_president, SALARIE), initializationAuthor);
+        affectationDAO.persist(new Affectation(leonardo, regionalLeagueBZH, regional_league_president, SALARIE), initializationAuthor);
+        affectationDAO.persist(new Affectation(john, comity29, departemental_committee_president, SALARIE), initializationAuthor);
+        affectationDAO.persist(new Affectation(albert, comity29, section_responsible, SALARIE), initializationAuthor);
+        affectationDAO.persist(new Affectation(frank, comity35, departemental_committee_president, SALARIE), initializationAuthor);
     }
 
 }
