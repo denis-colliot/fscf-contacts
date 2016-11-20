@@ -8,7 +8,6 @@ import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.ImplementedBy;
 import fr.fscf.contacts.client.dispatch.CommandResultHandler;
 import fr.fscf.contacts.client.i18n.I18N;
-import fr.fscf.contacts.client.i18n.Messages;
 import fr.fscf.contacts.client.inject.Injector;
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.navigation.Zone;
@@ -19,7 +18,7 @@ import fr.fscf.contacts.client.ui.view.base.HasPageMessage;
 import fr.fscf.contacts.client.ui.view.base.ViewInterface;
 import fr.fscf.contacts.client.ui.view.base.ViewPopupInterface;
 import fr.fscf.contacts.client.util.MessageType;
-import fr.fscf.contacts.shared.GetConfigCommand;
+import fr.fscf.contacts.shared.command.GetConfigCommand;
 import fr.fscf.contacts.shared.command.result.MapResult;
 import fr.fscf.contacts.shared.util.ClientUtils;
 

@@ -4,7 +4,7 @@ import fr.fscf.contacts.server.handler.GetConfigHandler;
 import fr.fscf.contacts.server.inject.dispatch.AbstractCommandHandlerModule;
 import fr.fscf.contacts.server.handler.AuthenticatedHandler;
 import fr.fscf.contacts.server.handler.SecureNavigationHandler;
-import fr.fscf.contacts.shared.GetConfigCommand;
+import fr.fscf.contacts.shared.command.GetConfigCommand;
 import fr.fscf.contacts.shared.command.AuthenticateCommand;
 import fr.fscf.contacts.shared.command.SecureNavigationCommand;
 

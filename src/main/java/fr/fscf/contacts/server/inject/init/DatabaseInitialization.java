@@ -4,10 +4,9 @@ import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.server.config.Configuration;
 import fr.fscf.contacts.server.dao.*;
 import fr.fscf.contacts.server.model.*;
-import fr.fscf.contacts.server.model.referential.AffectationStatus;
 import fr.fscf.contacts.server.model.referential.GrantType;
 import fr.fscf.contacts.server.security.impl.SecuredResources;
-import fr.fscf.contacts.shared.GetConfigCommand;
+import fr.fscf.contacts.shared.command.GetConfigCommand;
 import org.apache.commons.lang3.BooleanUtils;
 
 import javax.inject.Inject;

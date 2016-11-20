@@ -36,9 +36,9 @@
                 </g:FlowPanel>
             </b:FormGroup>
 
-            <b:FormGroup addStyleNames="col-lg-12">
+            <b:FormGroup addStyleNames="clearfix">
                 <b:FormLabel for="zipCode" addStyleNames="col-lg-2">Code Postal</b:FormLabel>
-                <g:FlowPanel styleName="col-lg-4">
+                <g:FlowPanel styleName="col-lg-2">
                     <b:Input ui:field="zipCode" type="TEXT" b:id="zipCode"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>

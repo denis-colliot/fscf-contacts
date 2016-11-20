@@ -1,4 +1,4 @@
-package fr.fscf.contacts.shared;
+package fr.fscf.contacts.shared.command;
 
 import fr.fscf.contacts.shared.command.base.AbstractCommand;
 import fr.fscf.contacts.shared.command.result.MapResult;

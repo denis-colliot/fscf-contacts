@@ -13,6 +13,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
+import fr.fscf.contacts.client.event.bus.EventBus;
+import fr.fscf.contacts.client.navigation.Page;
+import fr.fscf.contacts.client.navigation.RequestParameter;
 import fr.fscf.contacts.client.ui.presenter.ContactsPresenter;
 import fr.fscf.contacts.client.ui.view.base.AbstractView;
 import fr.fscf.contacts.shared.dto.ContactDTO;
@@ -23,6 +26,8 @@ import org.gwtbootstrap3.client.ui.constants.ButtonType;
 import org.gwtbootstrap3.client.ui.constants.IconType;
 import org.gwtbootstrap3.client.ui.gwt.ButtonCell;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
+
+import javax.inject.Inject;
 
 /**
  * Contacts view.
@@ -38,6 +43,9 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
     @UiTemplate("ContactsView.ui.xml")
     interface ViewUiBinder extends UiBinder<Widget, ContactsView> {
     }
+
+    @Inject
+    private EventBus eventBus;
 
     @UiField
     protected CellTable<ContactDTO> cellTable;
@@ -89,16 +97,16 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
             @Override
             public String getValue(ContactDTO contact) {
                 return "Modifier";
-            }
+            } // TODO i18n
         };
         editCol.setFieldUpdater(new FieldUpdater<ContactDTO, String>() {
             @Override
             public void update(int index, ContactDTO contact, String value) {
-                Window.alert("TODO: clicked on contact #" + contact.getId());
+                eventBus.navigateRequest(Page.CONTACT.requestWith(RequestParameter.ID, contact.getId()));
             }
         });
         editCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        cellTable.addColumn(editCol, "Actions");
+        cellTable.addColumn(editCol, "Actions"); // TODO i18n
         cellTable.setColumnWidth(editCol, 120, Style.Unit.PX);
     }
 
