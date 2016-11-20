@@ -15,7 +15,7 @@
             <b:FormGroup>
                 <b:FormLabel showRequiredIndicator="true" for="name" addStyleNames="col-md-2 col-lg-2">Nom</b:FormLabel>
                 <g:FlowPanel styleName="col-md-10 col-lg-10">
-                    <b:Input  ui:field="name" type="TEXT" b:id="name" placeholder="Nom de l'association..."/>
+                    <b:Input ui:field="name" type="TEXT" b:id="name" placeholder="Nom de l'association..."/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
             </b:FormGroup>

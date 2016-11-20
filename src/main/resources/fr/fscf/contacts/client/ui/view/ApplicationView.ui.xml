@@ -42,7 +42,7 @@
             min-height: 100%;
         }
         .content {
-            padding: 35px 12% 35px;
+            padding: 35px 6% 35px;
         }
         .footer {
             height: footerHeight;
