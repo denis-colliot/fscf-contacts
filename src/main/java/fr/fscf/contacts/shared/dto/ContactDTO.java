@@ -2,13 +2,17 @@ package fr.fscf.contacts.shared.dto;
 
 import fr.fscf.contacts.shared.dto.base.AbstractEntityDTO;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Application contact DTO.
  */
 public class ContactDTO extends AbstractEntityDTO<Long> {
 
+    @NotNull
     private String name;
 
+    @NotNull
     private String firstName;
 
     private String email;

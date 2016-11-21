@@ -1,21 +1,24 @@
 package fr.fscf.contacts.client.ui.presenter;
 
 import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.view.client.*;
+import com.google.gwt.view.client.AsyncDataProvider;
+import com.google.gwt.view.client.HasData;
+import com.google.gwt.view.client.Range;
 import com.google.inject.ImplementedBy;
+import fr.fscf.contacts.client.dispatch.CommandResultHandler;
 import fr.fscf.contacts.client.inject.Injector;
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.navigation.PageRequest;
 import fr.fscf.contacts.client.ui.presenter.base.AbstractPagePresenter;
 import fr.fscf.contacts.client.ui.view.ContactsView;
 import fr.fscf.contacts.client.ui.view.base.ViewInterface;
+import fr.fscf.contacts.shared.command.GetContactsCommand;
+import fr.fscf.contacts.shared.command.result.ListResult;
 import fr.fscf.contacts.shared.dto.ContactDTO;
 import org.gwtbootstrap3.client.ui.Pagination;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Contacts presenter.
@@ -23,31 +26,6 @@ import java.util.List;
  * @author Denis
  */
 public class ContactsPresenter extends AbstractPagePresenter<ContactsPresenter.View> {
-
-    private static final List<ContactDTO> MOCK_DATA = new ArrayList<>();
-
-    static {
-        for (int i = 0; i < 100; i++) {
-            final ContactDTO contactDTO = new ContactDTO();
-            contactDTO.setId((long) i);
-            contactDTO.setName("Name #" + i);
-            contactDTO.setFirstName("Firstname #" + i);
-            contactDTO.setEmail("contact_" + i + "@email.com");
-            MOCK_DATA.add(contactDTO);
-        }
-    }
-
-    /**
-     * View interface.
-     */
-    @ImplementedBy(ContactsView.class)
-    public interface View extends ViewInterface {
-
-        CellTable<ContactDTO> getContactsTable();
-
-        Pagination getPagination();
-
-    }
 
     private SimplePager cellTablePager;
     private AsyncDataProvider<ContactDTO> dataProvider;
@@ -66,23 +44,26 @@ public class ContactsPresenter extends AbstractPagePresenter<ContactsPresenter.V
     public void onBind() {
         cellTablePager = new SimplePager();
         cellTablePager.setDisplay(view.getContactsTable());
+        cellTablePager.setPageSize(15);
 
         dataProvider = new AsyncDataProvider<ContactDTO>() {
             @Override
             protected void onRangeChanged(final HasData<ContactDTO> display) {
+
                 final Range range = display.getVisibleRange();
-                final int start = range.getStart();
-                final int length = range.getLength();
 
-                dataProvider.updateRowCount(MOCK_DATA.size(), true); // Fires a 'onRangeChanged' event.
+                dispatch.execute(new GetContactsCommand(range, null), new CommandResultHandler<ListResult<ContactDTO>>() {
+                    @Override
+                    protected void onCommandSuccess(ListResult<ContactDTO> result) {
 
-                // Create the data to push into the view. At this point, you could send
-                // an asynchronous RPC request to a server.
+                        dataProvider.updateRowCount(result.getSize(), true); // Fires a 'onRangeChanged' event.
 
-                // Push the data into the list.
-                view.getContactsTable().setRowData(start, MOCK_DATA.subList(start, start + length));
+                        // Push the data into the list.
+                        view.getContactsTable().setRowData(range.getStart(), result.getList());
 
-                rebuildTable();
+                        rebuildPagination();
+                    }
+                });
             }
         };
         dataProvider.addDataDisplay(view.getContactsTable());
@@ -92,7 +73,19 @@ public class ContactsPresenter extends AbstractPagePresenter<ContactsPresenter.V
     public void onPageRequest(final PageRequest request) {
     }
 
-    private void rebuildTable() {
+    private void rebuildPagination() {
         view.getPagination().rebuild(cellTablePager);
+    }
+
+    /**
+     * View interface.
+     */
+    @ImplementedBy(ContactsView.class)
+    public interface View extends ViewInterface {
+
+        CellTable<ContactDTO> getContactsTable();
+
+        Pagination getPagination();
+
     }
 }

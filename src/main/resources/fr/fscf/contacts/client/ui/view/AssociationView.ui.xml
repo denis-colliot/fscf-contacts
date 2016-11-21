@@ -11,7 +11,7 @@
     <g:HTMLPanel>
         <b:PageHeader text="Saisie d'une association"/>
 
-        <b:Row>
+        <b:Form type="HORIZONTAL">
             <b:FormGroup>
                 <b:FormLabel showRequiredIndicator="true" for="name" addStyleNames="col-md-2 col-lg-2">Nom</b:FormLabel>
                 <g:FlowPanel styleName="col-md-10 col-lg-10">
@@ -21,7 +21,7 @@
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel for="address" addStyleNames="col-lg-2">Adresse</b:FormLabel>
+                <b:FormLabel showRequiredIndicator="true" for="address" addStyleNames="col-lg-2">Adresse</b:FormLabel>
                 <g:FlowPanel styleName="col-lg-10">
                     <b:Input ui:field="address" type="TEXT" b:id="address"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
@@ -36,7 +36,7 @@
                 </g:FlowPanel>
             </b:FormGroup>
 
-            <b:FormGroup addStyleNames="clearfix">
+            <b:FormGroup>
                 <b:FormLabel for="zipCode" addStyleNames="col-lg-2">Code Postal</b:FormLabel>
                 <g:FlowPanel styleName="col-lg-2">
                     <b:Input ui:field="zipCode" type="TEXT" b:id="zipCode"/>
@@ -52,8 +52,13 @@
                 </g:FlowPanel>
             </b:FormGroup>
 
-            <b:Button ui:field="formSubmitButton" type="PRIMARY" pull="RIGHT">Ajouter l'association</b:Button>
-        </b:Row>
+            <b:FormGroup>
+                <g:FlowPanel addStyleNames="col-lg-offset-2 col-lg-10">
+                    <b:Button ui:field="formSubmitButton" type="PRIMARY">Enregistrer l'association</b:Button>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+        </b:Form>
     </g:HTMLPanel>
 
 </ui:UiBinder>

@@ -1,18 +1,23 @@
 package fr.fscf.contacts.shared.command;
 
-import fr.fscf.contacts.shared.command.base.AbstractCommand;
-import fr.fscf.contacts.shared.command.result.ListResult;
+import com.google.gwt.view.client.Range;
+import fr.fscf.contacts.shared.command.base.AbstractTableCommand;
 import fr.fscf.contacts.shared.dto.ContactDTO;
+import fr.fscf.contacts.shared.util.Sort;
 
 /**
  * Gets contacts list command.
  *
  * @author Denis
  */
-public class GetContactsCommand extends AbstractCommand<ListResult<ContactDTO>> {
+public class GetContactsCommand extends AbstractTableCommand<ContactDTO> {
 
     public GetContactsCommand() {
         // Serialization.
+    }
+
+    public GetContactsCommand(Range range, Sort sort) {
+        super(range, sort);
     }
 
 }

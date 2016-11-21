@@ -11,7 +11,7 @@
     <g:HTMLPanel>
         <b:PageHeader text="Saisie d'un contact"/>
 
-        <b:Row>
+        <b:Form type="HORIZONTAL">
             <b:FormGroup>
                 <b:FormLabel showRequiredIndicator="true" for="name" addStyleNames="col-md-2 col-lg-2">Nom</b:FormLabel>
                 <g:FlowPanel styleName="col-md-10 col-lg-10">
@@ -60,7 +60,7 @@
                 </g:FlowPanel>
             </b:FormGroup>
 
-            <b:FormGroup addStyleNames="clearfix">
+            <b:FormGroup>
                 <b:FormLabel for="zipCode" addStyleNames="col-lg-2">Code Postal</b:FormLabel>
                 <g:FlowPanel styleName="col-lg-2">
                     <b:Input ui:field="zipCode" type="TEXT" b:id="zipCode"/>
@@ -84,8 +84,13 @@
                 </g:FlowPanel>
             </b:FormGroup>
 
-            <b:Button ui:field="formSubmitButton" type="PRIMARY" pull="RIGHT">Enregistre le contact</b:Button>
-        </b:Row>
+            <b:FormGroup>
+                <g:FlowPanel addStyleNames="col-lg-offset-2 col-lg-10">
+                    <b:Button ui:field="formSubmitButton" type="PRIMARY">Enregistrer le contact</b:Button>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+        </b:Form>
     </g:HTMLPanel>
 
 </ui:UiBinder>
