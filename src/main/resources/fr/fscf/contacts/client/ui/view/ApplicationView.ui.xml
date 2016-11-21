@@ -42,7 +42,7 @@
             min-height: 100%;
         }
         .content {
-            padding: 35px 12% 35px;
+            padding: 35px 8% 35px;
         }
         .footer {
             height: footerHeight;
@@ -95,7 +95,7 @@
         </b:Container>
 
         <g:FlowPanel styleName="{style.footer}">
-            <g:HTML styleName="{style.copyright}" text="© 2015 FSCF" />
+            <g:HTML ui:field="footerText" styleName="{style.copyright}" text="© 2015 FSCF" />
         </g:FlowPanel>
     </g:HTMLPanel>
 

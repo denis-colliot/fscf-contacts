@@ -57,6 +57,9 @@ public final class ApplicationView extends AbstractView implements ApplicationPr
     @UiField
     protected HasClickHandlers associationLink;
 
+    @UiField
+    protected HasText footerText;
+
     /**
      * Instantiates the application frame.
      */
@@ -175,4 +178,8 @@ public final class ApplicationView extends AbstractView implements ApplicationPr
         return associationLink;
     }
 
+    @Override
+    public HasText getFooterText() {
+        return footerText;
+    }
 }

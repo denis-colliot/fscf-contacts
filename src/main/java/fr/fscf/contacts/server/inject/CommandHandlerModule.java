@@ -1,10 +1,8 @@
 package fr.fscf.contacts.server.inject;
 
+import fr.fscf.contacts.server.handler.*;
 import fr.fscf.contacts.server.inject.dispatch.AbstractCommandHandlerModule;
-import fr.fscf.contacts.server.handler.AuthenticatedHandler;
-import fr.fscf.contacts.server.handler.SecureNavigationHandler;
-import fr.fscf.contacts.shared.command.AuthenticateCommand;
-import fr.fscf.contacts.shared.command.SecureNavigationCommand;
+import fr.fscf.contacts.shared.command.*;
 
 /**
  * <p>
@@ -24,8 +22,11 @@ public class CommandHandlerModule extends AbstractCommandHandlerModule {
     @Override
     protected void configureHandlers() {
         // Thank you for maintaining alphabetical order.
-        bindHandler(SecureNavigationCommand.class, SecureNavigationHandler.class);
         bindHandler(AuthenticateCommand.class, AuthenticatedHandler.class);
+        bindHandler(GetConfigCommand.class, GetConfigHandler.class);
+        bindHandler(GetContactCommand.class, GetContactHandler.class);
+        bindHandler(GetContactsCommand.class, GetContactsHandler.class);
+        bindHandler(SecureNavigationCommand.class, SecureNavigationHandler.class);
     }
 
 }

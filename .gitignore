@@ -21,3 +21,4 @@ src/main/webapp/fscf/
 target/generated-sources/gwt/fr/fscf/contacts/client/i18n/Constants.java
 target/generated-sources/gwt/fr/fscf/contacts/client/i18n/Messages.java
 local.properties
+environment.properties

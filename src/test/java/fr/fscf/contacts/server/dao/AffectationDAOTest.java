@@ -34,7 +34,7 @@ public class AffectationDAOTest extends AbstractDAOTest {
 
     @Test
     public void find() {
-        final AffectationPK key = new AffectationPK(albert.getId(), association.getId(), regional_league_president.getId());
+        final AffectationPK key = new AffectationPK(albert.getId(), comity29.getId(), section_responsible.getId());
         Affectation affectation = affectationDAO.findById(key);
         assertThat(affectation).isNotNull();
         assertThat(affectation.getId()).isEqualTo(key);

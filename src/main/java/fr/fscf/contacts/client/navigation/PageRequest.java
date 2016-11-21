@@ -199,6 +199,19 @@ public final class PageRequest {
     }
 
     /**
+     * Gets the parameter <b>Long</b> value corresponding to the given {@code key}.
+     *
+     * @param key
+     *         The parameter key.
+     * @return The parameter <b>Long</b> value corresponding to the given {@code key}, or {@code null} if the
+     * parameter
+     * is not present inside the request or is not a valid integer.
+     */
+    public Long getParameterLong(final RequestParameter key) {
+        return ClientUtils.asLong(getParameter(key, null));
+    }
+
+    /**
      * <p>
      * Adds a new parameter to the current {@code PageRequest} with the given parameter {@code name} and {@code value}.
      * </p>

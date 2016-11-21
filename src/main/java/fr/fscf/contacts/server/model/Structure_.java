@@ -14,7 +14,7 @@ import java.util.Date;
 public final class Structure_ {
 
     public static volatile SingularAttribute<Structure, Long> id;
-    public static volatile SingularAttribute<Structure, Structure> parent;
+    public static volatile SingularAttribute<Structure, ? extends Structure> parent;
     public static volatile SingularAttribute<Structure, String> name;
     public static volatile SingularAttribute<Structure, String> address;
     public static volatile SingularAttribute<Structure, String> additionalAddress;

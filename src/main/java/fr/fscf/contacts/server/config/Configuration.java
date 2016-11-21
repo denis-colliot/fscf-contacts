@@ -2,6 +2,8 @@ package fr.fscf.contacts.server.config;
 
 import com.google.inject.ImplementedBy;
 
+import java.util.Map;
+
 /**
  * Application configuration service.
  *
@@ -9,6 +11,13 @@ import com.google.inject.ImplementedBy;
  */
 @ImplementedBy(PropertiesConfiguration.class)
 public interface Configuration {
+
+    /**
+     * Returns all the configurations.
+     *
+     * @return All the configurations.
+     */
+    Map<String, String> all();
 
     /**
      * Returns the given configuration key corresponding value.

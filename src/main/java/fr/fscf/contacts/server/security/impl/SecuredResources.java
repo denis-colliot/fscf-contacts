@@ -13,7 +13,7 @@ import java.util.Set;
  *
  * @author Denis
  */
-final class SecuredResources {
+public final class SecuredResources {
 
     /**
      * Token representing a <em><b>any</b> missing feature</em>.<br/>
@@ -36,10 +36,8 @@ final class SecuredResources {
     /**
      * Return the <em>resource</em> token for the given servlet arguments.
      *
-     * @param servlet
-     *         The {@link Servlets.Servlet} name.
-     * @param method
-     *         The {@link Servlets.Servlet} method.
+     * @param servlet The {@link Servlets.Servlet} name.
+     * @param method  The {@link Servlets.Servlet} method.
      * @return the <em>resource</em> token for the given servlet arguments, or {@code null}.
      */
     public static String servletToken(final Servlets.Servlet servlet, final Servlets.ServletMethod method) {
@@ -52,8 +50,7 @@ final class SecuredResources {
     /**
      * Return the <em>resource</em> token for the given {@code commandClass}.
      *
-     * @param commandClass
-     *         The {@link Command} class.
+     * @param commandClass The {@link Command} class.
      * @return the <em>resource</em> token for the given {@code commandClass}, or {@code null}.
      */
     public static String commandToken(final Class<? extends Command> commandClass) {
@@ -66,8 +63,7 @@ final class SecuredResources {
     /**
      * Return the <em>resource</em> token for the given {@code page}.
      *
-     * @param page
-     *         The {@link Page} instance.
+     * @param page The {@link Page} instance.
      * @return the <em>resource</em> token for the given {@code page}, or {@code null}.
      */
     public static String pageToken(final Page page) {
