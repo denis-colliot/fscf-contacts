@@ -1,6 +1,5 @@
 package fr.fscf.contacts.client.ui.view;
 
-import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
@@ -9,7 +8,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
@@ -18,9 +16,8 @@ import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.navigation.RequestParameter;
 import fr.fscf.contacts.client.ui.presenter.ContactsPresenter;
 import fr.fscf.contacts.client.ui.view.base.AbstractView;
+import fr.fscf.contacts.client.ui.widget.Pagination;
 import fr.fscf.contacts.shared.dto.ContactDTO;
-import org.gwtbootstrap3.client.ui.Pagination;
-import org.gwtbootstrap3.client.ui.constants.Alignment;
 import org.gwtbootstrap3.client.ui.constants.ButtonSize;
 import org.gwtbootstrap3.client.ui.constants.ButtonType;
 import org.gwtbootstrap3.client.ui.constants.IconType;

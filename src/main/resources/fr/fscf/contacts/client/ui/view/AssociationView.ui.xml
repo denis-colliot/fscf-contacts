@@ -13,47 +13,47 @@
 
         <b:Form type="HORIZONTAL">
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="name" addStyleNames="col-md-2 col-lg-2">Nom</b:FormLabel>
-                <g:FlowPanel styleName="col-md-10 col-lg-10">
+                <b:FormLabel showRequiredIndicator="true" for="name" addStyleNames="col-xs-2 col-md-2 col-lg-2">Nom</b:FormLabel>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="name" type="TEXT" b:id="name" placeholder="Nom de l'association..."/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="address" addStyleNames="col-lg-2">Adresse</b:FormLabel>
-                <g:FlowPanel styleName="col-lg-10">
+                <b:FormLabel showRequiredIndicator="true" for="address" addStyleNames="col-xs-2 col-md-2 col-lg-2">Adresse</b:FormLabel>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="address" type="TEXT" b:id="address"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel for="additionalAddress" addStyleNames="col-lg-2">Complément d'adresse</b:FormLabel>
-                <g:FlowPanel styleName="col-lg-10">
+                <b:FormLabel for="additionalAddress" addStyleNames="col-xs-2 col-md-2 col-lg-2">Complément d'adresse</b:FormLabel>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="additionalAddress" type="TEXT" b:id="address"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel for="zipCode" addStyleNames="col-lg-2">Code Postal</b:FormLabel>
-                <g:FlowPanel styleName="col-lg-2">
+                <b:FormLabel showRequiredIndicator="true" for="zipCode" addStyleNames="col-xs-2 col-md-2 col-lg-2">Code Postal</b:FormLabel>
+                <g:FlowPanel styleName="col-xs-2 col-md-2 col-lg-2">
                     <b:Input ui:field="zipCode" type="TEXT" b:id="zipCode"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel for="city" addStyleNames="col-lg-2">Ville</b:FormLabel>
-                <g:FlowPanel styleName="col-lg-10">
+                <b:FormLabel for="city" addStyleNames="col-xs-2 col-md-2 col-lg-2">Ville</b:FormLabel>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="city" type="TEXT" b:id="city"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
             </b:FormGroup>
 
             <b:FormGroup>
-                <g:FlowPanel addStyleNames="col-lg-offset-2 col-lg-10">
+                <g:FlowPanel addStyleNames="col-lg-offset-2 col-xs-10 col-md-10 col-lg-10">
                     <b:Button ui:field="formSubmitButton" type="PRIMARY">Enregistrer l'association</b:Button>
                 </g:FlowPanel>
             </b:FormGroup>

@@ -1,5 +1,8 @@
 package fr.fscf.contacts.client.ui.presenter;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.inject.ImplementedBy;
 import fr.fscf.contacts.client.dispatch.CommandResultHandler;
 import fr.fscf.contacts.client.inject.Injector;
@@ -33,6 +36,19 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
     }
 
     @Override
+    public void onBind() {
+        view.getFormSubmitButton().addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                if (!validator.validate(view)) {
+                    return;
+                }
+                final ContactDTO contactDTO = view.getDriver().flush();
+            }
+        });
+    }
+
+    @Override
     public void onPageRequest(final PageRequest request) {
         dispatch.execute(new GetContactCommand(request.getParameterLong(RequestParameter.ID)),
                 new CommandResultHandler<ContactDTO>() {
@@ -48,6 +64,8 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
      */
     @ImplementedBy(ContactView.class)
     public interface View extends ViewInterface, IsBeanEditor<ContactDTO> {
+
+        HasClickHandlers getFormSubmitButton();
 
     }
 }

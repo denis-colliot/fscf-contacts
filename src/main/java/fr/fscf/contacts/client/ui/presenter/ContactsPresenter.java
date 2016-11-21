@@ -44,7 +44,7 @@ public class ContactsPresenter extends AbstractPagePresenter<ContactsPresenter.V
     public void onBind() {
         cellTablePager = new SimplePager();
         cellTablePager.setDisplay(view.getContactsTable());
-        cellTablePager.setPageSize(15);
+        cellTablePager.setPageSize(10);
 
         dataProvider = new AsyncDataProvider<ContactDTO>() {
             @Override
