@@ -1,7 +1,6 @@
 package fr.fscf.contacts.server.config;
 
 import fr.fscf.contacts.server.inject.ConfigUtils;
-import fr.fscf.contacts.server.inject.persistence.PersistenceProperties;
 
 import javax.inject.Inject;
 import java.util.Map;
@@ -23,7 +22,6 @@ final class PropertiesConfiguration implements Configuration {
         properties = new Properties();
         properties.putAll(ConfigUtils.loadProperties("configuration.properties"));
         properties.putAll(ConfigUtils.loadProperties("git.properties"));
-        properties.putAll(ConfigUtils.loadProperties("environment.properties"));
     }
 
     @Override
