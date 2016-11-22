@@ -1,6 +1,7 @@
 package fr.fscf.contacts.shared.dto;
 
 import fr.fscf.contacts.shared.dto.base.AbstractEntityDTO;
+import fr.fscf.contacts.shared.util.Constraints;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -17,6 +18,7 @@ public class ContactDTO extends AbstractEntityDTO<Long> {
     private String firstName;
 
     @NotNull
+    @Pattern(regexp = Constraints.EMAIL_PATTERN, flags = Pattern.Flag.CASE_INSENSITIVE)
     private String email;
 
     @NotNull
@@ -28,7 +30,7 @@ public class ContactDTO extends AbstractEntityDTO<Long> {
     private String additionalAddress;
 
     @NotNull
-    @Pattern(regexp = "^[2A|2B|\\d{2}]\\d{3}$", flags = {Pattern.Flag.CASE_INSENSITIVE})
+    @Pattern(regexp = Constraints.ZIP_CODE_PATTERN, flags = Pattern.Flag.CASE_INSENSITIVE)
     private String zipCode;
 
     @NotNull
@@ -39,6 +41,11 @@ public class ContactDTO extends AbstractEntityDTO<Long> {
     private String email2;
 
     private String phone2;
+
+    @Override
+    public String toString() {
+        return firstName + ' ' + name;
+    }
 
     public String getName() {
         return name;

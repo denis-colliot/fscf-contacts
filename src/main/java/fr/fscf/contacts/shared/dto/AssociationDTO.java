@@ -1,6 +1,7 @@
 package fr.fscf.contacts.shared.dto;
 
 import fr.fscf.contacts.shared.dto.base.AbstractDTO;
+import fr.fscf.contacts.shared.util.Constraints;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -14,14 +15,14 @@ import javax.validation.constraints.Size;
 public class AssociationDTO extends AbstractDTO {
 
     @NotNull
-    @Size(min = 5)
+    @Size(min = 1)
     private String name;
 
     @NotNull
     private String address;
 
     @NotNull
-    @Pattern(regexp = "^[2A|2B|\\d{2}]\\d{3}$", flags = {Pattern.Flag.CASE_INSENSITIVE})
+    @Pattern(regexp = Constraints.ZIP_CODE_PATTERN, flags = Pattern.Flag.CASE_INSENSITIVE)
     private String zipCode;
 
     public String getName() {

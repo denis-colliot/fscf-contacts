@@ -3,7 +3,7 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:btn='urn:import:fr.fscf.contacts.client.ui.widget.button'
+             xmlns:f.btn='urn:import:fr.fscf.contacts.client.ui.widget.button'
              xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
 
     <ui:style>
@@ -18,7 +18,8 @@
             <b:FieldSet>
                 <b:Legend>Authentification</b:Legend>
                 <b:FormGroup>
-                    <b:FormLabel showRequiredIndicator="true" for="login" addStyleNames="col-md-3 col-lg-3">Login
+                    <b:FormLabel showRequiredIndicator="true" for="login" addStyleNames="col-md-3 col-lg-3">
+                        Login
                     </b:FormLabel>
                     <g:FlowPanel styleName="col-md-9 col-lg-9">
                         <b:Input ui:field="login" type="TEXT" b:id="login"/>
@@ -27,18 +28,18 @@
                 </b:FormGroup>
 
                 <b:FormGroup>
-                    <b:FormLabel showRequiredIndicator="true" for="password" addStyleNames="col-md-3 col-lg-3">Mot de
-                        passe
+                    <b:FormLabel showRequiredIndicator="true" for="password" addStyleNames="col-md-3 col-lg-3">
+                        Mot de passe
                     </b:FormLabel>
                     <g:FlowPanel styleName="col-md-9 col-lg-9">
-                        <b:Input ui:field="password" type="TEXT" b:id="password"/>
+                        <b:Input ui:field="password" type="PASSWORD" b:id="password"/>
                         <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                     </g:FlowPanel>
                 </b:FormGroup>
 
                 <b:FormGroup>
                     <g:FlowPanel addStyleNames="col-lg-offset-3 col-lg-9">
-                        <btn:Button ui:field="loginButton" text="Connexion"/>
+                        <f.btn:Button ui:field="loginButton" text="Connexion"/>
                     </g:FlowPanel>
                 </b:FormGroup>
             </b:FieldSet>

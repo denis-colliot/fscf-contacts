@@ -7,6 +7,7 @@ import fr.fscf.contacts.server.model.Contact;
 import fr.fscf.contacts.server.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * DAO for {@link Contact} entity.
@@ -15,5 +16,7 @@ import java.util.List;
 public interface ContactDAO extends DAO<Contact, Long> {
 
     List<Contact> findUserContacts(User user);
+
+    Optional<Contact> findUserContact(Long contactId, User user);
 
 }

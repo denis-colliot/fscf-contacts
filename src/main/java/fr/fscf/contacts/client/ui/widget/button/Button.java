@@ -1,15 +1,9 @@
 package fr.fscf.contacts.client.ui.widget.button;
 
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Widget;
 import fr.fscf.contacts.client.ui.widget.Enablable;
 import fr.fscf.contacts.client.ui.widget.Loadable;
-import org.gwtbootstrap3.client.ui.constants.ButtonType;
-import org.gwtbootstrap3.client.ui.constants.IconType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,12 +13,7 @@ import java.util.Map;
  *
  * @author Denis
  */
-public class Button implements IsWidget, Loadable, Enablable, HasClickHandlers {
-
-    /**
-     * Inner button widget.
-     */
-    private final org.gwtbootstrap3.client.ui.Button innerButton;
+public class Button extends org.gwtbootstrap3.client.ui.Button implements Loadable, Enablable {
 
     /**
      * Map storing button handlers with their registration.
@@ -45,14 +34,14 @@ public class Button implements IsWidget, Loadable, Enablable, HasClickHandlers {
      * Creates a new button.
      */
     public Button() {
-        innerButton = new org.gwtbootstrap3.client.ui.Button();
-        initialEnabledState = innerButton.isEnabled();
+        super();
+        initialEnabledState = super.isEnabled();
         handlers = new HashMap<>();
     }
 
     public Button(final String text, final ClickHandler handler) {
-        innerButton = new org.gwtbootstrap3.client.ui.Button(text);
-        initialEnabledState = innerButton.isEnabled();
+        super(text);
+        initialEnabledState = super.isEnabled();
         handlers = new HashMap<>();
         if (handler != null) {
             addClickHandler(handler);
@@ -62,41 +51,13 @@ public class Button implements IsWidget, Loadable, Enablable, HasClickHandlers {
     private void setHandlersEnabled(final boolean enabled) {
         if (enabled) {
             for (final ClickHandler handler : handlers.values()) {
-                innerButton.addClickHandler(handler);
+                super.addClickHandler(handler);
             }
         } else {
             for (final HandlerRegistration registration : handlers.keySet()) {
                 registration.removeHandler();
             }
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Widget asWidget() {
-        return innerButton;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setLoading(final boolean loading) {
-
-        if (!this.loading && loading) {
-            innerButton.setEnabled(false);
-//            innerButton.state().loading();
-            setHandlersEnabled(false);
-
-        } else if (this.loading && !loading) {
-            innerButton.setEnabled(initialEnabledState);
-//            innerButton.state().reset();
-            setHandlersEnabled(initialEnabledState);
-        }
-
-        this.loading = loading;
     }
 
     /**
@@ -111,8 +72,28 @@ public class Button implements IsWidget, Loadable, Enablable, HasClickHandlers {
      * {@inheritDoc}
      */
     @Override
+    public void setLoading(final boolean loading) {
+
+        if (!this.loading && loading) {
+            super.setEnabled(false);
+//            innerButton.state().loading();
+            setHandlersEnabled(false);
+
+        } else if (this.loading && !loading) {
+            super.setEnabled(initialEnabledState);
+//            innerButton.state().reset();
+            setHandlersEnabled(initialEnabledState);
+        }
+
+        this.loading = loading;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public HandlerRegistration addClickHandler(final ClickHandler handler) {
-        final HandlerRegistration registration = innerButton.addClickHandler(handler);
+        final HandlerRegistration registration = super.addClickHandler(handler);
         handlers.put(registration, handler);
         if (!isEnabled()) {
             registration.removeHandler();
@@ -120,40 +101,16 @@ public class Button implements IsWidget, Loadable, Enablable, HasClickHandlers {
         return registration;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void fireEvent(final GwtEvent<?> event) {
-        innerButton.fireEvent(event);
-    }
-
     @Override
     public boolean isEnabled() {
-        return innerButton.isEnabled();
+        return super.isEnabled();
     }
 
     @Override
     public void setEnabled(boolean enabled) {
-        innerButton.setEnabled(enabled);
+        super.setEnabled(enabled);
         initialEnabledState = enabled;
         setHandlersEnabled(enabled);
-    }
-
-    public void setText(String text) {
-        innerButton.setText(text);
-    }
-
-    public void setBackgroundColor(String backgroundColor) {
-        innerButton.setColor(backgroundColor);
-    }
-
-    public void setType(ButtonType type) {
-        innerButton.setType(type);
-    }
-
-    public void setIcon(IconType icon) {
-        innerButton.setIcon(icon);
     }
 
 }

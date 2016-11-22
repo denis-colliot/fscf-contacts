@@ -4,9 +4,11 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Abstract entity, parent class of all domain entities possessing a primary key.
@@ -28,6 +30,18 @@ public abstract class AbstractEntity<K extends Serializable> implements Entity<K
 
     @Column(name = "update_user", nullable = true)
     private String updateUser;
+
+    /**
+     * Method executed before persist operation.
+     */
+    @PrePersist
+    public final void beforePersist() {
+        if (Objects.isNull(creationDate)) {
+            creationDate = new Date();
+        } else {
+            updateDate = new Date();
+        }
+    }
 
     /**
      * <p>

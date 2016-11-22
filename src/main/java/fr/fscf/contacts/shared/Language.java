@@ -1,9 +1,9 @@
 package fr.fscf.contacts.shared;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
-import fr.fscf.contacts.shared.util.ClientUtils;
 import fr.fscf.contacts.client.i18n.I18N;
 import fr.fscf.contacts.server.util.Languages;
+import fr.fscf.contacts.shared.util.ClientUtils;
 
 /**
  * <p>
@@ -41,21 +41,10 @@ public enum Language implements IsSerializable {
     ES;
 
     /**
-     * Returns the current {@link Language} corresponding <em>locale</em> name.<br>
-     * The returned value is compatible with {@link java.util.Locale#Locale(String)} constructor.
-     *
-     * @return The current {@link Language} corresponding <em>locale</em> name.
-     */
-    public String getLocale() {
-        return name().toLowerCase();
-    }
-
-    /**
      * Returns the given locale {@code value} corresponding {@link Language} instance.
      *
-     * @param value
-     *         The locale value (trimmed during process).<br/>
-     *         Case insensitive.
+     * @param value The locale value (trimmed during process).<br/>
+     *              Case insensitive.
      * @return The given locale {@code value} corresponding {@link Language} instance, or {@code null}.
      */
     public static Language fromString(final String value) {
@@ -73,11 +62,10 @@ public enum Language implements IsSerializable {
      * This method should be executed from client-side. If executed from server-side, it returns the enum constant
      * name.
      *
-     * @param language
-     *         The language.
+     * @param language The language.
      * @return The given {@code language} corresponding i18n name, or {@code null}.
      */
-    public static final String i18n(final Language language) {
+    public static String i18n(final Language language) {
 
         if (language == null) {
             return null;
@@ -103,11 +91,10 @@ public enum Language implements IsSerializable {
      * Returns the given {@code i18n} value corresponding language instance.<br>
      * This method should be executed from client-side. If executed from server-side, it returns {@code null}.
      *
-     * @param i18n
-     *         The {@code i18n} language value.
+     * @param i18n The {@code i18n} language value.
      * @return The given {@code i18n} value corresponding language instance, or {@code null}.
      */
-    public static final Language fromI18n(final String i18n) {
+    public static Language fromI18n(final String i18n) {
 
         if (!ClientUtils.isClient()) {
             return null;
@@ -125,6 +112,16 @@ public enum Language implements IsSerializable {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Returns the current {@link Language} corresponding <em>locale</em> name.<br>
+     * The returned value is compatible with {@link java.util.Locale#Locale(String)} constructor.
+     *
+     * @return The current {@link Language} corresponding <em>locale</em> name.
+     */
+    public String getLocale() {
+        return name().toLowerCase();
     }
 
 }

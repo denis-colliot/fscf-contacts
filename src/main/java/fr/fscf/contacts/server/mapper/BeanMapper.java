@@ -1,8 +1,5 @@
 package fr.fscf.contacts.server.mapper;
 
-import com.google.inject.ImplementedBy;
-import fr.fscf.contacts.server.mapper.dozer.DozerBeanMapper;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -11,7 +8,6 @@ import java.util.List;
  *
  * @author Denis
  */
-@ImplementedBy(DozerBeanMapper.class)
 public interface BeanMapper {
 
     /**

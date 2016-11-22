@@ -3,6 +3,7 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:f.btn='urn:import:fr.fscf.contacts.client.ui.widget.button'
     xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
 
     <ui:style>
@@ -12,6 +13,7 @@
         <b:PageHeader text="Contact"/>
 
         <b:Form type="HORIZONTAL">
+
             <b:FormGroup>
                 <b:FormLabel showRequiredIndicator="true" for="name" addStyleNames="col-xs-2 col-md-2 col-lg-2">Nom</b:FormLabel>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
@@ -85,8 +87,8 @@
             </b:FormGroup>
 
             <b:FormGroup>
-                <g:FlowPanel addStyleNames="col-lg-offset-2 col-xs-10 col-md-10 col-lg-10">
-                    <b:Button ui:field="formSubmitButton" type="PRIMARY">Enregistrer le contact</b:Button>
+                <g:FlowPanel addStyleNames="col-xs-offset-2 col-md-offset-2 col-lg-offset-2 col-xs-10 col-md-10 col-lg-10">
+                    <f.btn:Button ui:field="formSubmitButton" type="PRIMARY">Enregistrer le contact</f.btn:Button>
                 </g:FlowPanel>
             </b:FormGroup>
 

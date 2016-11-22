@@ -364,13 +364,20 @@
                     <persistentunitcachedir>${project.build.directory}</persistentunitcachedir>
 
                     <i18nConstantsBundles>
-                        <i18nConstantsBundle>${project.groupId}.${project.artifactId}.client.i18n.Constants
+                        <i18nConstantsBundle>
+                            ${project.groupId}.${project.artifactId}.client.i18n.Constants
                         </i18nConstantsBundle>
                     </i18nConstantsBundles>
                     <i18nMessagesBundles>
-                        <i18nMessagesBundle>${project.groupId}.${project.artifactId}.client.i18n.Messages
+                        <i18nMessagesBundle>
+                            ${project.groupId}.${project.artifactId}.client.i18n.Messages
                         </i18nMessagesBundle>
                     </i18nMessagesBundles>
+                    <i18nConstantsWithLookupBundles>
+                        <i18nConstantsWithLookupBundle>
+                            ${project.groupId}.${project.artifactId}.client.i18n.ValidationMessages
+                        </i18nConstantsWithLookupBundle>
+                    </i18nConstantsWithLookupBundles>
 
                     <!-- For gwt:run command. -->
                     <runTarget>/</runTarget>

@@ -16,7 +16,7 @@ public class SaveContactCommand extends AbstractCommand<ContactDTO> {
         // Serialization.
     }
 
-    public SaveContactCommand(ContactDTO contactId) {
+    public SaveContactCommand(ContactDTO contact) {
         this.contact = contact;
     }
 

@@ -2,7 +2,6 @@ package fr.fscf.contacts.client.ui.view;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
@@ -10,6 +9,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
 import fr.fscf.contacts.client.ui.presenter.ContactPresenter;
 import fr.fscf.contacts.client.ui.view.base.AbstractView;
+import fr.fscf.contacts.client.ui.widget.button.Button;
 import fr.fscf.contacts.shared.dto.ContactDTO;
 import org.gwtbootstrap3.client.ui.Input;
 
@@ -48,7 +48,7 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
     protected Input city;
 
     @UiField
-    protected HasClickHandlers formSubmitButton;
+    protected Button formSubmitButton;
 
     @Override
     public SimpleBeanEditorDriver<ContactDTO, ?> getDriver() {
@@ -66,7 +66,7 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
     }
 
     @Override
-    public HasClickHandlers getFormSubmitButton() {
+    public Button getFormSubmitButton() {
         return formSubmitButton;
     }
 

@@ -32,7 +32,9 @@ public class ServletContextListener extends GuiceServletContextListener {
                 // Servlet module.
                 new ServletModule(),
                 // Security module.
-                new SecurityModule());
+                new SecurityModule(),
+                // Mapper module.
+                new MapperModule());
     }
 
 }

@@ -5,7 +5,6 @@ import fr.fscf.contacts.server.mapper.IsMappingHandler;
 import org.dozer.Mapper;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,7 +17,6 @@ import java.util.stream.Stream;
  *
  * @author Denis
  */
-@Singleton
 public class DozerBeanMapper implements BeanMapper {
 
     /**

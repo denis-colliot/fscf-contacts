@@ -39,7 +39,7 @@ UNION ALL
 SELECT
   *
 FROM
-  structures_tree as st
+  structures_tree as st;
 
 
 -- WITH HABILITATIONS > CONTACTS
@@ -62,9 +62,10 @@ UNION ALL
     child_structure.parent_id = parent_structure.st_id
 )
 SELECT
-  co.*, st.st_name
+  co.*, st.*
 FROM
   t_contact_co as co
   join t_affectation_af as af on af.co_id = co.co_id
   join structures_tree as st on af.st_id = st.st_id
 --WHERE co.co_id = 22
+;

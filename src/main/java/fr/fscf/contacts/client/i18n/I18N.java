@@ -14,5 +14,6 @@ public final class I18N {
 
     public static final Constants CONSTANTS = (Constants) GWT.create(Constants.class);
     public static final Messages MESSAGES = (Messages) GWT.create(Messages.class);
+    public static final ValidationMessages VALIDATION = (ValidationMessages) GWT.create(ValidationMessages.class);
 
 }

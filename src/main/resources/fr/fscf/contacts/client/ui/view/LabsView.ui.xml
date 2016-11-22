@@ -3,7 +3,7 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'
-	xmlns:w='urn:import:fr.fscf.contacts.client.ui.widget.button'
+	xmlns:f.btn='urn:import:fr.fscf.contacts.client.ui.widget.button'
     xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
 
     <ui:style>
@@ -13,8 +13,8 @@
 
         <b:PageHeader text="Labs view" />
 
-        <w:Button ui:field="blueButton" text="Mon bouton" enabled="false" type="PRIMARY" />
-        <w:Button ui:field="orangeButton" text="Mon bouton orange" type="WARNING" />
+        <f.btn:Button ui:field="blueButton" text="Mon bouton" enabled="false" type="PRIMARY" />
+        <f.btn:Button ui:field="orangeButton" text="Mon bouton orange" type="WARNING" />
 
     </g:HTMLPanel>
 

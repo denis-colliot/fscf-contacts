@@ -11,6 +11,7 @@ import fr.fscf.contacts.shared.dto.ContactDTO;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +30,8 @@ public class GetContactsHandler extends AbstractCommandHandler<GetContactsComman
             contactDTO.setName("Name #" + i);
             contactDTO.setFirstName("Firstname #" + i);
             contactDTO.setEmail("contact_" + i + "@email.com");
+            contactDTO.setCreationDate(new Date());
+            contactDTO.setCreationUser("mock");
             MOCK_DATA.add(contactDTO);
         }
     }
@@ -45,7 +48,7 @@ public class GetContactsHandler extends AbstractCommandHandler<GetContactsComman
 
         // TODO
         // final List<Contact> contacts = contactDAO.findUserContacts(context.getUser());
-        
+
         final int start = command.getRange().getStart();
         final int length = command.getRange().getLength();
         final List<ContactDTO> contacts = new ArrayList<>(MOCK_DATA.subList(start,
