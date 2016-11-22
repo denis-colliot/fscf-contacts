@@ -70,6 +70,7 @@
         <version.slf4j>1.7.21</version.slf4j>
         <version.logback>1.1.7</version.logback>
         <version.gwt-log>3.3.2</version.gwt-log>
+        <version.dozer>5.5.1</version.dozer>
     </properties>
 
     <!--
@@ -276,6 +277,13 @@
                     <groupId>org.slf4j</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- OTHER -->
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+            <version>${version.dozer}</version>
         </dependency>
 
     </dependencies>

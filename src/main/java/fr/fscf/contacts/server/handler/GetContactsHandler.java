@@ -3,6 +3,7 @@ package fr.fscf.contacts.server.handler;
 import fr.fscf.contacts.server.dao.ContactDAO;
 import fr.fscf.contacts.server.dispatch.impl.UserDispatch;
 import fr.fscf.contacts.server.handler.base.AbstractCommandHandler;
+import fr.fscf.contacts.server.mapper.BeanMapper;
 import fr.fscf.contacts.shared.command.GetContactsCommand;
 import fr.fscf.contacts.shared.command.result.ListResult;
 import fr.fscf.contacts.shared.dispatch.CommandException;
@@ -35,13 +36,16 @@ public class GetContactsHandler extends AbstractCommandHandler<GetContactsComman
     @Inject
     private ContactDAO contactDAO;
 
+    @Inject
+    private BeanMapper beanMapper;
+
     @Override
     protected ListResult<ContactDTO> execute(final GetContactsCommand command,
                                              final UserDispatch.UserExecutionContext context) throws CommandException {
 
         // TODO
         // final List<Contact> contacts = contactDAO.findUserContacts(context.getUser());
-
+        
         final int start = command.getRange().getStart();
         final int length = command.getRange().getLength();
         final List<ContactDTO> contacts = new ArrayList<>(MOCK_DATA.subList(start,
