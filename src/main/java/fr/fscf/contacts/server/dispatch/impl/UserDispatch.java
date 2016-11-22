@@ -109,7 +109,7 @@ public class UserDispatch implements Dispatch {
 
             // Registers it and its result.
             if (allowRollback) {
-                commandResults.add(new CommandResult<>(command, result));
+                commandResults.add(new CommandResult<C, R>(command, result));
             }
 
             return result;
