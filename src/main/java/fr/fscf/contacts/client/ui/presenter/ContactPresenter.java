@@ -2,6 +2,10 @@ package fr.fscf.contacts.client.ui.presenter;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.HasConstrainedValue;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.ValueListBox;
 import com.google.inject.ImplementedBy;
 import fr.fscf.contacts.client.dispatch.CommandResultHandler;
 import fr.fscf.contacts.client.inject.Injector;
@@ -16,9 +20,13 @@ import fr.fscf.contacts.client.ui.view.base.ViewInterface;
 import fr.fscf.contacts.client.ui.widget.button.Button;
 import fr.fscf.contacts.shared.command.GetContactCommand;
 import fr.fscf.contacts.shared.command.SaveContactCommand;
+import fr.fscf.contacts.shared.command.GetFunctionsCommand;
+import fr.fscf.contacts.shared.command.result.ListResult;
 import fr.fscf.contacts.shared.dto.ContactDTO;
+import fr.fscf.contacts.shared.dto.FunctionDTO;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 
 /**
  * Contact presenter.
@@ -50,20 +58,28 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
     @Override
     public void onPageRequest(final PageRequest request) {
 
+        // Loading contact data.
         final Long contactId = request.getParameterLong(RequestParameter.ID);
-
         if (contactId == null) {
             view.getDriver().edit(new ContactDTO());
             return;
         }
-
-        dispatch.execute(new GetContactCommand(contactId),
+        dispatch.execute(new GetContactCommand(request.getParameterLong(RequestParameter.ID)),
                 new CommandResultHandler<ContactDTO>() {
                     @Override
                     protected void onCommandSuccess(ContactDTO result) {
                         view.getDriver().edit(result);
                     }
                 });
+
+        // Populating functions field.
+        view.getFunction().setAcceptableValues(new ArrayList<>(0));
+        dispatch.execute(new GetFunctionsCommand(), new CommandResultHandler<ListResult<FunctionDTO>>() {
+            @Override
+            protected void onCommandSuccess(final ListResult<FunctionDTO> result) {
+                view.getFunction().setAcceptableValues(result.getList());
+            }
+        });
     }
 
     private void onSubmit() {
@@ -89,6 +105,8 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
     public interface View extends ViewInterface, IsBeanEditor<ContactDTO> {
 
         Button getFormSubmitButton();
+
+        HasConstrainedValue<FunctionDTO> getFunction();
 
     }
 }

@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 /**
  * Application contact DTO.
  */
-public class ContactDTO extends AbstractEntityDTO<Long> {
+public class ContactDTO extends AbstractEntityDTO<Long, ContactDTO> {
 
     @NotNull
     private String name;
@@ -42,9 +42,17 @@ public class ContactDTO extends AbstractEntityDTO<Long> {
 
     private String phone2;
 
+    @NotNull
+    private FunctionDTO function;
+
     @Override
     public String toString() {
         return firstName + ' ' + name;
+    }
+
+    @Override
+    public String render(ContactDTO contact) {
+        return contact.toString();
     }
 
     public String getName() {
@@ -135,4 +143,11 @@ public class ContactDTO extends AbstractEntityDTO<Long> {
         this.phone2 = phone2;
     }
 
+    public FunctionDTO getFunction() {
+        return function;
+    }
+
+    public void setFunction(FunctionDTO function) {
+        this.function = function;
+    }
 }

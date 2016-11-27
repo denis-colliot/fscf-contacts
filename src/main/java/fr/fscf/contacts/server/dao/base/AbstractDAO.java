@@ -28,13 +28,12 @@ import java.util.List;
  * Parent class of all DAO implementations.
  * </p>
  *
- * @param <E>
- *         Entity type.
- * @param <K>
- *         Entity id type (primary key).
+ * @param <E> Entity type.
+ * @param <K> Entity id type (primary key).
  * @author Denis
  */
-public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> extends EntityManagerProvider implements DAO<E, K> {
+public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> extends EntityManagerProvider
+        implements DAO<E, K> {
 
     /**
      * Logger.
@@ -79,11 +78,10 @@ public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> e
     @Override
     public int countAll() {
 
-        if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("Counting total number of '{}' items.", entityClass.getName());
-        }
+        LOGGER.trace("Counting total number of '{}' items.", entityClass.getName());
 
-        final TypedQuery<Number> query = em().createQuery("SELECT COUNT(e) FROM " + entityClass.getName() + " e", Number.class);
+        final TypedQuery<Number> query = em().createQuery("SELECT COUNT(e) FROM " + entityClass.getName() + " e",
+                Number.class);
         return query.getSingleResult().intValue();
     }
 
@@ -93,9 +91,7 @@ public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> e
     @Override
     public int count(final CriteriaQuery<Number> criteriaQuery) {
 
-        if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("Counting total number of '{}' items for criteria '{}'.", entityClass.getName(), criteriaQuery);
-        }
+        LOGGER.trace("Counting total number of '{}' items for criteria '{}'.", entityClass.getName(), criteriaQuery);
 
         final Number total = em().createQuery(criteriaQuery).getSingleResult();
 
@@ -114,9 +110,7 @@ public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> e
     @Override
     public E findById(final K primaryKey) {
 
-        if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("Retrieving '{}' item with primary key '{}'.", entityClass.getName(), primaryKey);
-        }
+        LOGGER.trace("Retrieving '{}' item with primary key '{}'.", entityClass.getName(), primaryKey);
 
         return em().find(entityClass, primaryKey);
     }
@@ -135,10 +129,8 @@ public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> e
     @Override
     public List<E> find(final CriteriaQuery<E> criteriaQuery, final Pagination pagination) {
 
-        if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("Retrieving all '{}' items corresponding to criteriaQuery '{}' and pagination '{}'.", entityClass.getName(),
-                    criteriaQuery, pagination);
-        }
+        LOGGER.trace("Retrieving all '{}' items corresponding to criteriaQuery '{}' and pagination '{}'.",
+                entityClass.getName(), criteriaQuery, pagination);
 
         final TypedQuery<E> query;
 
@@ -174,9 +166,7 @@ public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> e
     @Transactional
     public E persist(final E entity, final User user) {
 
-        if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("Persisting entity '{}' processed by user '{}'.", entity, logUser(user));
-        }
+        LOGGER.trace("Persisting entity '{}' processed by user '{}'.", entity, logUser(user));
 
         if (entity == null) {
             return null;
@@ -194,9 +184,7 @@ public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> e
     @Transactional
     public int update(final CriteriaUpdate<E> criteriaUpdate) {
 
-        if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("Updating entities corresponding to criteria '{}'.", criteriaUpdate);
-        }
+        LOGGER.trace("Updating entities corresponding to criteria '{}'.", criteriaUpdate);
 
         return em().createQuery(criteriaUpdate).executeUpdate();
     }
@@ -220,9 +208,7 @@ public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> e
 
         final E entity = findById(primaryKey); // Avoids 'detached' entity issue.
 
-        if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("Removing primary key '{}' corresponding entity '{}'.", primaryKey, entity);
-        }
+        LOGGER.trace("Removing primary key '{}' corresponding entity '{}'.", primaryKey, entity);
 
         em().remove(entity); // Physical removal.
     }
@@ -234,9 +220,7 @@ public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> e
     @Transactional
     public int remove(final CriteriaDelete<E> criteriaDelete) {
 
-        if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("Removing entities corresponding to criteria '{}'.", criteriaDelete);
-        }
+        LOGGER.trace("Removing entities corresponding to criteria '{}'.", criteriaDelete);
 
         return em().createQuery(criteriaDelete).executeUpdate();
     }
@@ -250,8 +234,7 @@ public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> e
     /**
      * Returns the given {@code user} corresponding <em>loggable</em> name.
      *
-     * @param user
-     *         The user instancce, may be {@code null}.
+     * @param user The user instancce, may be {@code null}.
      * @return The given {@code user} corresponding <em>loggable</em> name.
      */
     protected static String logUser(final User user) {
@@ -261,10 +244,8 @@ public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> e
     /**
      * Sets {@code creation} or {@code update} properties on the given {@code entity}.
      *
-     * @param entity
-     *         The entity to update.
-     * @param user
-     *         The user processing the action, may be {@code null}.
+     * @param entity The entity to update.
+     * @param user   The user processing the action, may be {@code null}.
      * @return The udpated {@code entity}.
      */
     protected static <E extends Entity<?>> E setEntityProperties(final E entity, final User user) {
@@ -292,8 +273,7 @@ public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> e
      * Executes the given JPQL or native SQL {@code updateQuery}.<br/>
      * Checks the transaction before execution (see {@link #checkTransaction(EntityManager)}).
      *
-     * @param updateQuery
-     *         The update JPQL or native SQL query.
+     * @param updateQuery The update JPQL or native SQL query.
      * @return the number of elements updated/deleted.
      */
     @Transactional
@@ -312,8 +292,7 @@ public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> e
      * Checks if active transaction is running. If so, given {@code em} is flushed in order to synchronize persistence
      * context.
      *
-     * @param em
-     *         The entity manager.
+     * @param em The entity manager.
      */
     private static void checkTransaction(final EntityManager em) {
 

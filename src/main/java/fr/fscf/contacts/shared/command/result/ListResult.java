@@ -5,16 +5,17 @@ import fr.fscf.contacts.shared.command.result.base.Result;
 import fr.fscf.contacts.shared.util.ClientUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * An action result which returns a list or a size.
  *
- * @param <E>
- *         the type of the entities.
+ * @param <E> the type of the entities.
  * @author Denis
  */
-public class ListResult<E extends IsSerializable> implements Result {
+public class ListResult<E extends IsSerializable> implements Result, Iterable<E> {
 
     /**
      * The list.
@@ -65,6 +66,12 @@ public class ListResult<E extends IsSerializable> implements Result {
         this.size = size;
     }
 
+    @Override
+    public Iterator<E> iterator() {
+        // Handles possible NPE with null list.
+        return list != null ? list.iterator() : new ArrayList<E>(0).iterator();
+    }
+
     // --------------------------------------------------------------------------------
     //
     // UTILITY METHODS.
@@ -92,8 +99,7 @@ public class ListResult<E extends IsSerializable> implements Result {
     /**
      * Returns the given {@code result} inner list data.
      *
-     * @param result
-     *         The {@code ListResult} instance (can be {@code null}).
+     * @param result The {@code ListResult} instance (can be {@code null}).
      * @return the given {@code result} inner list data, or {@code null} if {@code result} is {@code null}.
      */
     public static <E extends IsSerializable> List<E> asList(final ListResult<E> result) {
@@ -106,10 +112,8 @@ public class ListResult<E extends IsSerializable> implements Result {
      * <b>Warning : throws a {@code ClassCastException} if given {@code clazz} type does not correspond to given
      * {@code result} inner list type.</b>
      *
-     * @param result
-     *         The {@code ListResult} instance (can be {@code null}).
-     * @param clazz
-     *         The returned list type.
+     * @param result The {@code ListResult} instance (can be {@code null}).
+     * @param clazz  The returned list type.
      * @return the given {@code result} inner list data as given {@code clazz} typed list (using an unchecked cast), or
      * {@code null} if {@code result} is {@code null}.
      */

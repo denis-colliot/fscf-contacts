@@ -54,7 +54,7 @@ public class ContactsPresenter extends AbstractPagePresenter<ContactsPresenter.V
 
                 dispatch.execute(new GetContactsCommand(range, null), new CommandResultHandler<ListResult<ContactDTO>>() {
                     @Override
-                    protected void onCommandSuccess(ListResult<ContactDTO> result) {
+                    protected void onCommandSuccess(final ListResult<ContactDTO> result) {
 
                         dataProvider.updateRowCount(result.getSize(), true); // Fires a 'onRangeChanged' event.
 

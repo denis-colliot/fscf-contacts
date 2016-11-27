@@ -16,21 +16,18 @@ import java.lang.reflect.Type;
 /**
  * A super class for handlers which manages the specific execution context.
  *
- * @param <C>
- *         The command type.
- * @param <R>
- *         The result type.
+ * @param <C> The command type.
+ * @param <R> The result type.
  * @author Denis
  */
-public abstract class AbstractCommandHandler<C extends Command<R>, R extends Result> extends EntityManagerProvider implements CommandHandler<C, R> {
+public abstract class AbstractCommandHandler<C extends Command<R>, R extends Result> extends EntityManagerProvider
+        implements CommandHandler<C, R> {
 
     /**
      * Ensures that the execution context extends the {@link UserDispatch.UserExecutionContext} class.
      *
-     * @param context
-     *         The execution context.
-     * @throws CommandException
-     *         If the context doesn't extends the {@link UserDispatch.UserExecutionContext} class.
+     * @param context The execution context.
+     * @throws CommandException If the context doesn't extends the {@link UserDispatch.UserExecutionContext} class.
      */
     private static void ensureGuiceExecutionContext(final ExecutionContext context) throws CommandException {
         if (!(context instanceof UserDispatch.UserExecutionContext)) {
@@ -94,13 +91,10 @@ public abstract class AbstractCommandHandler<C extends Command<R>, R extends Res
     /**
      * Executes the given {@code command} within given {@code context}.
      *
-     * @param command
-     *         The command
-     * @param context
-     *         The execution context.
+     * @param command The command
+     * @param context The execution context.
      * @return The command execution result.
-     * @throws CommandException
-     *         If the command execution fails.
+     * @throws CommandException If the command execution fails.
      */
     protected abstract R execute(final C command, final UserDispatch.UserExecutionContext context) throws CommandException;
 
@@ -129,14 +123,10 @@ public abstract class AbstractCommandHandler<C extends Command<R>, R extends Res
      * Rollbacks the given {@code command} execution.<br/>
      * The default implementation does nothing.
      *
-     * @param command
-     *         The command.
-     * @param result
-     *         The command result.
-     * @param context
-     *         The context.
-     * @throws CommandException
-     *         If the rollback failed.
+     * @param command The command.
+     * @param result  The command result.
+     * @param context The context.
+     * @throws CommandException If the rollback failed.
      */
     public void rollback(final C command, R result, final UserDispatch.UserExecutionContext context) throws CommandException {
         // Default implementation does nothing.

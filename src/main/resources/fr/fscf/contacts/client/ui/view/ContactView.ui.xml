@@ -15,15 +15,19 @@
         <b:Form type="HORIZONTAL">
 
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="name" addStyleNames="col-xs-2 col-md-2 col-lg-2">Nom</b:FormLabel>
+                <b:FormLabel showRequiredIndicator="true" for="name" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Nom
+                </b:FormLabel>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
-                    <b:Input ui:field="name" type="TEXT" b:id="name" placeholder="Nom du contact..."/>
+                    <b:Input ui:field="name" type="TEXT" b:id="name"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="firstName" addStyleNames="col-xs-2 col-md-2 col-lg-2">Prénom</b:FormLabel>
+                <b:FormLabel showRequiredIndicator="true" for="firstName" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Prénom
+                </b:FormLabel>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="firstName" type="TEXT" b:id="firstName"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
@@ -31,7 +35,9 @@
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="email" addStyleNames="col-xs-2 col-md-2 col-lg-2">Email</b:FormLabel>
+                <b:FormLabel showRequiredIndicator="true" for="email" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Email
+                </b:FormLabel>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="email" type="TEXT" b:id="email"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
@@ -39,7 +45,9 @@
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="phone" addStyleNames="col-xs-2 col-md-2 col-lg-2">Téléphone</b:FormLabel>
+                <b:FormLabel showRequiredIndicator="true" for="phone" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Téléphone
+                </b:FormLabel>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="phone" type="TEXT" b:id="phone"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
@@ -47,7 +55,9 @@
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="address" addStyleNames="col-xs-2 col-md-2 col-lg-2">Adresse</b:FormLabel>
+                <b:FormLabel showRequiredIndicator="true" for="address" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Adresse
+                </b:FormLabel>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="address" type="TEXT" b:id="address"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
@@ -55,7 +65,9 @@
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel for="additionalAddress" addStyleNames="col-xs-2 col-md-2 col-lg-2">Complément d'adresse</b:FormLabel>
+                <b:FormLabel for="additionalAddress" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Complément d'adresse
+                </b:FormLabel>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="additionalAddress" type="TEXT" b:id="additionalAddress"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
@@ -63,7 +75,10 @@
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="zipCode" addStyleNames="col-xs-2 col-md-2 col-lg-2">Code Postal</b:FormLabel>
+                <b:FormLabel showRequiredIndicator="true" for="zipCode" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Code
+                    Postal
+                </b:FormLabel>
                 <g:FlowPanel styleName="col-xs-2 col-md-2 col-lg-2">
                     <b:Input ui:field="zipCode" type="TEXT" b:id="zipCode"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
@@ -71,7 +86,9 @@
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="city" addStyleNames="col-xs-2 col-md-2 col-lg-2">Ville</b:FormLabel>
+                <b:FormLabel showRequiredIndicator="true" for="city" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Ville
+                </b:FormLabel>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="city" type="TEXT" b:id="city"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
@@ -79,9 +96,21 @@
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel for="cedex" addStyleNames="col-xs-2 col-md-2 col-lg-2">Cedex</b:FormLabel>
+                <b:FormLabel for="cedex" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Cedex
+                </b:FormLabel>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="cedex" type="TEXT" b:id="cedex"/>
+                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+            <b:FormGroup>
+                <b:FormLabel showRequiredIndicator="true" for="function" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Fonction
+                </b:FormLabel>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
+                    <b:ValueListBox ui:field="function" b:id="function"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
             </b:FormGroup>

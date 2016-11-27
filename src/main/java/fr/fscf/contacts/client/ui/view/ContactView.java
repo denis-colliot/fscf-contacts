@@ -5,13 +5,16 @@ import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
+import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
 import fr.fscf.contacts.client.ui.presenter.ContactPresenter;
 import fr.fscf.contacts.client.ui.view.base.AbstractView;
 import fr.fscf.contacts.client.ui.widget.button.Button;
 import fr.fscf.contacts.shared.dto.ContactDTO;
+import fr.fscf.contacts.shared.dto.FunctionDTO;
 import org.gwtbootstrap3.client.ui.Input;
+import org.gwtbootstrap3.client.ui.ValueListBox;
 
 /**
  * Contact view.
@@ -48,6 +51,9 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
     protected Input city;
 
     @UiField
+    protected ValueListBox<FunctionDTO> function;
+
+    @UiField
     protected Button formSubmitButton;
 
     @Override
@@ -68,6 +74,11 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
     @Override
     public Button getFormSubmitButton() {
         return formSubmitButton;
+    }
+
+    @Override
+    public HasConstrainedValue<FunctionDTO> getFunction() {
+        return function;
     }
 
     /**
