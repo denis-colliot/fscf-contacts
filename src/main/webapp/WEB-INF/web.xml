@@ -19,7 +19,7 @@
     </filter-mapping>
 
     <listener>
-        <listener-class>fr.fscp.contacts.server.config.ServletContextListener</listener-class>
+        <listener-class>fr.fscf.contacts.server.inject.ServletContextListener</listener-class>
     </listener>
 
     <!-- Default page to serve. -->

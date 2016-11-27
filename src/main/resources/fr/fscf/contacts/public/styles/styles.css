@@ -1,0 +1,110 @@
+/*
+------------------------------------------
+
+Application CSS.
+
+------------------------------------------
+*/
+
+
+/*
+------------------------------------------
+
+Navbar overridden theme.
+
+Style imported by "ApplicationView.ui.xml"
+
+------------------------------------------
+*/
+.navbar {
+    background-color: #009cdf; /* navbarBackground */
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+}
+/* title */
+.navbar .navbar-brand {
+    color: #fff; /* navbarDefaultColor */
+}
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus {
+    color: #fff; /* navbarDefaultColor */
+}
+/* link */
+.navbar .navbar-nav > li > a {
+    color: #fff; /* navbarDefaultColor */
+    opacity: 0.80; /* navbarInitialOpacity */
+    transition: all .25s ease-in-out;
+}
+.navbar .navbar-nav > li > a:hover,
+.navbar .navbar-nav > li > a:focus {
+    color: #fff; /* navbarHoverColor */
+    opacity: 1;
+}
+.navbar .navbar-nav > .active > a,
+.navbar .navbar-nav > .active > a:hover,
+.navbar .navbar-nav > .active > a:focus {
+    color: #fff; /* navbarActiveColor */
+    background-color: #087FDF; /* navbarActiveBackground */
+}
+.navbar .navbar-nav > .open > a,
+.navbar .navbar-nav > .open > a:hover,
+.navbar .navbar-nav > .open > a:focus {
+    color: #fff; /* navbarOpenColor */
+    background-color: #087FDF; /* navbarOpenBackground */
+}
+/* caret */
+.navbar .navbar-nav > .dropdown > a .caret {
+    border-top-color: #fff; /* navbarDefaultColor */
+    border-bottom-color: #fff; /* navbarDefaultColor */
+}
+.navbar .navbar-nav > .dropdown > a:hover .caret,
+.navbar .navbar-nav > .dropdown > a:focus .caret {
+    border-top-color: #fff; /* navbarHoverColor */
+    border-bottom-color: #fff; /* navbarHoverColor */
+}
+.navbar .navbar-nav > .open > a .caret,
+.navbar .navbar-nav > .open > a:hover .caret,
+.navbar .navbar-nav > .open > a:focus .caret {
+    border-top-color: #fff; /* navbarActiveColor */
+    border-bottom-color: #fff; /* navbarActiveColor */
+}
+/* mobile version */
+.navbar .navbar-toggle {
+    border-color: #fff; /* navbarToggleColor */
+    opacity: 0.80; /* navbarInitialOpacity */
+    transition: all .25s ease-in-out;
+}
+.navbar .navbar-toggle:hover,
+.navbar .navbar-toggle:focus {
+    background-color: inherit;
+    opacity: 1;
+}
+.navbar .navbar-toggle .icon-bar {
+    background-color: #fff; /* navbarToggleColor */
+}
+.navbar .navbar-nav .open .dropdown-menu {
+    /* Navbar with no border-bottom. */
+    margin-top: -1px;
+}
+.navbar .navbar-nav .open .dropdown-menu .user-profile {
+    color: #bbb;
+    cursor: default;
+    font-size: 93%;
+    font-style: italic;
+}
+.navbar .navbar-nav .open .dropdown-menu .user-profile:hover {
+    background-color: inherit;
+}
+@media (max-width: 768px) {
+    .navbar .navbar-nav .open .dropdown-menu > li > a {
+        color: #fff; /* navbarDefaultColor */
+        opacity: 0.80; /* navbarInitialOpacity */
+        transition: all .25s ease-in-out;
+    }
+    .navbar .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #fff; /* navbarDefaultColor */
+        opacity: 1;
+    }
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:f.btn='urn:import:fr.fscf.contacts.client.ui.widget.button'
+    xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
+
+    <ui:style>
+    </ui:style>
+
+    <g:HTMLPanel>
+
+        <b:PageHeader text="Labs view" />
+
+        <f.btn:Button ui:field="blueButton" text="Mon bouton" enabled="false" type="PRIMARY" />
+        <f.btn:Button ui:field="orangeButton" text="Mon bouton orange" type="WARNING" />
+
+    </g:HTMLPanel>
+
+</ui:UiBinder>

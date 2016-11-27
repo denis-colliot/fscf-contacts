@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:f.btn='urn:import:fr.fscf.contacts.client.ui.widget.button'
+    xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
+
+    <ui:style>
+    </ui:style>
+
+    <g:HTMLPanel>
+        <b:PageHeader text="Contact"/>
+
+        <b:Form type="HORIZONTAL">
+
+            <b:FormGroup>
+                <b:FormLabel showRequiredIndicator="true" for="name" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Nom
+                </b:FormLabel>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
+                    <b:Input ui:field="name" type="TEXT" b:id="name"/>
+                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+            <b:FormGroup>
+                <b:FormLabel showRequiredIndicator="true" for="firstName" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Prénom
+                </b:FormLabel>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
+                    <b:Input ui:field="firstName" type="TEXT" b:id="firstName"/>
+                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+            <b:FormGroup>
+                <b:FormLabel showRequiredIndicator="true" for="email" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Email
+                </b:FormLabel>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
+                    <b:Input ui:field="email" type="TEXT" b:id="email"/>
+                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+            <b:FormGroup>
+                <b:FormLabel showRequiredIndicator="true" for="phone" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Téléphone
+                </b:FormLabel>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
+                    <b:Input ui:field="phone" type="TEXT" b:id="phone"/>
+                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+            <b:FormGroup>
+                <b:FormLabel showRequiredIndicator="true" for="address" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Adresse
+                </b:FormLabel>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
+                    <b:Input ui:field="address" type="TEXT" b:id="address"/>
+                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+            <b:FormGroup>
+                <b:FormLabel for="additionalAddress" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Complément d'adresse
+                </b:FormLabel>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
+                    <b:Input ui:field="additionalAddress" type="TEXT" b:id="additionalAddress"/>
+                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+            <b:FormGroup>
+                <b:FormLabel showRequiredIndicator="true" for="zipCode" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Code
+                    Postal
+                </b:FormLabel>
+                <g:FlowPanel styleName="col-xs-2 col-md-2 col-lg-2">
+                    <b:Input ui:field="zipCode" type="TEXT" b:id="zipCode"/>
+                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+            <b:FormGroup>
+                <b:FormLabel showRequiredIndicator="true" for="city" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Ville
+                </b:FormLabel>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
+                    <b:Input ui:field="city" type="TEXT" b:id="city"/>
+                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+            <b:FormGroup>
+                <b:FormLabel for="cedex" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Cedex
+                </b:FormLabel>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
+                    <b:Input ui:field="cedex" type="TEXT" b:id="cedex"/>
+                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+            <b:FormGroup>
+                <b:FormLabel showRequiredIndicator="true" for="function" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Fonction
+                </b:FormLabel>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
+                    <b:ValueListBox ui:field="function" b:id="function"/>
+                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+            <b:FormGroup>
+                <g:FlowPanel addStyleNames="col-xs-offset-2 col-md-offset-2 col-lg-offset-2 col-xs-10 col-md-10 col-lg-10">
+                    <f.btn:Button ui:field="formSubmitButton" type="PRIMARY">Enregistrer le contact</f.btn:Button>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+        </b:Form>
+    </g:HTMLPanel>
+
+</ui:UiBinder>
