@@ -26,6 +26,7 @@ public class CommandHandlerModule extends AbstractCommandHandlerModule {
         bindHandler(GetConfigCommand.class, GetConfigHandler.class);
         bindHandler(GetContactCommand.class, GetContactHandler.class);
         bindHandler(GetContactsCommand.class, GetContactsHandler.class);
+        bindHandler(GetFunctionsCommand.class, GetFunctionsHandler.class);
         bindHandler(SaveContactCommand.class, SaveContactHandler.class);
         bindHandler(SecureNavigationCommand.class, SecureNavigationHandler.class);
     }

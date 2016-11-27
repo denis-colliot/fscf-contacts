@@ -2,10 +2,7 @@ package fr.fscf.contacts.client.ui.presenter;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.ValueListBox;
 import com.google.inject.ImplementedBy;
 import fr.fscf.contacts.client.dispatch.CommandResultHandler;
 import fr.fscf.contacts.client.inject.Injector;
@@ -19,8 +16,8 @@ import fr.fscf.contacts.client.ui.view.base.IsBeanEditor;
 import fr.fscf.contacts.client.ui.view.base.ViewInterface;
 import fr.fscf.contacts.client.ui.widget.button.Button;
 import fr.fscf.contacts.shared.command.GetContactCommand;
-import fr.fscf.contacts.shared.command.SaveContactCommand;
 import fr.fscf.contacts.shared.command.GetFunctionsCommand;
+import fr.fscf.contacts.shared.command.SaveContactCommand;
 import fr.fscf.contacts.shared.command.result.ListResult;
 import fr.fscf.contacts.shared.dto.ContactDTO;
 import fr.fscf.contacts.shared.dto.FunctionDTO;
@@ -60,20 +57,22 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
 
         // Loading contact data.
         final Long contactId = request.getParameterLong(RequestParameter.ID);
+
         if (contactId == null) {
             view.getDriver().edit(new ContactDTO());
-            return;
+
+        } else {
+            dispatch.execute(new GetContactCommand(contactId), new CommandResultHandler<ContactDTO>() {
+                @Override
+                protected void onCommandSuccess(ContactDTO result) {
+                    view.getDriver().edit(result);
+                }
+            });
         }
-        dispatch.execute(new GetContactCommand(request.getParameterLong(RequestParameter.ID)),
-                new CommandResultHandler<ContactDTO>() {
-                    @Override
-                    protected void onCommandSuccess(ContactDTO result) {
-                        view.getDriver().edit(result);
-                    }
-                });
+
 
         // Populating functions field.
-        view.getFunction().setAcceptableValues(new ArrayList<>(0));
+        view.getFunction().setAcceptableValues(new ArrayList<FunctionDTO>(0));
         dispatch.execute(new GetFunctionsCommand(), new CommandResultHandler<ListResult<FunctionDTO>>() {
             @Override
             protected void onCommandSuccess(final ListResult<FunctionDTO> result) {

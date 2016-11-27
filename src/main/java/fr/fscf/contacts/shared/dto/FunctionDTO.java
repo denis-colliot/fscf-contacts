@@ -9,15 +9,10 @@ import javax.validation.constraints.NotNull;
  *
  * @author Denis
  */
-public class FunctionDTO extends AbstractEntityDTO<Long, FunctionDTO> {
+public class FunctionDTO extends AbstractEntityDTO<Long> {
 
     @NotNull
     private String name;
-
-    @Override
-    public String render(FunctionDTO function) {
-        return function.getName();
-    }
 
     public String getName() {
         return name;

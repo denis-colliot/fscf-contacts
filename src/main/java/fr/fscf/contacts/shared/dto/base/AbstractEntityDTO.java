@@ -1,9 +1,7 @@
 package fr.fscf.contacts.shared.dto.base;
 
-import com.google.gwt.text.shared.Renderer;
 import com.google.gwt.view.client.ProvidesKey;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,8 +10,8 @@ import java.util.Date;
  *
  * @author Denis
  */
-public abstract class AbstractEntityDTO<K extends Serializable, E extends AbstractEntityDTO<K, E>> extends AbstractDTO
-        implements ProvidesKey<E>, Renderer<E> {
+public abstract class AbstractEntityDTO<K extends Serializable> extends AbstractDTO
+        implements ProvidesKey<AbstractEntityDTO<K>> {
 
     private K id;
 
@@ -26,18 +24,8 @@ public abstract class AbstractEntityDTO<K extends Serializable, E extends Abstra
     private String updateUser;
 
     @Override
-    public K getKey(final E entity) {
-        return entity.getId();
-    }
-
-    @Override
-    public String render(final E entity) {
-        return id != null ? String.valueOf(id) : null;
-    }
-
-    @Override
-    public void render(final E entity, final Appendable appendable) throws IOException {
-        appendable.append(render(entity));
+    public final K getKey(final AbstractEntityDTO<K> entity) {
+        return entity != null ? entity.getId() : null;
     }
 
     public final K getId() {

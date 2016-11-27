@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
  *
  * @author Denis
  */
-public class AssociationDTO extends AbstractEntityDTO<Long, AssociationDTO> {
+public class AssociationDTO extends AbstractEntityDTO<Long> {
 
     @NotNull
     @Size(min = 1)
@@ -24,11 +24,6 @@ public class AssociationDTO extends AbstractEntityDTO<Long, AssociationDTO> {
     @NotNull
     @Pattern(regexp = Constraints.ZIP_CODE_PATTERN, flags = Pattern.Flag.CASE_INSENSITIVE)
     private String zipCode;
-
-    @Override
-    public String render(AssociationDTO association) {
-        return association.getName();
-    }
 
     public String getName() {
         return name;

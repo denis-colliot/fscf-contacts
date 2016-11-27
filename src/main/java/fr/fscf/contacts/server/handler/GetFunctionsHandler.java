@@ -9,6 +9,8 @@ import fr.fscf.contacts.shared.command.GetFunctionsCommand;
 import fr.fscf.contacts.shared.command.result.ListResult;
 import fr.fscf.contacts.shared.dispatch.CommandException;
 import fr.fscf.contacts.shared.dto.FunctionDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -20,6 +22,11 @@ import java.util.List;
  */
 public class GetFunctionsHandler extends AbstractCommandHandler<GetFunctionsCommand, ListResult<FunctionDTO>> {
 
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(SaveContactHandler.class);
+
     @Inject
     private FunctionDAO functionDAO;
 
@@ -29,6 +36,8 @@ public class GetFunctionsHandler extends AbstractCommandHandler<GetFunctionsComm
     @Override
     protected ListResult<FunctionDTO> execute(final GetFunctionsCommand command,
                                               final UserDispatch.UserExecutionContext context) throws CommandException {
+
+        LOGGER.info("Retrieving functions list");
 
         final List<Function> functions = functionDAO.findAll();
 

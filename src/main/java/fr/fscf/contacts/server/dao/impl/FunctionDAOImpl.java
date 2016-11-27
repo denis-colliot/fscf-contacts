@@ -17,8 +17,10 @@ public class FunctionDAOImpl extends AbstractDAO<Function, Long> implements Func
 
     @Override
     public List<Function> findAll() {
-        final Root<Function> root = createQuery().from(entityClass);
-        return find(createQuery().orderBy(getCriteriaBuilder().asc(root.get(Function_.name))));
+        final CriteriaQuery<Function> query = createQuery();
+        final Root<Function> root = query.from(entityClass);
+        query.orderBy(getCriteriaBuilder().asc(root.get(Function_.name)));
+        return find(query);
     }
 
 }
