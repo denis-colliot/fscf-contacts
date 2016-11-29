@@ -55,13 +55,13 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
     @Override
     public void onPageRequest(final PageRequest request) {
 
+        // Clearing form.
+        view.getDriver().edit(new ContactDTO());
+
         // Loading contact data.
         final Long contactId = request.getParameterLong(RequestParameter.ID);
 
-        if (contactId == null) {
-            view.getDriver().edit(new ContactDTO());
-
-        } else {
+        if (contactId != null) {
             dispatch.execute(new GetContactCommand(contactId), new CommandResultHandler<ContactDTO>() {
                 @Override
                 protected void onCommandSuccess(ContactDTO result) {
