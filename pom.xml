@@ -46,7 +46,6 @@
         <version.plugin.tomcat7>2.2</version.plugin.tomcat7>
         <version.plugin.maven-dependency>2.10</version.plugin.maven-dependency>
         <version.plugin.jetty-runner>9.3.6.v20151106</version.plugin.jetty-runner>
-        <version.plugin.git-commit-id>2.2.1</version.plugin.git-commit-id>
 
         <!-- Dependencies versions. -->
         <version.junit>4.12</version.junit>
@@ -383,25 +382,6 @@
                     <runTarget>/</runTarget>
                     <module>fr.fscf.contacts.AppModule</module>
                     <extraJvmArgs>-Xmx1G -Xss256M</extraJvmArgs>
-                </configuration>
-            </plugin>
-
-            <!-- Git plugin. -->
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <version>${version.plugin.git-commit-id}</version>
-                <executions>
-                    <execution>
-                        <id>get-the-git-infos</id>
-                        <goals>
-                            <goal>revision</goal>
-                        </goals>
-                    </execution>
-                </executions>
-
-                <configuration>
-                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
                 </configuration>
             </plugin>
 

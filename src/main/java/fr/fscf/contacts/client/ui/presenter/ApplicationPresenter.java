@@ -165,7 +165,7 @@ public final class ApplicationPresenter extends AbstractPresenter<ApplicationPre
         dispatch.execute(new GetConfigCommand(), new CommandResultHandler<MapResult<String, String>>() {
             @Override
             protected void onCommandSuccess(final MapResult<String, String> result) {
-                view.getFooterText().setText(I18N.MESSAGES.app_footer(result.get("git.commit.id.describe")));
+                view.getFooterText().setText(I18N.MESSAGES.app_footer(result.get("git.commit.id")));
             }
         });
     }
