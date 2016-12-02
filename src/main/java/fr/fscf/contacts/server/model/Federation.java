@@ -18,4 +18,8 @@ public class Federation extends Structure {
         super(id);
     }
 
+    @Override
+    public String getType() {
+        return StructureType.FEDERATION;
+    }
 }

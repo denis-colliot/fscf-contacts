@@ -1,5 +1,6 @@
 package fr.fscf.contacts.server.dao.impl;
 
+import com.google.gwt.view.client.Range;
 import fr.fscf.contacts.server.dao.ContactDAO;
 import fr.fscf.contacts.server.dao.base.AbstractDAO;
 import fr.fscf.contacts.server.dao.base.DAOUtils;
@@ -18,23 +19,40 @@ public class ContactDAOImpl extends AbstractDAO<Contact, Long> implements Contac
             " JOIN t_affectation_af AS af on af.co_id = co.co_id " +
             " JOIN structures_tree AS st on af.st_id = st.st_id ";
 
+    private static final String COUNT_QUERY = DAOUtils.RECURSIVE_STRUCTURES +
+            " SELECT COUNT(co.co_id) FROM t_contact_co AS co " +
+            " JOIN t_affectation_af AS af ON af.co_id = co.co_id " +
+            " JOIN structures_tree AS st ON af.st_id = st.st_id ";
+
     private static final String SINGLE_QUERY = LIST_QUERY +
             " WHERE co.co_id = :contactId ";
 
     @Override
+    public int countUserContacts(User user) {
+        final Query query = em().createNativeQuery(COUNT_QUERY);
+        query.setParameter("userId", user.getId());
+        query.setParameter("featureToken", "contacts");
+        return ((Number) query.getSingleResult()).intValue();
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
-    public List<Contact> findUserContacts(final User user) {
+    public List<Contact> findUserContacts(final User user, final Range range) {
 
         final Query query = em().createNativeQuery(LIST_QUERY, Contact.class);
 
         query.setParameter("userId", user.getId());
         query.setParameter("featureToken", "contacts");
+        Optional.ofNullable(range).ifPresent(queryRange -> {
+            query.setFirstResult(queryRange.getStart());
+            query.setMaxResults(queryRange.getLength());
+        });
 
         return query.getResultList();
     }
 
     @Override
-    public Optional<Contact> findUserContact(final Long contactId, final User user) {
+    public Optional<Contact> findUserContact(final User user, final Long contactId) {
 
         final Query query = em().createNativeQuery(SINGLE_QUERY, Contact.class);
 

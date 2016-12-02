@@ -17,10 +17,12 @@ import fr.fscf.contacts.client.ui.view.base.ViewInterface;
 import fr.fscf.contacts.client.ui.widget.button.Button;
 import fr.fscf.contacts.shared.command.GetContactCommand;
 import fr.fscf.contacts.shared.command.GetFunctionsCommand;
+import fr.fscf.contacts.shared.command.GetStructuresCommand;
 import fr.fscf.contacts.shared.command.SaveContactCommand;
 import fr.fscf.contacts.shared.command.result.ListResult;
 import fr.fscf.contacts.shared.dto.ContactDTO;
 import fr.fscf.contacts.shared.dto.FunctionDTO;
+import fr.fscf.contacts.shared.dto.StructureDTO;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -70,13 +72,21 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
             });
         }
 
-
         // Populating functions field.
         view.getFunction().setAcceptableValues(new ArrayList<FunctionDTO>(0));
         dispatch.execute(new GetFunctionsCommand(), new CommandResultHandler<ListResult<FunctionDTO>>() {
             @Override
             protected void onCommandSuccess(final ListResult<FunctionDTO> result) {
                 view.getFunction().setAcceptableValues(result.getList());
+            }
+        });
+
+        // Populating structures field.
+        view.getStructure().setAcceptableValues(new ArrayList<StructureDTO>(0));
+        dispatch.execute(new GetStructuresCommand(), new CommandResultHandler<ListResult<StructureDTO>>() {
+            @Override
+            protected void onCommandSuccess(final ListResult<StructureDTO> result) {
+                view.getStructure().setAcceptableValues(result.getList());
             }
         });
     }
@@ -91,7 +101,7 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         dispatch.execute(new SaveContactCommand(contactDTO), new CommandResultHandler<ContactDTO>() {
             @Override
             protected void onCommandSuccess(ContactDTO result) {
-                N10N.validNotif("Le contact &laquo; " + result + " &raquo; a bien été enregistré");
+                N10N.validNotif("Le contact &laquo; " + result + " &raquo; a bien été enregistré"); // TODO i18n
                 eventBus.navigate(Page.CONTACTS);
             }
         }, view.getFormSubmitButton());
@@ -106,6 +116,8 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         Button getFormSubmitButton();
 
         HasConstrainedValue<FunctionDTO> getFunction();
+
+        HasConstrainedValue<StructureDTO> getStructure();
 
     }
 }

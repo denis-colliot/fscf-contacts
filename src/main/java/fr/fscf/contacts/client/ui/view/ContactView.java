@@ -15,7 +15,7 @@ import fr.fscf.contacts.client.ui.view.base.AbstractView;
 import fr.fscf.contacts.client.ui.widget.button.Button;
 import fr.fscf.contacts.shared.dto.ContactDTO;
 import fr.fscf.contacts.shared.dto.FunctionDTO;
-import fr.fscf.contacts.shared.util.ClientUtils;
+import fr.fscf.contacts.shared.dto.StructureDTO;
 import org.gwtbootstrap3.client.ui.Input;
 import org.gwtbootstrap3.client.ui.ValueListBox;
 
@@ -58,6 +58,9 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
     @UiField(provided = true)
     protected ValueListBox<FunctionDTO> function;
 
+    @UiField(provided = true)
+    protected ValueListBox<StructureDTO> structure;
+
     @UiField
     protected Button formSubmitButton;
 
@@ -84,6 +87,23 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
             }
         });
 
+        structure = new ValueListBox<>(new Renderer<StructureDTO>() {
+            @Override
+            public String render(StructureDTO structure) {
+                return structure != null ? structure.getName() : "";
+            }
+
+            @Override
+            public void render(StructureDTO structure, Appendable appendable) throws IOException {
+                appendable.append(render(structure));
+            }
+        }, new ProvidesKey<StructureDTO>() {
+            @Override
+            public Object getKey(StructureDTO structure) {
+                return structure != null ? structure.getId() : "";
+            }
+        });
+
         final ViewUiBinder binder = GWT.create(ViewUiBinder.class);
         initWidget(binder.createAndBindUi(this));
         DRIVER.initialize(this);
@@ -102,6 +122,11 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
     @Override
     public HasConstrainedValue<FunctionDTO> getFunction() {
         return function;
+    }
+
+    @Override
+    public HasConstrainedValue<StructureDTO> getStructure() {
+        return structure;
     }
 
     /**

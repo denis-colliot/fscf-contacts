@@ -1,39 +1,28 @@
 package fr.fscf.contacts.shared.dto;
 
 import fr.fscf.contacts.shared.dto.base.AbstractEntityDTO;
-import fr.fscf.contacts.shared.util.Constraints;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 /**
- * Application contact DTO.
+ * Structure DTO.
  */
-public class ContactDTO extends AbstractEntityDTO<Long> {
+public class StructureDTO extends AbstractEntityDTO<Long> {
 
-    @NotNull
+    private String type;
+
     private String name;
 
-    @NotNull
-    private String firstName;
-
-    @NotNull
-    @Pattern(regexp = Constraints.EMAIL_PATTERN, flags = Pattern.Flag.CASE_INSENSITIVE)
     private String email;
 
-    @NotNull
     private String phone;
 
-    @NotNull
+    private String website;
+
     private String address;
 
     private String additionalAddress;
 
-    @NotNull
-    @Pattern(regexp = Constraints.ZIP_CODE_PATTERN, flags = Pattern.Flag.CASE_INSENSITIVE)
     private String zipCode;
 
-    @NotNull
     private String city;
 
     private String cedex;
@@ -42,15 +31,14 @@ public class ContactDTO extends AbstractEntityDTO<Long> {
 
     private String phone2;
 
-    @NotNull
-    private FunctionDTO function;
+    private String comment;
 
-    @NotNull
-    private StructureDTO structure;
+    public String getType() {
+        return type;
+    }
 
-    @Override
-    public String toString() {
-        return firstName + ' ' + name;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -59,14 +47,6 @@ public class ContactDTO extends AbstractEntityDTO<Long> {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public String getEmail() {
@@ -83,6 +63,14 @@ public class ContactDTO extends AbstractEntityDTO<Long> {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
     public String getAddress() {
@@ -141,19 +129,12 @@ public class ContactDTO extends AbstractEntityDTO<Long> {
         this.phone2 = phone2;
     }
 
-    public FunctionDTO getFunction() {
-        return function;
+    public String getComment() {
+        return comment;
     }
 
-    public void setFunction(FunctionDTO function) {
-        this.function = function;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public StructureDTO getStructure() {
-        return structure;
-    }
-
-    public void setStructure(StructureDTO structure) {
-        this.structure = structure;
-    }
 }

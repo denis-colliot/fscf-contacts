@@ -10,6 +10,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
+import static fr.fscf.contacts.server.model.util.Entities.*;
+
 /**
  * Abstract entity, parent class of all domain entities possessing a primary key.
  *
@@ -19,16 +21,16 @@ import java.util.Objects;
 @MappedSuperclass
 public abstract class AbstractEntity<K extends Serializable> implements Entity<K> {
 
-    @Column(name = "creation_date", nullable = false)
+    @Column(name = CREATION_DATE, nullable = false)
     private Date creationDate = new Date();
 
-    @Column(name = "creation_user", nullable = true)
+    @Column(name = CREATION_USER, nullable = true)
     private String creationUser;
 
-    @Column(name = "update_date", nullable = true)
+    @Column(name = UPDATE_DATE, nullable = true)
     private Date updateDate;
 
-    @Column(name = "update_user", nullable = true)
+    @Column(name = UPDATE_USER, nullable = true)
     private String updateUser;
 
     /**

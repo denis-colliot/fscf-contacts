@@ -17,7 +17,7 @@ public class RegionalLeague extends Structure {
     /**
      * Parent entity.
      */
-    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "parent_id", nullable = true)
     private Federation parent;
 
@@ -26,6 +26,11 @@ public class RegionalLeague extends Structure {
 
     public RegionalLeague(Long id) {
         super(id);
+    }
+
+    @Override
+    public String getType() {
+        return StructureType.LIGUE_REGIONALE;
     }
 
     public Federation getParent() {

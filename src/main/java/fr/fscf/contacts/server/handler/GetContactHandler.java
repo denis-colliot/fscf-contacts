@@ -3,6 +3,8 @@ package fr.fscf.contacts.server.handler;
 import fr.fscf.contacts.server.dao.ContactDAO;
 import fr.fscf.contacts.server.dispatch.impl.UserDispatch;
 import fr.fscf.contacts.server.handler.base.AbstractCommandHandler;
+import fr.fscf.contacts.server.mapper.BeanMapper;
+import fr.fscf.contacts.server.model.Contact;
 import fr.fscf.contacts.shared.command.GetContactCommand;
 import fr.fscf.contacts.shared.dispatch.CommandException;
 import fr.fscf.contacts.shared.dto.ContactDTO;
@@ -10,10 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import java.util.Objects;
+import java.util.Optional;
 
 /**
- * Handler securing navigation to specific page.
+ * Handler for {@link GetContactCommand}.
  *
  * @author Denis
  */
@@ -27,6 +29,9 @@ public class GetContactHandler extends AbstractCommandHandler<GetContactCommand,
     @Inject
     private ContactDAO contactDAO;
 
+    @Inject
+    private BeanMapper beanMapper;
+
     @Override
     protected ContactDTO execute(final GetContactCommand command,
                                  final UserDispatch.UserExecutionContext context) throws CommandException {
@@ -35,13 +40,10 @@ public class GetContactHandler extends AbstractCommandHandler<GetContactCommand,
 
         LOGGER.info("About to retrieve contact with id {}", contactId);
 
-        // TODO
-        // final List<Contact> contacts = contactDAO.findUserContacts(context.getUser());
+        final Optional<Contact> contact = contactDAO.findUserContact(context.getUser(), contactId);
 
-        return GetContactsHandler.MOCK_DATA.parallelStream()
-                .filter(Objects::nonNull)
-                .filter(contact -> contact.getId().equals(contactId))
-                .findFirst()
+        return contact
+                .map(c -> beanMapper.map(c, ContactDTO.class))
                 .orElse(null);
     }
 

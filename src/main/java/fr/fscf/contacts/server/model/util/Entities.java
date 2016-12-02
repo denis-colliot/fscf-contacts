@@ -16,6 +16,15 @@ public final class Entities {
     public static final int ALLOCATION_SIZE = 1;
 
     // --
+    // Common columns.
+    // --
+
+    public static final String CREATION_DATE = "creation_date";
+    public static final String CREATION_USER = "creation_user";
+    public static final String UPDATE_DATE = "update_date";
+    public static final String UPDATE_USER = "update_user";
+
+    // --
     // Id columns.
     // --
 
@@ -30,6 +39,20 @@ public final class Entities {
     // --
     // Relational tables.
     // --
+
+    public static final String STRUCTURE_TYPE = "st_type";
+    public static final String STRUCTURE_NAME = "st_nom";
+    public static final String STRUCTURE_EMAIL = "st_email";
+    public static final String STRUCTURE_PHONE = "st_telephone";
+    public static final String STRUCTURE_WEBSITE = "st_site_web";
+    public static final String STRUCTURE_ADDRESS = "st_adresse";
+    public static final String STRUCTURE_ADDITIONAL_ADDRESS = "st_adresse_compl";
+    public static final String STRUCTURE_ZIP_CODE = "st_code_postal";
+    public static final String STRUCTURE_CITY = "st_ville";
+    public static final String STRUCTURE_CEDEX = "st_cedex";
+    public static final String STRUCTURE_EMAIL_2 = "st_email2";
+    public static final String STRUCTURE_PHONE_2 = "st_telephone2";
+    public static final String STRUCTURE_COMMENTS = "st_commentaire";
 
     private Entities() {
     }
