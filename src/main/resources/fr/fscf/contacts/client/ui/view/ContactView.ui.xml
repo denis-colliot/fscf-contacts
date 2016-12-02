@@ -116,6 +116,16 @@
             </b:FormGroup>
 
             <b:FormGroup>
+                <b:FormLabel showRequiredIndicator="true" for="structure" addStyleNames="col-xs-2 col-md-2 col-lg-2">
+                    Structure
+                </b:FormLabel>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
+                    <b:ValueListBox ui:field="structure" b:id="structure"/>
+                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+            <b:FormGroup>
                 <g:FlowPanel addStyleNames="col-xs-offset-2 col-md-offset-2 col-lg-offset-2 col-xs-10 col-md-10 col-lg-10">
                     <f.btn:Button ui:field="formSubmitButton" type="PRIMARY">Enregistrer le contact</f.btn:Button>
                 </g:FlowPanel>

@@ -5,7 +5,15 @@ Application CSS.
 
 ------------------------------------------
 */
-
+.page-header {
+    margin-top: 0;
+}
+.page-header h1 {
+    margin-top: 0;
+}
+.table>tbody>tr>td.cell-v-centered {
+    vertical-align: middle;
+}
 
 /*
 ------------------------------------------

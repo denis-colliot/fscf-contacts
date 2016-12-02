@@ -17,7 +17,7 @@ public class Association extends Structure {
     /**
      * Parent entity.
      */
-    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "parent_id", nullable = true)
     private Comity parent;
 
@@ -26,6 +26,11 @@ public class Association extends Structure {
 
     public Association(Long id) {
         super(id);
+    }
+
+    @Override
+    public String getType() {
+        return StructureType.ASSOCIATION;
     }
 
     public Comity getParent() {

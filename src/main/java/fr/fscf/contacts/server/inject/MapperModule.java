@@ -13,7 +13,7 @@ import javax.inject.Singleton;
  *
  * @author Denis
  */
-final class MapperModule extends AbstractModule {
+class MapperModule extends AbstractModule {
 
     /**
      * Logger.

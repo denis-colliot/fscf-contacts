@@ -1,7 +1,6 @@
 package fr.fscf.contacts.client.ui.presenter;
 
 import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.Range;
 import com.google.inject.ImplementedBy;
@@ -12,6 +11,7 @@ import fr.fscf.contacts.client.navigation.PageRequest;
 import fr.fscf.contacts.client.ui.presenter.base.AbstractPagePresenter;
 import fr.fscf.contacts.client.ui.view.ContactsView;
 import fr.fscf.contacts.client.ui.view.base.ViewInterface;
+import fr.fscf.contacts.client.util.AsyncDataProvider;
 import fr.fscf.contacts.shared.command.GetContactsCommand;
 import fr.fscf.contacts.shared.command.result.ListResult;
 import fr.fscf.contacts.shared.dto.ContactDTO;
@@ -71,6 +71,9 @@ public class ContactsPresenter extends AbstractPagePresenter<ContactsPresenter.V
 
     @Override
     public void onPageRequest(final PageRequest request) {
+        if (isInitialized()) {
+            dataProvider.refresh(view.getContactsTable());
+        }
     }
 
     private void rebuildPagination() {

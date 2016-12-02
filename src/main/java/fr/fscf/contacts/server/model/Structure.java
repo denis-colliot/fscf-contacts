@@ -1,6 +1,7 @@
 package fr.fscf.contacts.server.model;
 
 import fr.fscf.contacts.server.model.base.AbstractEntity;
+import fr.fscf.contacts.server.model.referential.StructureType;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -15,7 +16,7 @@ import static fr.fscf.contacts.server.model.util.Entities.*;
 @javax.persistence.Entity
 @Table(name = "t_structure_st")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "st_type")
+@DiscriminatorColumn(name = STRUCTURE_TYPE)
 public abstract class Structure extends AbstractEntity<Long> {
 
     // GenerationType.AUTO does not seem to work properly with H2 test database.
@@ -25,40 +26,40 @@ public abstract class Structure extends AbstractEntity<Long> {
     @Column(name = STRUCTURE_ID)
     private Long id;
 
-    @Column(name = "st_nom", nullable = false)
+    @Column(name = STRUCTURE_NAME, nullable = false)
     private String name;
 
-    @Column(name = "st_email")
+    @Column(name = STRUCTURE_EMAIL)
     private String email;
 
-    @Column(name = "st_telephone")
+    @Column(name = STRUCTURE_PHONE)
     private String phone;
 
-    @Column(name = "st_site_web")
+    @Column(name = STRUCTURE_WEBSITE)
     private String website;
 
-    @Column(name = "st_adresse")
+    @Column(name = STRUCTURE_ADDRESS)
     private String address;
 
-    @Column(name = "st_adresse_compl")
+    @Column(name = STRUCTURE_ADDITIONAL_ADDRESS)
     private String additionalAddress;
 
-    @Column(name = "st_code_postal")
+    @Column(name = STRUCTURE_ZIP_CODE)
     private String zipCode;
 
-    @Column(name = "st_ville")
+    @Column(name = STRUCTURE_CITY)
     private String city;
 
-    @Column(name = "st_cedex")
+    @Column(name = STRUCTURE_CEDEX)
     private String cedex;
 
-    @Column(name = "st_email2")
+    @Column(name = STRUCTURE_EMAIL_2)
     private String email2;
 
-    @Column(name = "st_telephone2")
+    @Column(name = STRUCTURE_PHONE_2)
     private String phone2;
 
-    @Column(name = "st_commentaire")
+    @Column(name = STRUCTURE_COMMENTS)
     private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
@@ -74,6 +75,33 @@ public abstract class Structure extends AbstractEntity<Long> {
     protected Structure(Long id) {
         this.id = id;
     }
+
+    /**
+     * Returns the given {@code structureType} corresponding entity class.
+     *
+     * @param structureType The structure type.
+     * @return The corresponding structure class implementation.
+     * @throws IllegalArgumentException If the structure type is invalid or unsupported.
+     */
+    public static Class<? extends Structure> getTypeClass(final String structureType) {
+        if (structureType == null) {
+            throw new IllegalArgumentException("Invalid structure type.");
+        }
+        switch (structureType.trim().toUpperCase()) {
+            case StructureType.FEDERATION:
+                return Federation.class;
+            case StructureType.LIGUE_REGIONALE:
+                return RegionalLeague.class;
+            case StructureType.COMITE_DEPARTEMENTAL:
+                return Comity.class;
+            case StructureType.ASSOCIATION:
+                return Association.class;
+            default:
+                throw new IllegalArgumentException("Unsupported structure type : " + structureType);
+        }
+    }
+
+    public abstract String getType();
 
     @Override
     protected Collection<String> toStringExcludedFields() {

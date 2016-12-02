@@ -17,7 +17,7 @@ public class Comity extends Structure {
     /**
      * Parent entity.
      */
-    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "parent_id", nullable = true)
     private RegionalLeague parent;
 
@@ -26,6 +26,11 @@ public class Comity extends Structure {
 
     public Comity(Long id) {
         super(id);
+    }
+
+    @Override
+    public String getType() {
+        return StructureType.COMITE_DEPARTEMENTAL;
     }
 
     public RegionalLeague getParent() {

@@ -12,7 +12,7 @@ import org.apache.commons.lang3.BooleanUtils;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import static fr.fscf.contacts.server.model.referential.AffectationStatus.*;
+import static fr.fscf.contacts.server.model.referential.AffectationStatus.SALARIE;
 
 /**
  * Initializes the application database with default set of data.
@@ -159,28 +159,28 @@ final class DatabaseInitialization {
         // --
 
         final Contact john = new Contact();
-        john.setName("Doe");
         john.setFirstName("John");
+        john.setName("Doe");
         john.setEmail("john.doe@unknown.com");
 
         final Contact albert = new Contact();
-        albert.setName("Enstein");
         albert.setFirstName("Albert");
+        albert.setName("Enstein");
         albert.setEmail("albert.enstein@relativity.com");
 
         final Contact frank = new Contact();
-        frank.setName("Frank");
-        frank.setFirstName("Sinatra");
+        frank.setFirstName("Frank");
+        frank.setName("Sinatra");
         frank.setEmail("frank.sinatra@american.com");
 
         final Contact leonardo = new Contact();
-        leonardo.setName("Leonardo");
-        leonardo.setFirstName("DiCaprio");
+        leonardo.setFirstName("Leonardo");
+        leonardo.setName("DiCaprio");
         leonardo.setEmail("leonardo.dicaprio@revenant.com");
 
         final Contact al = new Contact();
-        al.setName("Al");
-        al.setFirstName("Pacino");
+        al.setFirstName("Al");
+        al.setName("Pacino");
         al.setEmail("al.pacino@scarface.com");
 
         contactDAO.persist(john, null);

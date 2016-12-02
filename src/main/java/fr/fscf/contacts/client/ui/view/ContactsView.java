@@ -34,21 +34,14 @@ import javax.inject.Inject;
 @Singleton
 public class ContactsView extends AbstractView implements ContactsPresenter.View {
 
-    /**
-     * {@link UiBinder} interface adapted to {@link ContactsView}.
-     */
-    @UiTemplate("ContactsView.ui.xml")
-    interface ViewUiBinder extends UiBinder<Widget, ContactsView> {
-    }
-
-    @Inject
-    private EventBus eventBus;
-
     @UiField
     protected CellTable<ContactDTO> cellTable;
 
     @UiField
     protected Pagination pagination;
+
+    @Inject
+    private EventBus eventBus;
 
     /**
      * {@inheritDoc}
@@ -66,19 +59,11 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
 
             @Override
             public String getValue(final ContactDTO contact) {
-                return contact.getName();
+                return contact.toString();
             }
         };
+        nameCol.setCellStyleNames("cell-v-centered");
         cellTable.addColumn(nameCol, "Nom"); // TODO i18n
-
-        final TextColumn<ContactDTO> firstNameCol = new TextColumn<ContactDTO>() {
-
-            @Override
-            public String getValue(final ContactDTO contact) {
-                return contact.getFirstName();
-            }
-        };
-        cellTable.addColumn(firstNameCol, "Prénom"); // TODO i18n
 
         final TextColumn<ContactDTO> emailCol = new TextColumn<ContactDTO>() {
 
@@ -87,7 +72,38 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
                 return contact.getEmail();
             }
         };
+        emailCol.setCellStyleNames("cell-v-centered");
         cellTable.addColumn(emailCol, "Email"); // TODO i18n
+
+        final TextColumn<ContactDTO> phoneCol = new TextColumn<ContactDTO>() {
+
+            @Override
+            public String getValue(final ContactDTO contact) {
+                return contact.getPhone();
+            }
+        };
+        phoneCol.setCellStyleNames("cell-v-centered");
+        cellTable.addColumn(phoneCol, "Téléphone"); // TODO i18n
+
+        final TextColumn<ContactDTO> cityCol = new TextColumn<ContactDTO>() {
+
+            @Override
+            public String getValue(final ContactDTO contact) {
+                return contact.getCity();
+            }
+        };
+        cityCol.setCellStyleNames("cell-v-centered");
+        cellTable.addColumn(cityCol, "Ville"); // TODO i18n
+
+        final TextColumn<ContactDTO> zipCodeCol = new TextColumn<ContactDTO>() {
+
+            @Override
+            public String getValue(final ContactDTO contact) {
+                return contact.getZipCode();
+            }
+        };
+        zipCodeCol.setCellStyleNames("cell-v-centered");
+        cellTable.addColumn(zipCodeCol, "Code Postal"); // TODO i18n
 
         final Column<ContactDTO, String> editCol = new Column<ContactDTO, String>(new ButtonCell(
                 IconType.PENCIL, ButtonType.PRIMARY, ButtonSize.SMALL)) {
@@ -103,6 +119,7 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
             }
         });
         editCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+        editCol.setCellStyleNames("cell-v-centered");
         cellTable.addColumn(editCol, "Actions"); // TODO i18n
         cellTable.setColumnWidth(editCol, 120, Style.Unit.PX);
     }
@@ -115,5 +132,12 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
     @Override
     public Pagination getPagination() {
         return pagination;
+    }
+
+    /**
+     * {@link UiBinder} interface adapted to {@link ContactsView}.
+     */
+    @UiTemplate("ContactsView.ui.xml")
+    interface ViewUiBinder extends UiBinder<Widget, ContactsView> {
     }
 }
