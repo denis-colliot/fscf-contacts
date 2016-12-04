@@ -1,8 +1,13 @@
 package fr.fscf.contacts.server.dao;
 
+import fr.fscf.contacts.server.model.Contact;
 import org.junit.Test;
 
 import javax.inject.Inject;
+import java.util.List;
+
+import static fr.fscf.contacts.server.inject.TestDatabaseInitialization.ironman;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ContactDAOTest extends AbstractDAOTest {
 
@@ -11,7 +16,7 @@ public class ContactDAOTest extends AbstractDAOTest {
 
     @Test
     public void findFederationUserContactsTest() {
-//        List<Contact> contacts = contactDAO.findUserContacts(ironman);
+//        List<Contact> contacts = contactDAO.findUserContacts(ironman, null);
 //
 //        assertThat(contacts).isNotNull();
     }

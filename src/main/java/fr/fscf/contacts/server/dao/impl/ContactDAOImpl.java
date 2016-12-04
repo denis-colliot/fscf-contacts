@@ -15,12 +15,12 @@ import java.util.Optional;
 public class ContactDAOImpl extends AbstractDAO<Contact, Long> implements ContactDAO {
 
     private static final String LIST_QUERY = DAOUtils.RECURSIVE_STRUCTURES +
-            " SELECT co.* FROM t_contact_co AS co " +
+            " SELECT DISTINCT(co.*) FROM t_contact_co AS co " +
             " JOIN t_affectation_af AS af on af.co_id = co.co_id " +
             " JOIN structures_tree AS st on af.st_id = st.st_id ";
 
     private static final String COUNT_QUERY = DAOUtils.RECURSIVE_STRUCTURES +
-            " SELECT COUNT(co.co_id) FROM t_contact_co AS co " +
+            " SELECT COUNT(DISTINCT(co.co_id)) FROM t_contact_co AS co " +
             " JOIN t_affectation_af AS af ON af.co_id = co.co_id " +
             " JOIN structures_tree AS st ON af.st_id = st.st_id ";
 

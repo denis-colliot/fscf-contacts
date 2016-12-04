@@ -58,7 +58,10 @@ public final class ApplicationView extends AbstractView implements ApplicationPr
     protected HasClickHandlers associationLink;
 
     @UiField
-    protected HasText footerText;
+    protected HasText footerCopyright;
+
+    @UiField
+    protected Anchor footerVersion;
 
     /**
      * Instantiates the application frame.
@@ -179,7 +182,12 @@ public final class ApplicationView extends AbstractView implements ApplicationPr
     }
 
     @Override
-    public HasText getFooterText() {
-        return footerText;
+    public HasText getFooterCopyright() {
+        return footerCopyright;
+    }
+
+    @Override
+    public Anchor getFooterVersion() {
+        return footerVersion;
     }
 }

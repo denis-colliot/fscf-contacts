@@ -235,6 +235,7 @@ final class DatabaseInitialization {
         affectationDAO.persist(new Affectation(john, comity29, departemental_committee_president, SALARIE), null);
         affectationDAO.persist(new Affectation(albert, comity29, section_responsible, SALARIE), null);
         affectationDAO.persist(new Affectation(frank, comity35, departemental_committee_president, SALARIE), null);
+        affectationDAO.persist(new Affectation(frank, comity35, practice_referent, SALARIE), null);
 
         // --
         // HABILITATIONS.
