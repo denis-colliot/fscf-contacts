@@ -104,6 +104,7 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
         };
         zipCodeCol.setCellStyleNames("cell-v-centered");
         cellTable.addColumn(zipCodeCol, "Code Postal"); // TODO i18n
+        cellTable.setColumnWidth(zipCodeCol, 150, Style.Unit.PX);
 
         final Column<ContactDTO, String> editCol = new Column<ContactDTO, String>(new ButtonCell(
                 IconType.PENCIL, ButtonType.PRIMARY, ButtonSize.SMALL)) {

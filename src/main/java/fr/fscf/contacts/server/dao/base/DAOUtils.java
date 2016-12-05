@@ -22,6 +22,6 @@ public final class DAOUtils {
                     "    structures_tree AS parent_structure," +
                     "    t_structure_st AS child_structure " +
                     "  WHERE " +
-                    "    child_structure.parent_id = parent_structure.st_id )";
+                    "    child_structure.parent_id = parent_structure.st_id ) ";
 
 }

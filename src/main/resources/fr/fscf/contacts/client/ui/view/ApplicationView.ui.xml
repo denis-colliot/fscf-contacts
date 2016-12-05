@@ -43,7 +43,7 @@
             min-height: 100%;
         }
         .content {
-            padding: 35px 8% 35px;
+            padding: 35px 15% 35px;
         }
         .footer {
             height: footerHeight;
@@ -52,8 +52,14 @@
             color: #8f96a5;
             font-size: 80%;
         }
-        .footer .copyright {
+        .footer .footer-content {
             padding-top: 20px;
+        }
+        .footer-content .copyright {
+        }
+        .footer-content .version {
+            margin-left: 7px;
+            color: inherit;
         }
     </ui:style>
 
@@ -95,9 +101,12 @@
             </g:SimplePanel>
         </b:Container>
 
-        <g:FlowPanel styleName="{style.footer}">
-            <g:HTML ui:field="footerText" styleName="{style.copyright}" text="© 2015 FSCF" />
-        </g:FlowPanel>
+        <g:SimplePanel styleName="{style.footer}">
+            <g:FlowPanel styleName="{style.footer-content}">
+                <g:InlineLabel ui:field="footerCopyright" styleName="{style.copyright}" text="© 2015 FSCF" />
+                <g:Anchor ui:field="footerVersion" styleName="{style.version}" />
+            </g:FlowPanel>
+        </g:SimplePanel>
     </g:HTMLPanel>
 
 </ui:UiBinder>

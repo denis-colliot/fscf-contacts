@@ -3,6 +3,7 @@ package fr.fscf.contacts.client.ui.presenter;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.ImplementedBy;
@@ -72,7 +73,9 @@ public final class ApplicationPresenter extends AbstractPresenter<ApplicationPre
 
         HasClickHandlers getNavLinkAssociation();
 
-        HasText getFooterText();
+        HasText getFooterCopyright();
+
+        Anchor getFooterVersion();
 
     }
 
@@ -165,7 +168,9 @@ public final class ApplicationPresenter extends AbstractPresenter<ApplicationPre
         dispatch.execute(new GetConfigCommand(), new CommandResultHandler<MapResult<String, String>>() {
             @Override
             protected void onCommandSuccess(final MapResult<String, String> result) {
-                view.getFooterText().setText(I18N.MESSAGES.app_footer(result.get("git.commit.id")));
+                view.getFooterCopyright().setText(I18N.CONSTANTS.app_footer_copyright());
+                view.getFooterVersion().setText(I18N.MESSAGES.app_footer_version(result.get("project.version")));
+                view.getFooterVersion().setHref(result.get("git.repo.commit.url"));
             }
         });
     }

@@ -65,6 +65,11 @@ public class AssociationView extends AbstractView implements AssociationPresente
     }
 
     @Override
+    public void onViewRevealed() {
+        name.setFocus(true);
+    }
+
+    @Override
     public AssociationDriver getDriver() {
         return DRIVER;
     }

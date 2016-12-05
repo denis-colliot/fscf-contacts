@@ -110,6 +110,11 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
     }
 
     @Override
+    public void onViewRevealed() {
+        name.setFocus(true);
+    }
+
+    @Override
     public SimpleBeanEditorDriver<ContactDTO, ?> getDriver() {
         return DRIVER;
     }
