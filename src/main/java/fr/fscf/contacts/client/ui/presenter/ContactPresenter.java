@@ -25,7 +25,6 @@ import fr.fscf.contacts.shared.dto.FunctionDTO;
 import fr.fscf.contacts.shared.dto.StructureDTO;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 
 /**
  * Contact presenter.
@@ -60,20 +59,7 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         // Clearing form.
         view.getDriver().edit(new ContactDTO());
 
-        // Loading contact data.
-        final Long contactId = request.getParameterLong(RequestParameter.ID);
-
-        if (contactId != null) {
-            dispatch.execute(new GetContactCommand(contactId), new CommandResultHandler<ContactDTO>() {
-                @Override
-                protected void onCommandSuccess(ContactDTO result) {
-                    view.getDriver().edit(result);
-                }
-            });
-        }
-
         // Populating functions field.
-        view.getFunction().setAcceptableValues(new ArrayList<FunctionDTO>(0));
         dispatch.execute(new GetFunctionsCommand(), new CommandResultHandler<ListResult<FunctionDTO>>() {
             @Override
             protected void onCommandSuccess(final ListResult<FunctionDTO> result) {
@@ -82,13 +68,23 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         });
 
         // Populating structures field.
-        view.getStructure().setAcceptableValues(new ArrayList<StructureDTO>(0));
         dispatch.execute(new GetStructuresCommand(), new CommandResultHandler<ListResult<StructureDTO>>() {
             @Override
             protected void onCommandSuccess(final ListResult<StructureDTO> result) {
                 view.getStructure().setAcceptableValues(result.getList());
             }
         });
+
+        // Loading contact data.
+        final Long contactId = request.getParameterLong(RequestParameter.ID);
+        if (contactId != null) {
+            dispatch.execute(new GetContactCommand(contactId), new CommandResultHandler<ContactDTO>() {
+                @Override
+                protected void onCommandSuccess(ContactDTO result) {
+                    view.getDriver().edit(result);
+                }
+            });
+        }
     }
 
     private void onSubmit() {
