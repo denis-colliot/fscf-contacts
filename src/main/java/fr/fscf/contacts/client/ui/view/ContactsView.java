@@ -18,6 +18,7 @@ import fr.fscf.contacts.client.ui.presenter.ContactsPresenter;
 import fr.fscf.contacts.client.ui.view.base.AbstractView;
 import fr.fscf.contacts.client.ui.widget.Pagination;
 import fr.fscf.contacts.shared.dto.ContactDTO;
+import fr.fscf.contacts.shared.dto.sort.IsSortProvider;
 import org.gwtbootstrap3.client.ui.constants.ButtonSize;
 import org.gwtbootstrap3.client.ui.constants.ButtonType;
 import org.gwtbootstrap3.client.ui.constants.IconType;
@@ -68,6 +69,8 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
             }
         };
         nameCol.setCellStyleNames(CELL_STYLE_NAMES);
+        nameCol.setSortable(true);
+        nameCol.setDataStoreName(IsSortProvider.ContactSort.NAME.name());
         cellTable.addColumn(nameCol, I18N.CONSTANTS.contacts_column_name());
 
         final TextColumn<ContactDTO> emailCol = new TextColumn<ContactDTO>() {
@@ -78,6 +81,8 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
             }
         };
         emailCol.setCellStyleNames(CELL_STYLE_NAMES);
+        emailCol.setSortable(true);
+        emailCol.setDataStoreName(IsSortProvider.ContactSort.EMAIL.name());
         cellTable.addColumn(emailCol, I18N.CONSTANTS.contacts_column_email());
 
         final TextColumn<ContactDTO> phoneCol = new TextColumn<ContactDTO>() {
@@ -88,6 +93,8 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
             }
         };
         phoneCol.setCellStyleNames(CELL_STYLE_NAMES);
+        phoneCol.setSortable(true);
+        phoneCol.setDataStoreName(IsSortProvider.ContactSort.PHONE.name());
         cellTable.addColumn(phoneCol, I18N.CONSTANTS.contacts_column_phone());
 
         final TextColumn<ContactDTO> cityCol = new TextColumn<ContactDTO>() {
@@ -98,6 +105,8 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
             }
         };
         cityCol.setCellStyleNames(CELL_STYLE_NAMES);
+        cityCol.setSortable(true);
+        cityCol.setDataStoreName(IsSortProvider.ContactSort.CITY.name());
         cellTable.addColumn(cityCol, I18N.CONSTANTS.contacts_column_city());
 
         final TextColumn<ContactDTO> zipCodeCol = new TextColumn<ContactDTO>() {
@@ -108,6 +117,8 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
             }
         };
         zipCodeCol.setCellStyleNames(CELL_STYLE_NAMES);
+        zipCodeCol.setSortable(true);
+        zipCodeCol.setDataStoreName(IsSortProvider.ContactSort.ZIP_CODE.name());
         cellTable.addColumn(zipCodeCol, I18N.CONSTANTS.contacts_column_zipCode());
         cellTable.setColumnWidth(zipCodeCol, 150, Style.Unit.PX);
 
@@ -124,6 +135,8 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
         editCol.setCellStyleNames(CELL_STYLE_NAMES);
         cellTable.addColumn(editCol, I18N.CONSTANTS.contacts_column_actions());
         cellTable.setColumnWidth(editCol, 120, Style.Unit.PX);
+
+        cellTable.getColumnSortList().push(nameCol); // Default table sort.
     }
 
     @Override

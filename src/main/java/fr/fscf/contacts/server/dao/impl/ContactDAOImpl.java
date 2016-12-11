@@ -6,6 +6,7 @@ import fr.fscf.contacts.server.dao.base.AbstractDAO;
 import fr.fscf.contacts.server.dao.base.DAOUtils;
 import fr.fscf.contacts.server.model.Contact;
 import fr.fscf.contacts.server.model.User;
+import fr.fscf.contacts.shared.util.Sort;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -37,9 +38,9 @@ public class ContactDAOImpl extends AbstractDAO<Contact, Long> implements Contac
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Contact> findUserContacts(final User user, final Range range) {
+    public List<Contact> findUserContacts(final User user, final Range range, final List<Sort> sorts) {
 
-        final Query query = em().createNativeQuery(LIST_QUERY, Contact.class);
+        final Query query = em().createNativeQuery(LIST_QUERY + nativeSorts(sorts), Contact.class);
 
         query.setParameter("userId", user.getId());
         query.setParameter("featureToken", "contacts");

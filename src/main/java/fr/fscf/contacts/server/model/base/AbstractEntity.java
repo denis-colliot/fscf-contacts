@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
-import static fr.fscf.contacts.server.model.util.Entities.*;
+import static fr.fscf.contacts.shared.util.Entities.*;
 
 /**
  * Abstract entity, parent class of all domain entities possessing a primary key.

@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static fr.fscf.contacts.server.model.util.Entities.*;
+import static fr.fscf.contacts.shared.util.Entities.*;
 
 /**
  * Application contact.
@@ -23,37 +23,37 @@ public class Contact extends AbstractEntity<Long> {
     @Column(name = CONTACT_ID)
     private Long id;
 
-    @Column(name = "co_nom", nullable = false)
+    @Column(name = CONTACT_NAME, nullable = false)
     private String name;
 
-    @Column(name = "co_prenom", nullable = false)
+    @Column(name = CONTACT_FIRST_NAME, nullable = false)
     private String firstName;
 
-    @Column(name = "co_email")
+    @Column(name = CONTACT_EMAIL)
     private String email;
 
-    @Column(name = "co_telephone")
+    @Column(name = CONTACT_PHONE)
     private String phone;
 
-    @Column(name = "co_adresse")
+    @Column(name = CONTACT_ADDRESS)
     private String address;
 
-    @Column(name = "co_adresse_compl")
+    @Column(name = CONTACT_ADDITIONAL_ADDRESS)
     private String additionalAddress;
 
-    @Column(name = "co_code_postal")
+    @Column(name = CONTACT_ZIP_CODE)
     private String zipCode;
 
-    @Column(name = "co_ville")
+    @Column(name = CONTACT_CITY)
     private String city;
 
-    @Column(name = "co_cedex")
+    @Column(name = CONTACT_CEDEX)
     private String cedex;
 
-    @Column(name = "co_email2")
+    @Column(name = CONTACT_EMAIL2)
     private String email2;
 
-    @Column(name = "co_telephone2")
+    @Column(name = CONTACT_PHONE2)
     private String phone2;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "contact")

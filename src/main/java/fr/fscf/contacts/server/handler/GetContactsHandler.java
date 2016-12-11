@@ -32,7 +32,7 @@ public class GetContactsHandler extends AbstractCommandHandler<GetContactsComman
 
         final int count = contactDAO.countUserContacts(context.getUser());
 
-        final List<Contact> contacts = contactDAO.findUserContacts(context.getUser(), command.getRange());
+        final List<Contact> contacts = contactDAO.findUserContacts(context.getUser(), command.getRange(), command.getSorts());
         final List<ContactDTO> dtos = beanMapper.mapCollection(contacts, ContactDTO.class);
 
         return new ListResult<>(dtos, count);

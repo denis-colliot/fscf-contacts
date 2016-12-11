@@ -3,7 +3,10 @@ package fr.fscf.contacts.shared.command.base;
 import com.google.gwt.view.client.Range;
 import fr.fscf.contacts.shared.command.result.ListResult;
 import fr.fscf.contacts.shared.dto.base.AbstractEntityDTO;
+import fr.fscf.contacts.shared.util.ClientUtils;
 import fr.fscf.contacts.shared.util.Sort;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,7 +19,7 @@ import fr.fscf.contacts.shared.util.Sort;
 public abstract class AbstractTableCommand<E extends AbstractEntityDTO<?>> extends AbstractCommand<ListResult<E>> {
 
     private Range range;
-    private Sort sort;
+    private List<Sort> sorts;
 
     /**
      * Empty constructor necessary for RPC serialization.
@@ -25,16 +28,16 @@ public abstract class AbstractTableCommand<E extends AbstractEntityDTO<?>> exten
         // Serialization.
     }
 
-    protected AbstractTableCommand(Range range, Sort sort) {
+    protected AbstractTableCommand(Range range, List<Sort> sorts) {
         this.range = range;
-        this.sort = sort;
+        this.sorts = sorts;
     }
 
     public Range getRange() {
         return range;
     }
 
-    public Sort getSort() {
-        return sort;
+    public List<Sort> getSorts() {
+        return sorts;
     }
 }

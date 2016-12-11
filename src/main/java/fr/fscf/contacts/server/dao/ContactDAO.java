@@ -6,6 +6,7 @@ import fr.fscf.contacts.server.dao.base.DAO;
 import fr.fscf.contacts.server.dao.impl.ContactDAOImpl;
 import fr.fscf.contacts.server.model.Contact;
 import fr.fscf.contacts.server.model.User;
+import fr.fscf.contacts.shared.util.Sort;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,9 +30,10 @@ public interface ContactDAO extends DAO<Contact, Long> {
      *
      * @param user  The user.
      * @param range (optional) The query range data.
+     * @param sorts (optional) The query sort(s).
      * @return The contacts list.
      */
-    List<Contact> findUserContacts(User user, Range range);
+    List<Contact> findUserContacts(User user, Range range, List<Sort> sorts);
 
     /**
      * Returns the contact accessible to the given {@code user} with id {@code contactId}.

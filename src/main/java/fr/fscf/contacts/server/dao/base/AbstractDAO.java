@@ -6,6 +6,8 @@ import fr.fscf.contacts.server.model.base.AbstractPK;
 import fr.fscf.contacts.server.model.base.Entity;
 import fr.fscf.contacts.server.util.Injectors;
 import fr.fscf.contacts.server.util.Pagination;
+import fr.fscf.contacts.shared.util.Sort;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,8 +19,9 @@ import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * <p>
@@ -62,8 +65,30 @@ public abstract class AbstractDAO<E extends Entity<K>, K extends Serializable> e
         return super.builder();
     }
 
+    /**
+     * Returns the {@link CriteriaQuery} instance for the DAO entity class.
+     *
+     * @return The criteria query instance.
+     */
     protected final CriteriaQuery<E> createQuery() {
         return getCriteriaBuilder().createQuery(entityClass);
+    }
+
+    /**
+     * Returns the given sorts corresponding native SQL.
+     *
+     * @param sorts The sorts ({@code null} values are ignored).
+     * @return The native SQL.
+     */
+    protected final String nativeSorts(final List<Sort> sorts) {
+        final String orders = Optional.ofNullable(sorts)
+                .map(Collection::stream)
+                .orElse(Stream.empty())
+                .filter(Objects::nonNull)
+                .filter(sort -> StringUtils.isNotBlank(sort.getColumn()))
+                .map(sort -> sort.getColumn() + ' ' + sort.getOrder())
+                .collect(Collectors.joining(","));
+        return StringUtils.isNotBlank(orders) ? " ORDER BY " + orders : "";
     }
 
     // --------------------------------------------------------------------------------
