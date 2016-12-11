@@ -1,7 +1,5 @@
 package fr.fscf.contacts.client.ui.presenter;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.inject.ImplementedBy;
 import fr.fscf.contacts.client.inject.Injector;
@@ -46,19 +44,11 @@ public class LabsPresenter extends AbstractPagePresenter<LabsPresenter.View> {
     @Override
     public void onBind() {
 
-        view.getBlueButton().addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                Window.alert("Click");
-            }
-        });
+        view.getBlueButton().addClickHandler(event -> Window.alert("Click"));
 
-        view.getOrangeButton().addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                view.getBlueButton().setEnabled(!view.getBlueButton().isEnabled());
-                view.getBlueButton().setText(view.getBlueButton().isEnabled() ? "Enabled..." : "Not Enabled");
-            }
+        view.getOrangeButton().addClickHandler(event -> {
+            view.getBlueButton().setEnabled(!view.getBlueButton().isEnabled());
+            view.getBlueButton().setText(view.getBlueButton().isEnabled() ? "Enabled..." : "Not Enabled");
         });
     }
 

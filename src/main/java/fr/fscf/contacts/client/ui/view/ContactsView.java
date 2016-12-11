@@ -1,6 +1,5 @@
 package fr.fscf.contacts.client.ui.view;
 
-import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -12,6 +11,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
 import fr.fscf.contacts.client.event.bus.EventBus;
+import fr.fscf.contacts.client.i18n.I18N;
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.navigation.RequestParameter;
 import fr.fscf.contacts.client.ui.presenter.ContactsPresenter;
@@ -33,6 +33,11 @@ import javax.inject.Inject;
  */
 @Singleton
 public class ContactsView extends AbstractView implements ContactsPresenter.View {
+
+    /**
+     * Cell style names.
+     */
+    private static final String CELL_STYLE_NAMES = "cell-v-centered";
 
     @UiField
     protected CellTable<ContactDTO> cellTable;
@@ -62,8 +67,8 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
                 return contact.toString();
             }
         };
-        nameCol.setCellStyleNames("cell-v-centered");
-        cellTable.addColumn(nameCol, "Nom"); // TODO i18n
+        nameCol.setCellStyleNames(CELL_STYLE_NAMES);
+        cellTable.addColumn(nameCol, I18N.CONSTANTS.contacts_column_name());
 
         final TextColumn<ContactDTO> emailCol = new TextColumn<ContactDTO>() {
 
@@ -72,8 +77,8 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
                 return contact.getEmail();
             }
         };
-        emailCol.setCellStyleNames("cell-v-centered");
-        cellTable.addColumn(emailCol, "Email"); // TODO i18n
+        emailCol.setCellStyleNames(CELL_STYLE_NAMES);
+        cellTable.addColumn(emailCol, I18N.CONSTANTS.contacts_column_email());
 
         final TextColumn<ContactDTO> phoneCol = new TextColumn<ContactDTO>() {
 
@@ -82,8 +87,8 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
                 return contact.getPhone();
             }
         };
-        phoneCol.setCellStyleNames("cell-v-centered");
-        cellTable.addColumn(phoneCol, "Téléphone"); // TODO i18n
+        phoneCol.setCellStyleNames(CELL_STYLE_NAMES);
+        cellTable.addColumn(phoneCol, I18N.CONSTANTS.contacts_column_phone());
 
         final TextColumn<ContactDTO> cityCol = new TextColumn<ContactDTO>() {
 
@@ -92,8 +97,8 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
                 return contact.getCity();
             }
         };
-        cityCol.setCellStyleNames("cell-v-centered");
-        cellTable.addColumn(cityCol, "Ville"); // TODO i18n
+        cityCol.setCellStyleNames(CELL_STYLE_NAMES);
+        cellTable.addColumn(cityCol, I18N.CONSTANTS.contacts_column_city());
 
         final TextColumn<ContactDTO> zipCodeCol = new TextColumn<ContactDTO>() {
 
@@ -102,26 +107,22 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
                 return contact.getZipCode();
             }
         };
-        zipCodeCol.setCellStyleNames("cell-v-centered");
-        cellTable.addColumn(zipCodeCol, "Code Postal"); // TODO i18n
+        zipCodeCol.setCellStyleNames(CELL_STYLE_NAMES);
+        cellTable.addColumn(zipCodeCol, I18N.CONSTANTS.contacts_column_zipCode());
         cellTable.setColumnWidth(zipCodeCol, 150, Style.Unit.PX);
 
         final Column<ContactDTO, String> editCol = new Column<ContactDTO, String>(new ButtonCell(
                 IconType.PENCIL, ButtonType.PRIMARY, ButtonSize.SMALL)) {
             @Override
             public String getValue(ContactDTO contact) {
-                return "Modifier";
-            } // TODO i18n
-        };
-        editCol.setFieldUpdater(new FieldUpdater<ContactDTO, String>() {
-            @Override
-            public void update(int index, ContactDTO contact, String value) {
-                eventBus.navigateRequest(Page.CONTACT.requestWith(RequestParameter.ID, contact.getId()));
+                return I18N.CONSTANTS.contacts_buttons_edit();
             }
-        });
+        };
+        editCol.setFieldUpdater((index, contact, value) ->
+                eventBus.navigateRequest(Page.CONTACT.requestWith(RequestParameter.ID, contact.getId())));
         editCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        editCol.setCellStyleNames("cell-v-centered");
-        cellTable.addColumn(editCol, "Actions"); // TODO i18n
+        editCol.setCellStyleNames(CELL_STYLE_NAMES);
+        cellTable.addColumn(editCol, I18N.CONSTANTS.contacts_column_actions());
         cellTable.setColumnWidth(editCol, 120, Style.Unit.PX);
     }
 

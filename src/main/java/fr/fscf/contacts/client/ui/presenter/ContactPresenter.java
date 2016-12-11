@@ -1,10 +1,9 @@
 package fr.fscf.contacts.client.ui.presenter;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.inject.ImplementedBy;
 import fr.fscf.contacts.client.dispatch.CommandResultHandler;
+import fr.fscf.contacts.client.i18n.I18N;
 import fr.fscf.contacts.client.inject.Injector;
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.navigation.PageRequest;
@@ -45,12 +44,7 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
 
     @Override
     public void onBind() {
-        view.getFormSubmitButton().addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                onSubmit();
-            }
-        });
+        view.getFormSubmitButton().addClickHandler(event -> onSubmit());
     }
 
     @Override
@@ -97,7 +91,7 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         dispatch.execute(new SaveContactCommand(contactDTO), new CommandResultHandler<ContactDTO>() {
             @Override
             protected void onCommandSuccess(ContactDTO result) {
-                N10N.validNotif("Le contact &laquo; " + result + " &raquo; a bien été enregistré"); // TODO i18n
+                N10N.validNotif(I18N.MESSAGES.contacts_save_ok(result.toString()));
                 eventBus.navigate(Page.CONTACTS);
             }
         }, view.getFormSubmitButton());
