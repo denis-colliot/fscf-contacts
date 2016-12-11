@@ -8,37 +8,36 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
- * Departmental comity model.
+ * Regional committee model.
  */
 @javax.persistence.Entity
-@DiscriminatorValue(StructureType.COMITE_DEPARTEMENTAL)
-public class Comity extends Structure {
+@DiscriminatorValue(StructureType.COMITE_REGIONAL)
+public class RegionalCommittee extends Structure {
 
     /**
      * Parent entity.
      */
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "parent_id", nullable = true)
-    private RegionalLeague parent;
+    private Federation parent;
 
-    public Comity() {
+    public RegionalCommittee() {
     }
 
-    public Comity(Long id) {
+    public RegionalCommittee(Long id) {
         super(id);
     }
 
     @Override
     public String getType() {
-        return StructureType.COMITE_DEPARTEMENTAL;
+        return StructureType.COMITE_REGIONAL;
     }
 
-    public RegionalLeague getParent() {
+    public Federation getParent() {
         return parent;
     }
 
-    public void setParent(RegionalLeague parent) {
+    public void setParent(Federation parent) {
         this.parent = parent;
     }
-
 }

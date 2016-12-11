@@ -18,7 +18,9 @@ public enum Page implements IsSerializable {
     CONTACTS("contacts"),
     CONTACT("contact"),
     ASSOCIATIONS("associations"),
-    ASSOCIATION("association");
+    ASSOCIATION("association"),
+    USERS("users"),
+    USER("user");
 
     private final String parentKey;
 
@@ -41,10 +43,8 @@ public enum Page implements IsSerializable {
     /**
      * Instantiates a new {@code Page} object.
      *
-     * @param token
-     *         The page token (must be unique).
-     * @throws IllegalArgumentException
-     *         If the page token is invalid or non-unique.
+     * @param token The page token (must be unique).
+     * @throws IllegalArgumentException If the page token is invalid or non-unique.
      */
     Page(final String token) {
         this(null, token, false);
@@ -53,12 +53,9 @@ public enum Page implements IsSerializable {
     /**
      * Instantiates a new {@code Page} object with its title.
      *
-     * @param parentKey
-     *         The parent key.
-     * @param token
-     *         The page token (must be unique).
-     * @throws IllegalArgumentException
-     *         If the page token is invalid or non-unique.
+     * @param parentKey The parent key.
+     * @param token     The page token (must be unique).
+     * @throws IllegalArgumentException If the page token is invalid or non-unique.
      */
     Page(final String parentKey, final String token) {
         this(parentKey, token, false);
@@ -67,12 +64,9 @@ public enum Page implements IsSerializable {
     /**
      * Instantiates a new {@code Page} object with its history configuration.
      *
-     * @param token
-     *         The page token (must be unique).
-     * @param skipHistory
-     *         Defines if the page must be considered in the history.
-     * @throws IllegalArgumentException
-     *         If the page token is invalid or non-unique.
+     * @param token       The page token (must be unique).
+     * @param skipHistory Defines if the page must be considered in the history.
+     * @throws IllegalArgumentException If the page token is invalid or non-unique.
      */
     Page(final String token, final boolean skipHistory) {
         this(null, token, skipHistory);
@@ -81,14 +75,10 @@ public enum Page implements IsSerializable {
     /**
      * Instantiates a new {@code Page} object with its title and history configuration.
      *
-     * @param parentKey
-     *         The parent key.
-     * @param token
-     *         The page token (must be unique).
-     * @param skipHistory
-     *         Defines if the page must be considered in the history.
-     * @throws IllegalArgumentException
-     *         If the page token is invalid or non-unique.
+     * @param parentKey   The parent key.
+     * @param token       The page token (must be unique).
+     * @param skipHistory Defines if the page must be considered in the history.
+     * @throws IllegalArgumentException If the page token is invalid or non-unique.
      */
     Page(final String parentKey, final String token, final boolean skipHistory) {
         this.parentKey = parentKey;
@@ -143,10 +133,8 @@ public enum Page implements IsSerializable {
     /**
      * A convenience method for calling {@code request().addParameter(name, value)}.
      *
-     * @param name
-     *         The URL parameter name.
-     * @param value
-     *         The URL parameter value.
+     * @param name  The URL parameter name.
+     * @param value The URL parameter value.
      * @return A {@code PageRequest} instance with the given parameter.
      * @see PageRequest#addParameter(RequestParameter, Object)
      */
@@ -166,8 +154,7 @@ public enum Page implements IsSerializable {
      * Sets the page title.<br/>
      * If not {@code null}, this value will be returned by {@link #getTitle(Page)} method.
      *
-     * @param pageTitle
-     *         The new page title carried by this instance.
+     * @param pageTitle The new page title carried by this instance.
      */
     public void setTitle(final String pageTitle) {
         this.pageTitle = pageTitle;
@@ -188,8 +175,7 @@ public enum Page implements IsSerializable {
      * </ol>
      * </p>
      *
-     * @param page
-     *         The {@link Page} instance.
+     * @param page The {@link Page} instance.
      * @return The given {@code page} corresponding title, or {@code null}.
      */
     // Static title getter allows Page instance to be used on server-side.
