@@ -58,7 +58,7 @@ public final class Entities {
     // Contact table.
     // --
 
-    public static final String CONTACT_NAME = "co_name";
+    public static final String CONTACT_NAME = "co_nom";
     public static final String CONTACT_FIRST_NAME = "co_prenom";
     public static final String CONTACT_EMAIL = "co_email";
     public static final String CONTACT_PHONE = "co_telephone";
