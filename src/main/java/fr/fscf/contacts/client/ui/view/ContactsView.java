@@ -1,5 +1,8 @@
 package fr.fscf.contacts.client.ui.view;
 
+import com.google.gwt.cell.client.CompositeCell;
+import com.google.gwt.cell.client.FieldUpdater;
+import com.google.gwt.cell.client.HasCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -14,6 +17,7 @@ import fr.fscf.contacts.client.event.bus.EventBus;
 import fr.fscf.contacts.client.i18n.I18N;
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.navigation.RequestParameter;
+import fr.fscf.contacts.client.ui.notification.N10N;
 import fr.fscf.contacts.client.ui.presenter.ContactsPresenter;
 import fr.fscf.contacts.client.ui.view.base.AbstractView;
 import fr.fscf.contacts.client.ui.widget.Pagination;
@@ -26,6 +30,8 @@ import org.gwtbootstrap3.client.ui.gwt.ButtonCell;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
 import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Contacts view.
@@ -61,6 +67,7 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
     }
 
     private void initTable() {
+        // Name column.
         final TextColumn<ContactDTO> nameCol = new TextColumn<ContactDTO>() {
 
             @Override
@@ -73,6 +80,7 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
         nameCol.setDataStoreName(IsSortProvider.ContactSort.NAME.name());
         cellTable.addColumn(nameCol, I18N.CONSTANTS.contacts_column_name());
 
+        // Email column.
         final TextColumn<ContactDTO> emailCol = new TextColumn<ContactDTO>() {
 
             @Override
@@ -85,6 +93,7 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
         emailCol.setDataStoreName(IsSortProvider.ContactSort.EMAIL.name());
         cellTable.addColumn(emailCol, I18N.CONSTANTS.contacts_column_email());
 
+        // Phone column.
         final TextColumn<ContactDTO> phoneCol = new TextColumn<ContactDTO>() {
 
             @Override
@@ -97,6 +106,7 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
         phoneCol.setDataStoreName(IsSortProvider.ContactSort.PHONE.name());
         cellTable.addColumn(phoneCol, I18N.CONSTANTS.contacts_column_phone());
 
+        // City column.
         final TextColumn<ContactDTO> cityCol = new TextColumn<ContactDTO>() {
 
             @Override
@@ -109,6 +119,7 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
         cityCol.setDataStoreName(IsSortProvider.ContactSort.CITY.name());
         cellTable.addColumn(cityCol, I18N.CONSTANTS.contacts_column_city());
 
+        // Zip Code column.
         final TextColumn<ContactDTO> zipCodeCol = new TextColumn<ContactDTO>() {
 
             @Override
@@ -122,21 +133,27 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
         cellTable.addColumn(zipCodeCol, I18N.CONSTANTS.contacts_column_zipCode());
         cellTable.setColumnWidth(zipCodeCol, 150, Style.Unit.PX);
 
-        final Column<ContactDTO, String> editCol = new Column<ContactDTO, String>(new ButtonCell(
-                IconType.PENCIL, ButtonType.PRIMARY, ButtonSize.SMALL)) {
+        // Actions column.
+        final List<HasCell<ContactDTO, ?>> cells = Arrays.asList(
+                new ContactActionCell(new ButtonCell(IconType.PENCIL, ButtonType.PRIMARY, ButtonSize.SMALL),
+                        (index, contact, value) ->
+                                eventBus.navigateRequest(Page.CONTACT.requestWith(RequestParameter.ID, contact.getId()))),
+                new ContactActionCell(new ButtonCell(IconType.EYE, ButtonType.INFO, ButtonSize.SMALL),
+                        (index, contact, value) -> N10N.info("TODO : " + contact.getId())) // TODO
+        );
+        final Column<ContactDTO, ContactDTO> editCol = new Column<ContactDTO, ContactDTO>(new CompositeCell<>(cells)) {
             @Override
-            public String getValue(ContactDTO contact) {
-                return I18N.CONSTANTS.contacts_buttons_edit();
+            public ContactDTO getValue(ContactDTO contact) {
+                return contact;
             }
         };
-        editCol.setFieldUpdater((index, contact, value) ->
-                eventBus.navigateRequest(Page.CONTACT.requestWith(RequestParameter.ID, contact.getId())));
         editCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         editCol.setCellStyleNames(CELL_STYLE_NAMES);
         cellTable.addColumn(editCol, I18N.CONSTANTS.contacts_column_actions());
-        cellTable.setColumnWidth(editCol, 120, Style.Unit.PX);
+        cellTable.setColumnWidth(editCol, 100, Style.Unit.PX);
 
-        cellTable.getColumnSortList().push(nameCol); // Default table sort.
+        // Default table sort.
+        cellTable.getColumnSortList().push(nameCol);
     }
 
     @Override
@@ -154,5 +171,32 @@ public class ContactsView extends AbstractView implements ContactsPresenter.View
      */
     @UiTemplate("ContactsView.ui.xml")
     interface ViewUiBinder extends UiBinder<Widget, ContactsView> {
+    }
+
+    private static class ContactActionCell implements HasCell<ContactDTO, String> {
+
+        private final ButtonCell buttonCell;
+        private final FieldUpdater<ContactDTO, String> fieldUpdater;
+
+        private ContactActionCell(final ButtonCell buttonCell,
+                                  final FieldUpdater<ContactDTO, String> fieldUpdater) {
+            this.buttonCell = buttonCell;
+            this.fieldUpdater = fieldUpdater;
+        }
+
+        @Override
+        public ButtonCell getCell() {
+            return buttonCell;
+        }
+
+        @Override
+        public FieldUpdater<ContactDTO, String> getFieldUpdater() {
+            return fieldUpdater;
+        }
+
+        @Override
+        public String getValue(ContactDTO contact) {
+            return null;
+        }
     }
 }
