@@ -6,10 +6,8 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 import fr.fscf.contacts.shared.util.ClientUtils;
 import fr.fscf.contacts.shared.util.Sort;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Stream;
 
 import static com.google.gwt.user.cellview.client.ColumnSortList.ColumnSortInfo;
 import static fr.fscf.contacts.shared.util.Entities.*;
@@ -21,27 +19,6 @@ import static fr.fscf.contacts.shared.util.Entities.*;
 public interface IsSortProvider extends IsSerializable {
 
     /**
-     * Contacts sort providers.
-     */
-    enum ContactSort implements IsSortProvider {
-        NAME(Sort.of(CONTACT_NAME), Sort.of(CONTACT_FIRST_NAME), Sort.of(CONTACT_ID)),
-        EMAIL(Sort.of(CONTACT_EMAIL), Sort.of(CONTACT_ID)),
-        PHONE(Sort.of(CONTACT_PHONE), Sort.of(CONTACT_ID)),
-        CITY(Sort.of(CONTACT_CITY), Sort.of(CONTACT_ID)),
-        ZIP_CODE(Sort.of(CONTACT_ZIP_CODE), Sort.of(CONTACT_ID));
-
-        private final List<Sort> sorts;
-
-        ContactSort(final Sort... sorts) {
-            this.sorts = ClientUtils.toList(sorts);
-        }
-
-        public List<Sort> getSorts() {
-            return sorts;
-        }
-    }
-
-    /**
      * Returns the given cell table current sort(s).
      *
      * @param sortProviderClass The sort provider enum class.
@@ -51,15 +28,24 @@ public interface IsSortProvider extends IsSerializable {
      */
     static <P extends Enum<P> & IsSortProvider> List<Sort> fromTable(final Class<P> sortProviderClass,
                                                                      final AbstractCellTable<?> cellTable) {
-        return Optional.ofNullable(cellTable)
+        final Optional<IsSortProvider> sortProvider = Optional.ofNullable(cellTable)
                 .map(AbstractCellTable::getColumnSortList)
                 .filter(Objects::nonNull)
                 .filter(sortList -> sortList.size() > 0)
                 .map(sortList -> sortList.get(0))
                 .filter(Objects::nonNull)
-                .flatMap(sortInfo -> IsSortProvider.fromString(sortProviderClass, sortInfo))
+                .flatMap(sortInfo -> IsSortProvider.fromString(sortProviderClass, sortInfo));
+
+        final List<Sort> sorts = new ArrayList<>(sortProvider
                 .map(IsSortProvider::getSorts)
-                .orElse(new ArrayList<>());
+                .orElse(Collections.emptyList()));
+
+        if (ClientUtils.isNotEmpty(sorts) && sortProvider.isPresent()
+                && sortProvider.get().getSecuritySort() != null) {
+            sorts.add(sortProvider.get().getSecuritySort());
+        }
+
+        return sorts;
     }
 
     /**
@@ -80,10 +66,13 @@ public interface IsSortProvider extends IsSerializable {
                     .filter(ClientUtils::isNotBlank)
                     .map(dataStoreName -> Enum.valueOf(sortProviderClass, dataStoreName));
 
-            sortProvider.ifPresent(provider -> provider.getSorts()
-                    .stream()
+            // Apply sort order to each sort.
+            sortProvider
+                    .map(IsSortProvider::getSorts)
+                    .map(Collection::stream)
+                    .orElse(Stream.empty())
                     .filter(Objects::nonNull)
-                    .forEach(sort -> sort.setOrder(Sort.Order.fromBoolean(sortInfo.isAscending()))));
+                    .forEach(sort -> sort.setOrder(Sort.Order.fromBoolean(sortInfo.isAscending())));
 
             return sortProvider;
 
@@ -99,5 +88,42 @@ public interface IsSortProvider extends IsSerializable {
      * @return The sort list.
      */
     List<Sort> getSorts();
+
+    /**
+     * Returns the security sort to ensure proper data order.<br/>
+     * Default implementation returns {@code null} (no security sort).
+     *
+     * @return The security sort.
+     */
+    default Sort getSecuritySort() {
+        return null;
+    }
+
+    /**
+     * Contact sort providers.
+     */
+    enum ContactSort implements IsSortProvider {
+        NAME(Sort.of(CONTACT_NAME), Sort.of(CONTACT_FIRST_NAME)),
+        EMAIL(Sort.of(CONTACT_EMAIL)),
+        PHONE(Sort.of(CONTACT_PHONE)),
+        CITY(Sort.of(CONTACT_CITY)),
+        ZIP_CODE(Sort.of(CONTACT_ZIP_CODE));
+
+        private final List<Sort> sorts;
+
+        ContactSort(final Sort... sorts) {
+            this.sorts = ClientUtils.toList(sorts);
+        }
+
+        @Override
+        public List<Sort> getSorts() {
+            return sorts;
+        }
+
+        @Override
+        public Sort getSecuritySort() {
+            return Sort.of(CONTACT_ID);
+        }
+    }
 
 }

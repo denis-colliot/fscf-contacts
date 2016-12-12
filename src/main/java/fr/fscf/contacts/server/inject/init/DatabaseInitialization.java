@@ -23,6 +23,24 @@ import static fr.fscf.contacts.server.model.referential.AffectationStatus.SALARI
 @Singleton
 final class DatabaseInitialization {
 
+    /**
+     * User p4ssw0rd.
+     */
+    private static final String USER_PWD = "$2a$10$sZ0Xr5EaDM6JWpnkis1bDuLJOop6vpaMolCvOYJhEpPcidu0tkXp6";
+
+    // --
+    // FEATURES.
+    // --
+
+    private static final Feature missing = new Feature(SecuredResources.MISSING_TOKEN, GrantType.BOTH);
+    private static final Feature contacts = new Feature(Page.CONTACTS, GrantType.AUTHENTICATED_ONLY);
+    private static final Feature contact = new Feature(Page.CONTACT, GrantType.AUTHENTICATED_ONLY);
+    private static final Feature associations = new Feature(Page.ASSOCIATIONS, GrantType.AUTHENTICATED_ONLY);
+    private static final Feature association = new Feature(Page.ASSOCIATION, GrantType.AUTHENTICATED_ONLY);
+    private static final Feature users = new Feature(Page.USERS, GrantType.AUTHENTICATED_ONLY);
+    private static final Feature user = new Feature(Page.USER, GrantType.AUTHENTICATED_ONLY);
+    private static final Feature getConfig = new Feature(GetConfigCommand.class, GrantType.BOTH);
+
     @Inject
     private Configuration configuration;
 
@@ -66,38 +84,68 @@ final class DatabaseInitialization {
         }
 
         // --
-        // USERS.
+        // USERS (persisted with habilitations).
         // --
 
         final User denis = new User();
         denis.setName("Colliot");
         denis.setFirstName("Denis");
         denis.setEmail("denis.colliot@gmail.com");
-        denis.setPassword("$2a$10$sZ0Xr5EaDM6JWpnkis1bDuLJOop6vpaMolCvOYJhEpPcidu0tkXp6");
+        denis.setPassword(USER_PWD);
         denis.setActive(true);
 
         final User sebastien = new User();
         sebastien.setName("Bouvet");
         sebastien.setFirstName("Sébastien");
         sebastien.setEmail("bouvet.sebastien@gmail.com");
-        sebastien.setPassword("$2a$10$sZ0Xr5EaDM6JWpnkis1bDuLJOop6vpaMolCvOYJhEpPcidu0tkXp6");
+        sebastien.setPassword(USER_PWD);
         sebastien.setActive(true);
 
-        userDAO.persist(denis, null);
-        userDAO.persist(sebastien, null);
+        final User federationUser = new User();
+        federationUser.setName("FSCF");
+        federationUser.setFirstName("Fédération");
+        federationUser.setEmail("federation@fscf.fr");
+        federationUser.setPassword(USER_PWD);
+        federationUser.setActive(true);
+
+        final User regCommitteeBzhUser = new User();
+        regCommitteeBzhUser.setName("Bretagne");
+        regCommitteeBzhUser.setFirstName("Comité Régional");
+        regCommitteeBzhUser.setEmail("comite.regional.bzh@fscf.fr");
+        regCommitteeBzhUser.setPassword(USER_PWD);
+        regCommitteeBzhUser.setActive(true);
+
+        final User dptCommittee35User = new User();
+        dptCommittee35User.setName("Ille-et-Vilaine");
+        dptCommittee35User.setFirstName("Comité Départemental");
+        dptCommittee35User.setEmail("comite.departemental.35@fscf.fr");
+        dptCommittee35User.setPassword(USER_PWD);
+        dptCommittee35User.setActive(true);
+
+        final User dptCommittee22User = new User();
+        dptCommittee22User.setName("Côtes-d'Armor");
+        dptCommittee22User.setFirstName("Comité Départemental");
+        dptCommittee22User.setEmail("comite.departemental.22@fscf.fr");
+        dptCommittee22User.setPassword(USER_PWD);
+        dptCommittee22User.setActive(true);
+
+        final User dptCommittee29User = new User();
+        dptCommittee29User.setName("Finistère");
+        dptCommittee29User.setFirstName("Comité Départemental");
+        dptCommittee29User.setEmail("comite.departemental.29@fscf.fr");
+        dptCommittee29User.setPassword(USER_PWD);
+        dptCommittee29User.setActive(true);
+
+        final User dptCommittee56User = new User();
+        dptCommittee56User.setName("Morbihan");
+        dptCommittee56User.setFirstName("Comité Départemental");
+        dptCommittee56User.setEmail("comite.departemental.56@fscf.fr");
+        dptCommittee56User.setPassword(USER_PWD);
+        dptCommittee56User.setActive(true);
 
         // --
         // FEATURES.
         // --
-
-        final Feature missing = new Feature(SecuredResources.MISSING_TOKEN, GrantType.BOTH);
-        final Feature contacts = new Feature(Page.CONTACTS, GrantType.AUTHENTICATED_ONLY);
-        final Feature contact = new Feature(Page.CONTACT, GrantType.AUTHENTICATED_ONLY);
-        final Feature associations = new Feature(Page.ASSOCIATIONS, GrantType.AUTHENTICATED_ONLY);
-        final Feature association = new Feature(Page.ASSOCIATION, GrantType.AUTHENTICATED_ONLY);
-        final Feature users = new Feature(Page.USERS, GrantType.AUTHENTICATED_ONLY);
-        final Feature user = new Feature(Page.USER, GrantType.AUTHENTICATED_ONLY);
-        final Feature getConfig = new Feature(GetConfigCommand.class, GrantType.BOTH);
 
         featureDAO.persist(missing, null);
         featureDAO.persist(contacts, null);
@@ -114,80 +162,102 @@ final class DatabaseInitialization {
 
         final Federation federation = new Federation();
         federation.setName("Fédération Sportive et Culturelle de France");
+        federation.setEmail("fscf@fscf.asso.fr");
+        federation.setPhone("0143385057");
+        federation.setWebsite("www.fscf.asso.fr");
+        federation.setAddress("22 rue Oberkampf");
+        federation.setZipCode("75011");
+        federation.setCity("PARIS");
 
-        final RegionalCommittee regionalCommitteeBZH = new RegionalCommittee();
-        regionalCommitteeBZH.setName("Comité régional Bretagne");
-        regionalCommitteeBZH.setParent(federation);
+        final RegionalCommittee regCommitteeBzh = new RegionalCommittee();
+        regCommitteeBzh.setParent(federation);
+        regCommitteeBzh.setName("Comité régional Bretagne");
+        regCommitteeBzh.setEmail("coordination@fscf-bretagne.fr");
+        regCommitteeBzh.setPhone("0299503811");
+        regCommitteeBzh.setWebsite("www.fscf-bretagne.fr");
+        regCommitteeBzh.setAddress("BP 10303");
+        regCommitteeBzh.setZipCode("35203");
+        regCommitteeBzh.setCity("Rennes");
+        regCommitteeBzh.setCedex("Cedex 2");
 
-        final DepartmentalCommittee comity29 = new DepartmentalCommittee();
-        comity29.setName("Comité du Finistère");
-        comity29.setParent(regionalCommitteeBZH);
+        final DepartmentalCommittee dptCommittee29 = new DepartmentalCommittee();
+        dptCommittee29.setParent(regCommitteeBzh);
+        dptCommittee29.setName("Comité départemental Finistère");
+        dptCommittee29.setWebsite("jla29@orange.fr");
 
-        final DepartmentalCommittee comity35 = new DepartmentalCommittee();
-        comity35.setName("Comité d'Ille-et-Vilaine");
-        comity35.setParent(regionalCommitteeBZH);
+        final DepartmentalCommittee dptCommittee35 = new DepartmentalCommittee();
+        dptCommittee35.setParent(regCommitteeBzh);
+        dptCommittee35.setName("Comité départemental Ille-et-Vilaine");
+        dptCommittee35.setWebsite("fscf.cd35@wanadoo.fr");
 
-        final DepartmentalCommittee comity56 = new DepartmentalCommittee();
-        comity56.setName("Comité du Morbihan");
-        comity56.setParent(regionalCommitteeBZH);
+        final DepartmentalCommittee dptCommittee22 = new DepartmentalCommittee();
+        dptCommittee22.setParent(regCommitteeBzh);
+        dptCommittee22.setName("Comité départemental Côtes-d'Armor");
+        dptCommittee22.setWebsite("fscfcd22@orange.fr");
 
-        final RegionalCommittee regionalCommitteeIDF = new RegionalCommittee();
-        regionalCommitteeIDF.setName("Ligue d'Ile De France");
-        regionalCommitteeIDF.setParent(federation);
+        final DepartmentalCommittee dptCommittee56 = new DepartmentalCommittee();
+        dptCommittee56.setParent(regCommitteeBzh);
+        dptCommittee56.setName("Comité départemental Morbihan");
+        dptCommittee56.setWebsite("cd56.fscf@wanadoo.fr");
 
-        final DepartmentalCommittee comity75 = new DepartmentalCommittee();
-        comity75.setName("Comité de Paris");
-        comity75.setParent(regionalCommitteeIDF);
+        final RegionalCommittee regCommitteeIdf = new RegionalCommittee();
+        regCommitteeIdf.setParent(federation);
+        regCommitteeIdf.setName("Ligue d'Ile De France");
 
-        final DepartmentalCommittee comity92 = new DepartmentalCommittee();
-        comity92.setName("Comité des Hauts de Seine");
-        comity92.setParent(regionalCommitteeIDF);
+        final DepartmentalCommittee dptCommittee75 = new DepartmentalCommittee();
+        dptCommittee75.setParent(regCommitteeIdf);
+        dptCommittee75.setName("Comité de Paris");
+
+        final DepartmentalCommittee dptCommittee92 = new DepartmentalCommittee();
+        dptCommittee92.setParent(regCommitteeIdf);
+        dptCommittee92.setName("Comité des Hauts de Seine");
 
         federationDAO.persist(federation, null);
 
-        regionalCommitteeDAO.persist(regionalCommitteeBZH, null);
-        regionalCommitteeDAO.persist(regionalCommitteeIDF, null);
+        regionalCommitteeDAO.persist(regCommitteeBzh, null);
+        regionalCommitteeDAO.persist(regCommitteeIdf, null);
 
-        departmentalCommitteeDAO.persist(comity29, null);
-        departmentalCommitteeDAO.persist(comity35, null);
-        departmentalCommitteeDAO.persist(comity56, null);
-        departmentalCommitteeDAO.persist(comity75, null);
-        departmentalCommitteeDAO.persist(comity92, null);
+        departmentalCommitteeDAO.persist(dptCommittee29, null);
+        departmentalCommitteeDAO.persist(dptCommittee35, null);
+        departmentalCommitteeDAO.persist(dptCommittee22, null);
+        departmentalCommitteeDAO.persist(dptCommittee56, null);
+        departmentalCommitteeDAO.persist(dptCommittee75, null);
+        departmentalCommitteeDAO.persist(dptCommittee92, null);
 
         // --
         // CONTACTS.
         // --
 
-        final Contact john = new Contact();
-        john.setFirstName("John");
-        john.setName("Doe");
-        john.setEmail("john.doe@unknown.com");
+        final Contact contact01_federation = new Contact();
+        contact01_federation.setFirstName("Contact01");
+        contact01_federation.setName("Fédération");
+        contact01_federation.setEmail("contact01@federation.com");
 
-        final Contact albert = new Contact();
-        albert.setFirstName("Albert");
-        albert.setName("Enstein");
-        albert.setEmail("albert.enstein@relativity.com");
+        final Contact contact01_regCommitteeBzh = new Contact();
+        contact01_regCommitteeBzh.setFirstName("Contact01");
+        contact01_regCommitteeBzh.setName("ComitéRegBzh");
+        contact01_regCommitteeBzh.setEmail("contact01@comiteRegBzh.fr");
 
-        final Contact frank = new Contact();
-        frank.setFirstName("Frank");
-        frank.setName("Sinatra");
-        frank.setEmail("frank.sinatra@american.com");
+        final Contact contact01_dptCommittee29 = new Contact();
+        contact01_dptCommittee29.setFirstName("Contact01");
+        contact01_dptCommittee29.setName("ComitéDpt29");
+        contact01_dptCommittee29.setEmail("contact01@comiteDpt29.fr");
 
-        final Contact leonardo = new Contact();
-        leonardo.setFirstName("Leonardo");
-        leonardo.setName("DiCaprio");
-        leonardo.setEmail("leonardo.dicaprio@revenant.com");
+        final Contact contact02_dptCommittee29 = new Contact();
+        contact02_dptCommittee29.setFirstName("Contact02");
+        contact02_dptCommittee29.setName("ComitéDpt29");
+        contact02_dptCommittee29.setEmail("contact02@comiteDpt29.fr");
 
-        final Contact al = new Contact();
-        al.setFirstName("Al");
-        al.setName("Pacino");
-        al.setEmail("al.pacino@scarface.com");
+        final Contact contact01_dptCommittee35 = new Contact();
+        contact01_dptCommittee35.setFirstName("Contact01");
+        contact01_dptCommittee35.setName("ComitéDpt35");
+        contact01_dptCommittee35.setEmail("contact01@comiteDpt35.fr");
 
-        contactDAO.persist(john, null);
-        contactDAO.persist(albert, null);
-        contactDAO.persist(frank, null);
-        contactDAO.persist(leonardo, null);
-        contactDAO.persist(al, null);
+        contactDAO.persist(contact01_federation, null);
+        contactDAO.persist(contact01_regCommitteeBzh, null);
+        contactDAO.persist(contact01_dptCommittee29, null);
+        contactDAO.persist(contact02_dptCommittee29, null);
+        contactDAO.persist(contact01_dptCommittee35, null);
 
         // --
         // FUNCTIONS.
@@ -199,14 +269,14 @@ final class DatabaseInitialization {
         final Function federation_president = new Function();
         federation_president.setName("Président(e) de la fédération");
 
-        final Function regional_league_president = new Function();
-        regional_league_president.setName("Président(e) de ligue régionale");
+        final Function regional_committee_president = new Function();
+        regional_committee_president.setName("Président(e) de comité régional");
 
-        final Function departemental_committee_president = new Function();
-        departemental_committee_president.setName("Président(e) de comité départemental");
+        final Function departmental_committee_president = new Function();
+        departmental_committee_president.setName("Président(e) de comité départemental");
 
-        final Function assocation_president = new Function();
-        assocation_president.setName("Président(e) d'association");
+        final Function association_president = new Function();
+        association_president.setName("Président(e) d'association");
 
         final Function developmentAgent = new Function();
         developmentAgent.setName("Agent de développement");
@@ -217,47 +287,72 @@ final class DatabaseInitialization {
         final Function section_responsible = new Function();
         section_responsible.setName("Responsable de section");
 
+        final Function federal_headquarter_employee = new Function();
+        federal_headquarter_employee.setName("Salarié(e) du siège fédéral");
+
+        final Function chore_leader = new Function();
+        chore_leader.setName("Chef de choeur");
+
+        final Function activity_teacher = new Function();
+        activity_teacher.setName("Professeur(e) d'activité");
+
+        final Function national_commission_member = new Function();
+        national_commission_member.setName("Membre de commission nationale");
+
+        final Function departmental_commission_member = new Function();
+        departmental_commission_member.setName("Membre de comité départemental");
+
         functionDAO.persist(pratiquant, null);
         functionDAO.persist(federation_president, null);
-        functionDAO.persist(regional_league_president, null);
-        functionDAO.persist(departemental_committee_president, null);
-        functionDAO.persist(assocation_president, null);
+        functionDAO.persist(regional_committee_president, null);
+        functionDAO.persist(departmental_committee_president, null);
+        functionDAO.persist(association_president, null);
         functionDAO.persist(developmentAgent, null);
         functionDAO.persist(practice_referent, null);
         functionDAO.persist(section_responsible, null);
+        functionDAO.persist(federal_headquarter_employee, null);
+        functionDAO.persist(chore_leader, null);
+        functionDAO.persist(activity_teacher, null);
+        functionDAO.persist(national_commission_member, null);
+        functionDAO.persist(departmental_commission_member, null);
 
         // --
         // AFFECTATIONS.
         // --
 
-        affectationDAO.persist(new Affectation(al, federation, federation_president, SALARIE), null);
-        affectationDAO.persist(new Affectation(leonardo, regionalCommitteeBZH, regional_league_president, SALARIE), null);
-        affectationDAO.persist(new Affectation(john, comity29, departemental_committee_president, SALARIE), null);
-        affectationDAO.persist(new Affectation(albert, comity29, section_responsible, SALARIE), null);
-        affectationDAO.persist(new Affectation(frank, comity35, departemental_committee_president, SALARIE), null);
-        affectationDAO.persist(new Affectation(frank, comity35, practice_referent, SALARIE), null);
+        affectationDAO.persist(new Affectation(contact01_federation, federation, federation_president, SALARIE), null);
+        affectationDAO.persist(new Affectation(contact01_regCommitteeBzh, regCommitteeBzh, regional_committee_president, SALARIE), null);
+        affectationDAO.persist(new Affectation(contact01_dptCommittee29, dptCommittee29, departmental_committee_president, SALARIE), null);
+        affectationDAO.persist(new Affectation(contact02_dptCommittee29, dptCommittee29, section_responsible, SALARIE), null);
+        affectationDAO.persist(new Affectation(contact01_dptCommittee35, dptCommittee35, departmental_committee_president, SALARIE), null);
+        affectationDAO.persist(new Affectation(contact01_dptCommittee35, dptCommittee35, practice_referent, SALARIE), null);
 
         // --
         // HABILITATIONS.
         // --
 
-        habilitationDAO.persist(new Habilitation(denis, contact, federation), null);
-        habilitationDAO.persist(new Habilitation(denis, contacts, federation), null);
-        habilitationDAO.persist(new Habilitation(denis, association, federation), null);
-        habilitationDAO.persist(new Habilitation(denis, associations, federation), null);
-        habilitationDAO.persist(new Habilitation(denis, user, federation), null);
-        habilitationDAO.persist(new Habilitation(denis, users, federation), null);
-        habilitationDAO.persist(new Habilitation(denis, contact, federation), null);
-        habilitationDAO.persist(new Habilitation(denis, getConfig, federation), null);
+        persistHabilitations(denis, federation);
+        persistHabilitations(sebastien, federation);
+        persistHabilitations(federationUser, federation);
+        persistHabilitations(regCommitteeBzhUser, regCommitteeBzh);
+        persistHabilitations(dptCommittee35User, dptCommittee35);
+        persistHabilitations(dptCommittee22User, dptCommittee22);
+        persistHabilitations(dptCommittee29User, dptCommittee29);
+        persistHabilitations(dptCommittee56User, dptCommittee56);
 
-        habilitationDAO.persist(new Habilitation(sebastien, contact, federation), null);
-        habilitationDAO.persist(new Habilitation(sebastien, contacts, federation), null);
-        habilitationDAO.persist(new Habilitation(sebastien, association, federation), null);
-        habilitationDAO.persist(new Habilitation(sebastien, associations, federation), null);
-        habilitationDAO.persist(new Habilitation(sebastien, user, federation), null);
-        habilitationDAO.persist(new Habilitation(sebastien, users, federation), null);
-        habilitationDAO.persist(new Habilitation(sebastien, getConfig, federation), null);
+    }
 
+    private void persistHabilitations(User theUser, Structure structure) {
+        userDAO.persist(theUser, null);
+
+        habilitationDAO.persist(new Habilitation(theUser, contact, structure), null);
+        habilitationDAO.persist(new Habilitation(theUser, contacts, structure), null);
+        habilitationDAO.persist(new Habilitation(theUser, association, structure), null);
+        habilitationDAO.persist(new Habilitation(theUser, associations, structure), null);
+        habilitationDAO.persist(new Habilitation(theUser, user, structure), null);
+        habilitationDAO.persist(new Habilitation(theUser, users, structure), null);
+        habilitationDAO.persist(new Habilitation(theUser, contact, structure), null);
+        habilitationDAO.persist(new Habilitation(theUser, getConfig, structure), null);
     }
 
 }
