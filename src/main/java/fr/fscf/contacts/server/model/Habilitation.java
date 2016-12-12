@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static fr.fscf.contacts.server.model.util.Entities.*;
+import static fr.fscf.contacts.shared.util.Entities.*;
 
 /**
  * Habilitates a user on a feature for a given structure.

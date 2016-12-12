@@ -5,6 +5,8 @@ import fr.fscf.contacts.shared.command.base.AbstractTableCommand;
 import fr.fscf.contacts.shared.dto.ContactDTO;
 import fr.fscf.contacts.shared.util.Sort;
 
+import java.util.List;
+
 /**
  * Gets contacts list command.
  *
@@ -16,8 +18,8 @@ public class GetContactsCommand extends AbstractTableCommand<ContactDTO> {
         // Serialization.
     }
 
-    public GetContactsCommand(Range range, Sort sort) {
-        super(range, sort);
+    public GetContactsCommand(Range range, List<Sort> sorts) {
+        super(range, sorts);
     }
 
 }

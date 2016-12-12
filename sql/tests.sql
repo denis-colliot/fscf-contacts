@@ -68,4 +68,5 @@ FROM
   join t_affectation_af as af on af.co_id = co.co_id
   join structures_tree as st on af.st_id = st.st_id
 --WHERE co.co_id = 22
+ORDER BY co_nom ASC, co_prenom ASC
 ;

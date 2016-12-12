@@ -1,10 +1,9 @@
 package fr.fscf.contacts.client.ui.presenter;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.inject.ImplementedBy;
 import fr.fscf.contacts.client.dispatch.CommandResultHandler;
+import fr.fscf.contacts.client.i18n.I18N;
 import fr.fscf.contacts.client.inject.Injector;
 import fr.fscf.contacts.client.navigation.Page;
 import fr.fscf.contacts.client.navigation.PageRequest;
@@ -25,7 +24,6 @@ import fr.fscf.contacts.shared.dto.FunctionDTO;
 import fr.fscf.contacts.shared.dto.StructureDTO;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 
 /**
  * Contact presenter.
@@ -46,12 +44,7 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
 
     @Override
     public void onBind() {
-        view.getFormSubmitButton().addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                onSubmit();
-            }
-        });
+        view.getFormSubmitButton().addClickHandler(event -> onSubmit());
     }
 
     @Override
@@ -60,20 +53,7 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         // Clearing form.
         view.getDriver().edit(new ContactDTO());
 
-        // Loading contact data.
-        final Long contactId = request.getParameterLong(RequestParameter.ID);
-
-        if (contactId != null) {
-            dispatch.execute(new GetContactCommand(contactId), new CommandResultHandler<ContactDTO>() {
-                @Override
-                protected void onCommandSuccess(ContactDTO result) {
-                    view.getDriver().edit(result);
-                }
-            });
-        }
-
         // Populating functions field.
-        view.getFunction().setAcceptableValues(new ArrayList<FunctionDTO>(0));
         dispatch.execute(new GetFunctionsCommand(), new CommandResultHandler<ListResult<FunctionDTO>>() {
             @Override
             protected void onCommandSuccess(final ListResult<FunctionDTO> result) {
@@ -82,13 +62,23 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         });
 
         // Populating structures field.
-        view.getStructure().setAcceptableValues(new ArrayList<StructureDTO>(0));
         dispatch.execute(new GetStructuresCommand(), new CommandResultHandler<ListResult<StructureDTO>>() {
             @Override
             protected void onCommandSuccess(final ListResult<StructureDTO> result) {
                 view.getStructure().setAcceptableValues(result.getList());
             }
         });
+
+        // Loading contact data.
+        final Long contactId = request.getParameterLong(RequestParameter.ID);
+        if (contactId != null) {
+            dispatch.execute(new GetContactCommand(contactId), new CommandResultHandler<ContactDTO>() {
+                @Override
+                protected void onCommandSuccess(ContactDTO result) {
+                    view.getDriver().edit(result);
+                }
+            });
+        }
     }
 
     private void onSubmit() {
@@ -101,7 +91,7 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         dispatch.execute(new SaveContactCommand(contactDTO), new CommandResultHandler<ContactDTO>() {
             @Override
             protected void onCommandSuccess(ContactDTO result) {
-                N10N.validNotif("Le contact &laquo; " + result + " &raquo; a bien été enregistré"); // TODO i18n
+                N10N.validNotif(I18N.MESSAGES.contacts_save_ok(result.toString()));
                 eventBus.navigate(Page.CONTACTS);
             }
         }, view.getFormSubmitButton());

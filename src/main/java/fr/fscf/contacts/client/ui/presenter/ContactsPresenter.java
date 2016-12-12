@@ -1,5 +1,8 @@
 package fr.fscf.contacts.client.ui.presenter;
 
+import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.ColumnSortEvent;
+import com.google.gwt.user.cellview.client.ColumnSortList;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.Range;
@@ -15,10 +18,16 @@ import fr.fscf.contacts.client.util.AsyncDataProvider;
 import fr.fscf.contacts.shared.command.GetContactsCommand;
 import fr.fscf.contacts.shared.command.result.ListResult;
 import fr.fscf.contacts.shared.dto.ContactDTO;
+import fr.fscf.contacts.shared.dto.sort.IsSortProvider;
+import fr.fscf.contacts.shared.util.Sort;
 import org.gwtbootstrap3.client.ui.Pagination;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
 import javax.inject.Inject;
+import java.util.List;
+import java.util.Optional;
+
+import static fr.fscf.contacts.shared.dto.sort.IsSortProvider.*;
 
 /**
  * Contacts presenter.
@@ -52,7 +61,9 @@ public class ContactsPresenter extends AbstractPagePresenter<ContactsPresenter.V
 
                 final Range range = display.getVisibleRange();
 
-                dispatch.execute(new GetContactsCommand(range, null), new CommandResultHandler<ListResult<ContactDTO>>() {
+                List<Sort> sorts = fromTable(ContactSort.class, view.getContactsTable());
+
+                dispatch.execute(new GetContactsCommand(range, sorts), new CommandResultHandler<ListResult<ContactDTO>>() {
                     @Override
                     protected void onCommandSuccess(final ListResult<ContactDTO> result) {
 
@@ -67,6 +78,9 @@ public class ContactsPresenter extends AbstractPagePresenter<ContactsPresenter.V
             }
         };
         dataProvider.addDataDisplay(view.getContactsTable());
+
+        // Table column sort handler.
+        view.getContactsTable().addColumnSortHandler(new ColumnSortEvent.AsyncHandler(view.getContactsTable()));
     }
 
     @Override

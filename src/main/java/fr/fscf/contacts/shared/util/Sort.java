@@ -1,6 +1,7 @@
 package fr.fscf.contacts.shared.util;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * Sort utility POJO.
@@ -9,14 +10,25 @@ import java.io.Serializable;
  */
 public class Sort implements Serializable {
 
+    public static Sort of(String column) {
+        return of(column, null);
+    }
+
+    public static Sort of(String column, Order order) {
+        if (ClientUtils.isBlank(column)) {
+            throw new IllegalArgumentException("Sort column name must be provided");
+        }
+        return new Sort(column, Optional.ofNullable(order).orElse(Order.ASC));
+    }
+
     private String column;
     private Order order;
 
-    public Sort() {
+    private Sort() {
         // RPC Serialization.
     }
 
-    public Sort(String column, Order order) {
+    private Sort(String column, Order order) {
         this.column = column;
         this.order = order;
     }
@@ -29,8 +41,16 @@ public class Sort implements Serializable {
         return order;
     }
 
-    enum Order {
-        ASC, DESC
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public enum Order {
+        ASC, DESC;
+
+        public static Order fromBoolean(final boolean order) {
+            return order ? ASC : DESC;
+        }
     }
 
 }

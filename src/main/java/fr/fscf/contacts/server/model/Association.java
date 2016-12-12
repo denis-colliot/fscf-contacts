@@ -19,7 +19,7 @@ public class Association extends Structure {
      */
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "parent_id", nullable = true)
-    private Comity parent;
+    private DepartmentalCommittee parent;
 
     public Association() {
     }
@@ -33,11 +33,11 @@ public class Association extends Structure {
         return StructureType.ASSOCIATION;
     }
 
-    public Comity getParent() {
+    public DepartmentalCommittee getParent() {
         return parent;
     }
 
-    public void setParent(Comity parent) {
+    public void setParent(DepartmentalCommittee parent) {
         this.parent = parent;
     }
 }

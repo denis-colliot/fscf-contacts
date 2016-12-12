@@ -11,7 +11,7 @@ public final class StructureType {
 
     public static final String COMMISSION_NATIONALE = "COMMISSION_NATIONALE";
 
-    public static final String LIGUE_REGIONALE = "LIGUE_REGIONALE";
+    public static final String COMITE_REGIONAL = "COMITE_REGIONAL";
 
     public static final String COMITE_DEPARTEMENTAL = "COMITE_DEPARTEMENTAL";
 

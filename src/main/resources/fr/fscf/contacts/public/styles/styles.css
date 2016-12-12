@@ -14,6 +14,10 @@ Application CSS.
 .table>tbody>tr>td.cell-v-centered {
     vertical-align: middle;
 }
+.table>tbody>tr>td .btn {
+    margin-left: 2px;
+    margin-right: 2px;
+}
 
 /*
 ------------------------------------------

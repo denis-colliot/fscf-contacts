@@ -115,9 +115,8 @@ public final class ClientUtils {
     /**
      * Returns if the current navigator is the given version of Microsoft Internet Explorer.
      *
-     * @param version
-     *         The expected version. If the version is <code>null</code>, then this method return is the navigator is one
-     *         of the versions of Microsoft Internet Explorer.
+     * @param version The expected version. If the version is <code>null</code>, then this method return is the navigator is one
+     *                of the versions of Microsoft Internet Explorer.
      * @return If the current navigator is the given version of Microsoft Internet Explorer.
      */
     public static boolean isIE(String version) {
@@ -201,7 +200,7 @@ public final class ClientUtils {
 
     /**
      * Returns if the given {@code value} is blank.
-     * <p/>
+     * <p>
      * <pre>
      * isBlank(null)    -> true
      * isBlank("")      -> true
@@ -210,8 +209,7 @@ public final class ClientUtils {
      * isBlank(" a ")   -> false
      * </pre>
      *
-     * @param value
-     *         The value to test.
+     * @param value The value to test.
      * @return {@code true} if the given {@code value} is {@code null} or {@code empty}.
      */
     public static boolean isBlank(String value) {
@@ -220,7 +218,7 @@ public final class ClientUtils {
 
     /**
      * Returns if the given {@code value} is not blank.
-     * <p/>
+     * <p>
      * <pre>
      * isNotBlank(null)    -> false
      * isNotBlank("")      -> false
@@ -229,8 +227,7 @@ public final class ClientUtils {
      * isNotBlank(" a ")   -> true
      * </pre>
      *
-     * @param value
-     *         The value to test.
+     * @param value The value to test.
      * @return {@code true} if the given {@code value} is not {@code null} and not {@code empty}.
      */
     public static boolean isNotBlank(String value) {
@@ -238,10 +235,20 @@ public final class ClientUtils {
     }
 
     /**
+     * Returns the given {@code value} if not blank, or {@code defaultValue}.
+     *
+     * @param value        The value that may be {@code blank}.
+     * @param defaultValue The dafault value to return if {@code value} is {@code blank}.
+     * @return The given value or default value.
+     */
+    public static String defaultIfBlank(String value, String defaultValue) {
+        return isBlank(value) ? defaultValue : value;
+    }
+
+    /**
      * Trims the given {@code value}.
      *
-     * @param value
-     *         The value to trim.
+     * @param value The value to trim.
      * @return the given {@code value} trimmed or {@code null}.
      */
     public static String trim(String value) {
@@ -254,8 +261,7 @@ public final class ClientUtils {
     /**
      * Trims the given {@code value}, returns {@code empty} if {@code null}.
      *
-     * @param value
-     *         The value to trim.
+     * @param value The value to trim.
      * @return the given {@code value} trimmed or {@code empty} if {@code null}.
      */
     public static String trimToEmpty(String value) {
@@ -268,27 +274,20 @@ public final class ClientUtils {
     /**
      * Returns {@code true} if the given {@code value} contains the given {@code pattern}.
      *
-     * @param value
-     *         The value to test.
-     * @param pattern
-     *         The pattern to find.
+     * @param value   The value to test.
+     * @param pattern The pattern to find.
      * @return {@code true} if the given {@code value} contains the given {@code pattern}.
      */
     public static boolean contains(String value, String pattern) {
-        if (isBlank(value) || isBlank(pattern)) {
-            return false;
-        }
+        return !(isBlank(value) || isBlank(pattern)) && value.contains(pattern);
 
-        return value.contains(pattern);
     }
 
     /**
      * Returns {@code true} if the given {@code values} contains the given {@code pattern}.
      *
-     * @param values
-     *         The values to test.
-     * @param pattern
-     *         The pattern to find.
+     * @param values  The values to test.
+     * @param pattern The pattern to find.
      * @return {@code true} if the given {@code values} contains the given {@code pattern}.
      */
     public static boolean contains(String[] values, String pattern) {
@@ -311,7 +310,7 @@ public final class ClientUtils {
      * {@code null}s are handled without exceptions. Two {@code null} references are considered to be equal. The
      * comparison is case sensitive.
      * </p>
-     * <p/>
+     * <p>
      * <pre>
      * equals(null, null)   = true
      * equals(null, "abc")  = false
@@ -320,18 +319,13 @@ public final class ClientUtils {
      * equals("abc", "ABC") = false
      * </pre>
      *
-     * @param value1
-     *         The first string value, may be null.
-     * @param value2
-     *         The second string value, may be null.
+     * @param value1 The first string value, may be null.
+     * @param value2 The second string value, may be null.
      * @return {@code true} if the given values are equal, case sensitive, or both {@code null}.
      */
     public static boolean equals(String value1, String value2) {
-        if (value1 == null && value2 == null) {
-            return true;
-        }
+        return value1 == null && value2 == null || value1 != null && value1.equals(value2);
 
-        return value1 != null && value1.equals(value2);
     }
 
     /**
@@ -342,7 +336,7 @@ public final class ClientUtils {
      * {@code null}s are handled without exceptions. Two {@code null} references are considered to be equal. The
      * comparison is case <b>insensitive</b>.
      * </p>
-     * <p/>
+     * <p>
      * <pre>
      * equals(null, null)   = true
      * equals(null, "abc")  = false
@@ -351,25 +345,20 @@ public final class ClientUtils {
      * equals("abc", "ABC") = true
      * </pre>
      *
-     * @param value1
-     *         The first string value, may be null.
-     * @param value2
-     *         The second string value, may be null.
+     * @param value1 The first string value, may be null.
+     * @param value2 The second string value, may be null.
      * @return {@code true} if the given values are equal, case <b>insensitive</b>, or both {@code null}.
      */
     public static boolean equalsIgnoreCase(String value1, String value2) {
-        if (value1 == null && value2 == null) {
-            return true;
-        }
+        return value1 == null && value2 == null || value1 != null && value1.equalsIgnoreCase(value2);
 
-        return value1 != null && value1.equalsIgnoreCase(value2);
     }
 
     /**
      * <p>
      * Converts the given value to upper case.
      * </p>
-     * <p/>
+     * <p>
      * <pre>
      * toUpperCase(null)    = null
      * toUpperCase("")      = ""
@@ -378,23 +367,18 @@ public final class ClientUtils {
      * toUpperCase(" abc ") = "ABC"
      * </pre>
      *
-     * @param value
-     *         The string value, may be null.
+     * @param value The string value, may be null.
      * @return the given {@code value} converted to upper case or {@code null}.
      */
     public static String toUpperCase(String value) {
-        if (value == null) {
-            return null;
-        }
-
-        return value.trim().toUpperCase();
+        return value == null ? null : value.trim().toUpperCase();
     }
 
     /**
      * <p>
      * Converts the given value to lower case.
      * </p>
-     * <p/>
+     * <p>
      * <pre>
      * toLowerCase(null)    = null
      * toLowerCase("")      = ""
@@ -403,27 +387,21 @@ public final class ClientUtils {
      * toLowerCase(" ABC ") = "abc"
      * </pre>
      *
-     * @param value
-     *         The string value, may be null.
+     * @param value The string value, may be null.
      * @return the given {@code value} converted to lower case or {@code null}.
      */
     public static String toLowerCase(String value) {
-        if (value == null) {
-            return null;
-        }
-
-        return value.trim().toLowerCase();
+        return value == null ? null : value.trim().toLowerCase();
     }
 
     /**
      * Puts the first text's character to its upper case value.<br/>
      * The rest of the {@code text} is not modified.
      *
-     * @param text
-     *         The initial text.
+     * @param text The initial text.
      * @return The first character uppered text.
      */
-    public static final String upperFirst(String text) {
+    public static String upperFirst(String text) {
         if (isBlank(text)) {
             return text;
         }
@@ -435,7 +413,7 @@ public final class ClientUtils {
      * <p>
      * Converts the given {@code name} with proper name format.
      * </p>
-     * <p/>
+     * <p>
      * <pre>
      * formatName(null)          = null
      * formatName("")            = ""
@@ -446,8 +424,7 @@ public final class ClientUtils {
      * formatName(" denis ")     = "Denis"
      * </pre>
      *
-     * @param name
-     *         The name value, may be {@code null}.
+     * @param name The name value, may be {@code null}.
      * @return the given {@code name} formatted or {@code null}.
      */
     public static String formatName(String name) {
@@ -473,10 +450,8 @@ public final class ClientUtils {
      * Formats the given {@code words} and creates a new {@code String} which parts are separated by given
      * {@code splitChar}.
      *
-     * @param words
-     *         The words.
-     * @param splitChar
-     *         The split character used to generate {@code words} array.
+     * @param words     The words.
+     * @param splitChar The split character used to generate {@code words} array.
      * @return the generated string.
      */
     private static String formatWords(final String[] words, char splitChar) {
@@ -531,11 +506,10 @@ public final class ClientUtils {
      * <li>{@code Ç} are replaced by {@code C}</li>
      * </ul>
      *
-     * @param text
-     *         The text.
+     * @param text The text.
      * @return the given {@code text} with special characters replaced.
      */
-    public static final String removeSpecialChars(String text) {
+    public static String removeSpecialChars(String text) {
         if (isBlank(text)) {
             return text;
         }
@@ -557,8 +531,7 @@ public final class ClientUtils {
     /**
      * Gets a CharSequence length or {@code 0} if the CharSequence is {@code null}.
      *
-     * @param cs
-     *         a CharSequence or {@code null}
+     * @param cs a CharSequence or {@code null}
      * @return CharSequence length or {@code 0} if the CharSequence is {@code null}.
      */
     public static int length(CharSequence cs) {
@@ -581,7 +554,7 @@ public final class ClientUtils {
      * <p>
      * If {@code start} is not strictly to the left of {@code end}, "" is returned.
      * </p>
-     * <p/>
+     * <p>
      * <pre>
      * StringUtils.substring(null, *, *)    = null
      * StringUtils.substring("", * ,  *)    = "";
@@ -594,13 +567,10 @@ public final class ClientUtils {
      * StringUtils.substring("abc", -4, 2)  = "ab"
      * </pre>
      *
-     * @param str
-     *         the String to get the substring from, may be null
-     * @param start
-     *         the position to start from, negative means count back from the end of the String by this many characters
-     * @param end
-     *         the position to end at (exclusive), negative means count back from the end of the String by this many
-     *         characters
+     * @param str   the String to get the substring from, may be null
+     * @param start the position to start from, negative means count back from the end of the String by this many characters
+     * @param end   the position to end at (exclusive), negative means count back from the end of the String by this many
+     *              characters
      * @return substring from start position to end position, {@code null} if null String input
      */
     public static String substring(final String str, int start, int end) {
@@ -644,7 +614,7 @@ public final class ClientUtils {
      * <p>
      * A {@code null} input String returns {@code null}.
      * </p>
-     * <p/>
+     * <p>
      * <pre>
      * StringUtils.capitalize(null)  = null
      * StringUtils.capitalize("")    = ""
@@ -652,8 +622,7 @@ public final class ClientUtils {
      * StringUtils.capitalize("cAt") = "CAt"
      * </pre>
      *
-     * @param str
-     *         the String to capitalize, may be null
+     * @param str the String to capitalize, may be null
      * @return the capitalized String, {@code null} if null String input
      * @see #uncapitalize(String)
      */
@@ -671,7 +640,7 @@ public final class ClientUtils {
             return str;
         }
 
-        return new StringBuilder(strLen).append(Character.toUpperCase(firstChar)).append(str.substring(1)).toString();
+        return String.valueOf(Character.toUpperCase(firstChar)) + str.substring(1);
 
     }
 
@@ -683,7 +652,7 @@ public final class ClientUtils {
      * <p>
      * A {@code null} input String returns {@code null}.
      * </p>
-     * <p/>
+     * <p>
      * <pre>
      * StringUtils.uncapitalize(null)  = null
      * StringUtils.uncapitalize("")    = ""
@@ -691,8 +660,7 @@ public final class ClientUtils {
      * StringUtils.uncapitalize("CAT") = "cAT"
      * </pre>
      *
-     * @param str
-     *         the String to uncapitalize, may be null
+     * @param str the String to uncapitalize, may be null
      * @return the uncapitalized String, {@code null} if null String input
      * @see #capitalize(String)
      */
@@ -709,24 +677,22 @@ public final class ClientUtils {
             return str;
         }
 
-        return new StringBuilder(strLen).append(Character.toLowerCase(firstChar)).append(str.substring(1)).toString();
+        return String.valueOf(Character.toLowerCase(firstChar)) + str.substring(1);
 
     }
 
     /**
      * Abbreviates the given {@code value} to {@code max} characters (if necessary).<br>
      * If the {@code value} is abbreviated, the result ends with "{@code ...}".
-     * <p/>
+     * <p>
      * <pre>
      * abbreviate("my value", 150) -> "my value"
      * abbreviate("my value", 5) -> "my va..."
      * abbreviate("my value", 0) -> "..."
      * </pre>
      *
-     * @param value
-     *         The value.
-     * @param max
-     *         The max value.
+     * @param value The value.
+     * @param max   The max value.
      * @return The value abbreviated (if necessary).
      */
     public static String abbreviate(final String value, int max) {
@@ -742,8 +708,7 @@ public final class ClientUtils {
     /**
      * Adds a colon to the given label.
      *
-     * @param label
-     *         The label.
+     * @param label The label.
      * @return The label with a proper I18N colon.
      */
     public static String colon(String label) {
@@ -752,7 +717,7 @@ public final class ClientUtils {
 
     /**
      * Removes the last {@code suffix} of the given {@code value}.
-     * <p/>
+     * <p>
      * <pre>
      * removeLastSuffix("a blue dog", null) -> "a blue dog"
      * removeLastSuffix("a blue dog", "") -> "a blue dog"
@@ -764,10 +729,8 @@ public final class ClientUtils {
      * removeLastSuffix("a blue dog", "a blue dog") -> ""
      * </pre>
      *
-     * @param value
-     *         The value.
-     * @param suffix
-     *         The suffix.
+     * @param value  The value.
+     * @param suffix The suffix.
      * @return The given {@code value} without the last {@code suffix}.
      */
     public static String removeLastSuffix(final String value, final String suffix) {
@@ -790,7 +753,7 @@ public final class ClientUtils {
 
     /**
      * Returns {@code true} if the given string is a valid <strong>true</strong> boolean value.
-     * <p/>
+     * <p>
      * <pre>
      * isTrue(null)   -> false
      * isTrue("true") -> true
@@ -801,8 +764,7 @@ public final class ClientUtils {
      * isTrue(" 1 ")  -> true
      * </pre>
      *
-     * @param value
-     *         The string value.
+     * @param value The string value.
      * @return {@code true} if the given string is a valid <strong>true</strong> boolean value.
      */
     public static boolean isTrue(String value) {
@@ -811,32 +773,30 @@ public final class ClientUtils {
 
     /**
      * Returns {@code true} if the given {@link Boolean} value is a {@code true} boolean value.
-     * <p/>
+     * <p>
      * <pre>
      * isTrue(null)  -> false
      * isTrue(false) -> false
      * isTrue(true)  -> true
      * </pre>
      *
-     * @param value
-     *         The {@link Boolean} value.
+     * @param value The {@link Boolean} value.
      * @return {@code true} if the given value is a {@code true} boolean value.
      */
     public static boolean isTrue(Boolean value) {
-        return value != null && value.booleanValue();
+        return value != null && value;
     }
 
     /**
      * Returns {@code false} if the given {@link Boolean} value is a {@code true} boolean value.
-     * <p/>
+     * <p>
      * <pre>
      * isNotTrue(null)  -> true
      * isNotTrue(false) -> true
      * isNotTrue(true)  -> false
      * </pre>
      *
-     * @param value
-     *         The {@link Boolean} value.
+     * @param value The {@link Boolean} value.
      * @return {@code false} if the given value is a {@code true} boolean value.
      */
     public static boolean isNotTrue(Boolean value) {
@@ -845,7 +805,7 @@ public final class ClientUtils {
 
     /**
      * Returns {@code true} if the given {@link Object} value is a {@code true} boolean value.
-     * <p/>
+     * <p>
      * <pre>
      * isTrue(null)                -> false
      * isTrue(true)                -> true
@@ -865,8 +825,7 @@ public final class ClientUtils {
      * isTrue(new Integer(1))      -> true
      * </pre>
      *
-     * @param value
-     *         The {@link Object} value.
+     * @param value The {@link Object} value.
      * @return {@code true} if the given value is a {@code true} boolean value.
      * @see #isTrue(String)
      */
@@ -883,8 +842,7 @@ public final class ClientUtils {
     /**
      * Returns the integer corresponding to the given string {@code value}.
      *
-     * @param value
-     *         The {@link String} value.
+     * @param value The {@link String} value.
      * @return the integer corresponding to the given string {@code value} or {@code null} if the {@code value} does not
      * contain a parsable integer.
      */
@@ -895,10 +853,8 @@ public final class ClientUtils {
     /**
      * Returns the integer corresponding to the given string {@code value}.
      *
-     * @param value
-     *         The {@link String} value.
-     * @param defaultValue
-     *         The default value returned by the method if the given {@code value} is not a valid integer.
+     * @param value        The {@link String} value.
+     * @param defaultValue The default value returned by the method if the given {@code value} is not a valid integer.
      * @return the integer corresponding to the given string {@code value} or {@code defaultValue} if the {@code value}
      * does not contain a parsable integer.
      */
@@ -913,8 +869,7 @@ public final class ClientUtils {
     /**
      * Returns the {@code long} corresponding to the given string {@code value}.
      *
-     * @param value
-     *         The {@link String} value.
+     * @param value The {@link String} value.
      * @return the integer corresponding to the given string {@code value} or {@code null} if the {@code value} does not
      * contain a parsable {@code long}.
      */
@@ -925,10 +880,8 @@ public final class ClientUtils {
     /**
      * Returns the {@code long} corresponding to the given string {@code value}.
      *
-     * @param value
-     *         The {@link String} value.
-     * @param defaultValue
-     *         The default value returned by the method if the given {@code value} is not a valid {@code long}.
+     * @param value        The {@link String} value.
+     * @param defaultValue The default value returned by the method if the given {@code value} is not a valid {@code long}.
      * @return the integer corresponding to the given string {@code value} or {@code defaultValue} if the {@code value}
      * does not contain a parsable {@code long}.
      */
@@ -944,8 +897,7 @@ public final class ClientUtils {
      * Returns the given {@code number} corresponding {@code Integer} value.<br>
      * If the {@code number} is {@code null}, the method returns {@code null}.
      *
-     * @param number
-     *         The number, may be {@code null}.
+     * @param number The number, may be {@code null}.
      * @return The given {@code number} corresponding {@code Integer} value, or {@code null}.
      */
     public static Integer getInteger(final Number number) {
@@ -956,8 +908,7 @@ public final class ClientUtils {
      * Returns the given {@code number} corresponding {@code Long} value.<br>
      * If the {@code number} is {@code null}, the method returns {@code null}.
      *
-     * @param number
-     *         The number, may be {@code null}.
+     * @param number The number, may be {@code null}.
      * @return The given {@code number} corresponding {@code Long} value, or {@code null}.
      */
     public static Long getLong(final Number number) {
@@ -974,8 +925,7 @@ public final class ClientUtils {
      * Returns the given {@code date} corresponding timestamp (in ms).<br>
      * If the {@code date} is {@code null}, the method returns {@code null}.
      *
-     * @param date
-     *         The date, may be {@code null}.
+     * @param date The date, may be {@code null}.
      * @return The given {@code date} corresponding timestamp (in ms), or {@code null}.
      */
     public static Long getTimestamp(final Date date) {
@@ -991,8 +941,7 @@ public final class ClientUtils {
     /**
      * Returns if the given {@code collection} is {@code null} or empty.
      *
-     * @param collection
-     *         The collection to test.
+     * @param collection The collection to test.
      * @return {@code true} if the given {@code collection} is {@code null} or {@code empty}.
      */
     public static <C extends Collection<?>> boolean isEmpty(C collection) {
@@ -1002,8 +951,7 @@ public final class ClientUtils {
     /**
      * Returns if the given {@code collection} is not {@code null} and not empty.
      *
-     * @param collection
-     *         The collection to test.
+     * @param collection The collection to test.
      * @return {@code true} if the given {@code collection} is not {@code null} and not {@code empty}.
      */
     public static <C extends Collection<?>> boolean isNotEmpty(C collection) {
@@ -1013,8 +961,7 @@ public final class ClientUtils {
     /**
      * Returns if the given {@code array} is {@code null} or empty.
      *
-     * @param array
-     *         The array to test.
+     * @param array The array to test.
      * @return {@code true} if the given {@code array} is {@code null} or {@code empty}.
      */
     public static <T extends Object> boolean isEmpty(T[] array) {
@@ -1024,8 +971,7 @@ public final class ClientUtils {
     /**
      * Returns if the given {@code array} is {@code null} or empty.
      *
-     * @param array
-     *         The array to test.
+     * @param array The array to test.
      * @return {@code true} if the given {@code array} is {@code null} or {@code empty}.
      */
     public static <T extends Object> boolean isNotEmpty(T[] array) {
@@ -1035,8 +981,7 @@ public final class ClientUtils {
     /**
      * Returns if the given {@code map} is {@code null} or empty.
      *
-     * @param map
-     *         The map to test.
+     * @param map The map to test.
      * @return {@code true} if the given {@code map} is {@code null} or {@code empty}.
      */
     public static <M extends Map<?, ?>> boolean isEmpty(M map) {
@@ -1046,8 +991,7 @@ public final class ClientUtils {
     /**
      * Returns if the given {@code map} is not {@code null} and not empty.
      *
-     * @param map
-     *         The map to test.
+     * @param map The map to test.
      * @return {@code true} if the given {@code map} is not {@code null} and not {@code empty}.
      */
     public static <M extends Map<?, ?>> boolean isNotEmpty(M map) {
@@ -1057,8 +1001,7 @@ public final class ClientUtils {
     /**
      * Returns the collection corresponding to the given {@code array}.
      *
-     * @param array
-     *         The array to convert.
+     * @param array The array to convert.
      * @return the collection corresponding to the given {@code array} or {@code null} if the {@code array} is
      * {@code null}.
      */
@@ -1072,8 +1015,7 @@ public final class ClientUtils {
     /**
      * Returns the collection corresponding to the given {@code value}.
      *
-     * @param value
-     *         The value to convert.
+     * @param value The value to convert.
      * @return the collection corresponding to the given nullable {@code value}.
      */
     public static <T> List<T> toList(T value) {
@@ -1083,10 +1025,8 @@ public final class ClientUtils {
     /**
      * Utility method returning the intersection between the given sets (i.e. elements present among both sets).
      *
-     * @param firstSet
-     *         The first set.
-     * @param secondSet
-     *         The second set.
+     * @param firstSet  The first set.
+     * @param secondSet The second set.
      * @return The intersection between the given sets (i.e. elements present among both sets).<br/>
      * Never returns {@code null} ; if no intersection, returns empty set.
      */
@@ -1106,14 +1046,13 @@ public final class ClientUtils {
 
     /**
      * Concatenates all the given {@code collections} together (order is conserved).
-     * <p/>
+     * <p>
      * <pre>
      * concat({4,5}, {1,6}, {7,9}) -> {4,5,1,6,7,9}
      * concat({4,5}, null, {7,9}) -> {4,5,7,9}
      * </pre>
      *
-     * @param collections
-     *         The collection(s).
+     * @param collections The collection(s).
      * @return The given {@code collections} concatenated together.
      */
     @SafeVarargs
@@ -1139,11 +1078,9 @@ public final class ClientUtils {
     /**
      * Sets the given {@code isWidget} display style property (either {@link Style.Display#BLOCK} or {@link Style.Display#NONE}).
      *
-     * @param isWidget
-     *         The widget.
-     * @param visible
-     *         {@code true} to set the {@code isWidget} visible by applying the given {@code display} to its style,
-     *         {@code false} to hide it.
+     * @param isWidget The widget.
+     * @param visible  {@code true} to set the {@code isWidget} visible by applying the given {@code display} to its style,
+     *                 {@code false} to hide it.
      */
     public static <W extends IsWidget> void setDisplay(W isWidget, boolean visible) {
         setDisplay(isWidget, visible ? Style.Display.BLOCK : Style.Display.NONE);
@@ -1152,13 +1089,10 @@ public final class ClientUtils {
     /**
      * Sets the given {@code isWidget} with the given {@code display} style property.
      *
-     * @param isWidget
-     *         The widget.
-     * @param display
-     *         The display type.
-     * @param visible
-     *         {@code true} to set the {@code isWidget} visible by applying the given {@code display} to its style,
-     *         {@code false} to hide it with {@code Display.NONE}.
+     * @param isWidget The widget.
+     * @param display  The display type.
+     * @param visible  {@code true} to set the {@code isWidget} visible by applying the given {@code display} to its style,
+     *                 {@code false} to hide it with {@code Display.NONE}.
      */
     public static <W extends IsWidget> void setDisplay(W isWidget, final Style.Display display, boolean visible) {
         setDisplay(isWidget, visible ? display : Style.Display.NONE);
@@ -1167,10 +1101,8 @@ public final class ClientUtils {
     /**
      * Sets the display style property to all given {@link IsWidget}.
      *
-     * @param display
-     *         The display style property.
-     * @param isWidgets
-     *         The Widgets.
+     * @param display   The display style property.
+     * @param isWidgets The Widgets.
      */
     public static void setDisplay(final Style.Display display, IsWidget... isWidgets) {
         if (isEmpty(isWidgets)) {
@@ -1185,11 +1117,9 @@ public final class ClientUtils {
     /**
      * Sets the given {@code isWidget} display style property.
      *
-     * @param isWidget
-     *         The widget.
-     * @param display
-     *         The display style property. Is the given value is {@code null}, the {@code display} style property is
-     *         cleared.
+     * @param isWidget The widget.
+     * @param display  The display style property. Is the given value is {@code null}, the {@code display} style property is
+     *                 cleared.
      */
     public static <W extends IsWidget> void setDisplay(W isWidget, Style.Display display) {
         if (isWidget == null) {
@@ -1212,12 +1142,9 @@ public final class ClientUtils {
      * Adds the given {@code addedStyle} to the given {@code isWidget} and removes the given {@code removedStyles} from
      * the given {@code isWidget}.
      *
-     * @param isWidget
-     *         The widget.
-     * @param addedStyle
-     *         The added style name (if not {@code null} or empty).
-     * @param removedStyles
-     *         The removed style names (if not {@code null} or empty).
+     * @param isWidget      The widget.
+     * @param addedStyle    The added style name (if not {@code null} or empty).
+     * @param removedStyles The removed style names (if not {@code null} or empty).
      */
     public static <W extends IsWidget> void addAndRemoveStyles(W isWidget, String addedStyle, String... removedStyles) {
         if (isWidget == null) {
@@ -1265,8 +1192,7 @@ public final class ClientUtils {
      * <b><em>Warning : on <u>server</u> side, the method returns the {@code date} time (in milliseconds).</em></b>
      * </p>
      *
-     * @param date
-     *         The date to format.
+     * @param date The date to format.
      * @return the formatted date or {@code null} if the given {@code date} is {@code null}.
      */
     public static String formatDate(final Date date) {
@@ -1279,13 +1205,10 @@ public final class ClientUtils {
      * <b><em>Warning : on <u>server</u> side, the method returns the {@code date} time (in milliseconds).</em></b>
      * </p>
      *
-     * @param date
-     *         The date to format.
-     * @param pattern
-     *         The date pattern (default pattern {@code dd/MM/yyyy} is used if {@code null} or empty).
+     * @param date    The date to format.
+     * @param pattern The date pattern (default pattern {@code dd/MM/yyyy} is used if {@code null} or empty).
      * @return the formatted date or {@code null} if the given {@code date} is {@code null}.
-     * @throws IllegalArgumentException
-     *         If the given {@code pattern} cannot be parsed.
+     * @throws IllegalArgumentException If the given {@code pattern} cannot be parsed.
      */
     public static String formatDate(final Date date, final String pattern) {
         if (date == null) {
@@ -1302,10 +1225,8 @@ public final class ClientUtils {
     /**
      * Creates a type-safe generic array.
      *
-     * @param <T>
-     *         The array's element type.
-     * @param items
-     *         The varargs array items, null allowed.
+     * @param <T>   The array's element type.
+     * @param items The varargs array items, null allowed.
      * @return The array, not null unless a null array is passed in
      * @see org.apache.commons.lang3.ArrayUtils#toArray(Object...)
      */
@@ -1321,7 +1242,7 @@ public final class ClientUtils {
      */
     public static native int screenWidth() /*-{
         return $wnd.screen.width;
-	}-*/;
+    }-*/;
 
     /**
      * Returns the {@code window.screen.height} property value.
@@ -1330,7 +1251,7 @@ public final class ClientUtils {
      */
     public static native int screenHeight() /*-{
         return $wnd.screen.height;
-	}-*/;
+    }-*/;
 
     private ClientUtils() {
         // Utility class constructor.

@@ -7,12 +7,11 @@ import fr.fscf.contacts.server.security.impl.SecuredResources;
 import fr.fscf.contacts.shared.command.base.Command;
 
 import javax.persistence.*;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static fr.fscf.contacts.server.model.util.Entities.*;
+import static fr.fscf.contacts.shared.util.Entities.*;
 
 /**
  * Application feature.

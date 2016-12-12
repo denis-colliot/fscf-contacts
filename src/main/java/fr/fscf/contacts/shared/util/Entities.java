@@ -1,4 +1,4 @@
-package fr.fscf.contacts.server.model.util;
+package fr.fscf.contacts.shared.util;
 
 /**
  * Model entities constants.
@@ -53,6 +53,22 @@ public final class Entities {
     public static final String STRUCTURE_EMAIL_2 = "st_email2";
     public static final String STRUCTURE_PHONE_2 = "st_telephone2";
     public static final String STRUCTURE_COMMENTS = "st_commentaire";
+
+    // --
+    // Contact table.
+    // --
+
+    public static final String CONTACT_NAME = "co_name";
+    public static final String CONTACT_FIRST_NAME = "co_prenom";
+    public static final String CONTACT_EMAIL = "co_email";
+    public static final String CONTACT_PHONE = "co_telephone";
+    public static final String CONTACT_ADDRESS = "co_adresse";
+    public static final String CONTACT_ADDITIONAL_ADDRESS = "co_adresse_compl";
+    public static final String CONTACT_ZIP_CODE = "co_code_postal";
+    public static final String CONTACT_CITY = "co_ville";
+    public static final String CONTACT_CEDEX = "co_cedex";
+    public static final String CONTACT_EMAIL2 = "co_email2";
+    public static final String CONTACT_PHONE2 = "co_telephone2";
 
     private Entities() {
     }

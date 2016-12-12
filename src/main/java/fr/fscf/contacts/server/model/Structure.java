@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import static fr.fscf.contacts.server.model.util.Entities.*;
+import static fr.fscf.contacts.shared.util.Entities.*;
 
 /**
  * Abstract structure.
@@ -90,10 +90,10 @@ public abstract class Structure extends AbstractEntity<Long> {
         switch (structureType.trim().toUpperCase()) {
             case StructureType.FEDERATION:
                 return Federation.class;
-            case StructureType.LIGUE_REGIONALE:
-                return RegionalLeague.class;
+            case StructureType.COMITE_REGIONAL:
+                return RegionalCommittee.class;
             case StructureType.COMITE_DEPARTEMENTAL:
-                return Comity.class;
+                return DepartmentalCommittee.class;
             case StructureType.ASSOCIATION:
                 return Association.class;
             default:

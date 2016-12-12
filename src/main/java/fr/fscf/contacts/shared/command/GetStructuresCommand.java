@@ -5,6 +5,8 @@ import fr.fscf.contacts.shared.command.base.AbstractTableCommand;
 import fr.fscf.contacts.shared.dto.StructureDTO;
 import fr.fscf.contacts.shared.util.Sort;
 
+import java.util.List;
+
 /**
  * Gets structures list command.
  *
@@ -16,8 +18,8 @@ public class GetStructuresCommand extends AbstractTableCommand<StructureDTO> {
         // Serialization.
     }
 
-    public GetStructuresCommand(Range range, Sort sort) {
-        super(range, sort);
+    public GetStructuresCommand(Range range, List<Sort> sorts) {
+        super(range, sorts);
     }
 
 }

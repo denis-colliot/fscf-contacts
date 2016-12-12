@@ -31,8 +31,8 @@ public class MapperTest {
     @Test
     public void testStructureClassMappingOk() {
         assertThat(Structure.getTypeClass(StructureType.FEDERATION)).isEqualTo(Federation.class);
-        assertThat(Structure.getTypeClass(StructureType.LIGUE_REGIONALE)).isEqualTo(RegionalLeague.class);
-        assertThat(Structure.getTypeClass(StructureType.COMITE_DEPARTEMENTAL)).isEqualTo(Comity.class);
+        assertThat(Structure.getTypeClass(StructureType.COMITE_REGIONAL)).isEqualTo(RegionalCommittee.class);
+        assertThat(Structure.getTypeClass(StructureType.COMITE_DEPARTEMENTAL)).isEqualTo(DepartmentalCommittee.class);
         assertThat(Structure.getTypeClass(StructureType.ASSOCIATION)).isEqualTo(Association.class);
     }
 
