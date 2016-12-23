@@ -6,10 +6,19 @@ import fr.fscf.contacts.server.dao.impl.AffectationDAOImpl;
 import fr.fscf.contacts.server.model.Affectation;
 import fr.fscf.contacts.server.model.AffectationPK;
 
+import java.util.List;
+
 /**
  * DAO for {@link Affectation} entity.
  */
 @ImplementedBy(AffectationDAOImpl.class)
 public interface AffectationDAO extends DAO<Affectation, AffectationPK> {
+
+    /**
+     * Returns the given {@code contactId} corresponding associations.
+     *
+     * @return The contact associations list.
+     */
+    List<Affectation> findContactAffectations(Long contactId);
 
 }

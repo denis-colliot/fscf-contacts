@@ -16,6 +16,7 @@ import fr.fscf.contacts.client.ui.widget.button.Button;
 import fr.fscf.contacts.shared.dto.ContactDTO;
 import fr.fscf.contacts.shared.dto.FunctionDTO;
 import fr.fscf.contacts.shared.dto.StructureDTO;
+import fr.fscf.contacts.shared.dto.base.AbstractEntityDTO;
 import fr.fscf.contacts.shared.util.ClientUtils;
 import org.gwtbootstrap3.client.ui.Input;
 import org.gwtbootstrap3.client.ui.ValueListBox;
@@ -81,7 +82,7 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
             public void render(FunctionDTO function, Appendable appendable) throws IOException {
                 appendable.append(render(function));
             }
-        });
+        }, FunctionDTO.keyProvider());
 
         structure = new ValueListBox<>(new Renderer<StructureDTO>() {
             @Override
@@ -93,7 +94,7 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
             public void render(StructureDTO structure, Appendable appendable) throws IOException {
                 appendable.append(render(structure));
             }
-        });
+        }, StructureDTO.keyProvider());
 
         final ViewUiBinder binder = GWT.create(ViewUiBinder.class);
         initWidget(binder.createAndBindUi(this));

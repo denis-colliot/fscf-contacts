@@ -10,8 +10,7 @@ import java.util.Date;
  *
  * @author Denis
  */
-public abstract class AbstractEntityDTO<K extends Serializable> extends AbstractDTO
-        implements ProvidesKey<AbstractEntityDTO<K>> {
+public abstract class AbstractEntityDTO<K extends Serializable> extends AbstractDTO {
 
     private K id;
 
@@ -23,9 +22,15 @@ public abstract class AbstractEntityDTO<K extends Serializable> extends Abstract
 
     private String updateUser;
 
-    @Override
-    public final K getKey(final AbstractEntityDTO<K> entity) {
-        return entity != null ? entity.getId() : null;
+    /**
+     * Returns an implementation of {@link ProvidesKey} for an {@link AbstractEntityDTO}.
+     *
+     * @param <E> The entity DTO type.
+     * @param <K> The entity type.
+     * @return The {@link ProvidesKey} implementation.
+     */
+    public static <E extends AbstractEntityDTO<K>, K extends Serializable> ProvidesKey<E> keyProvider() {
+        return entity -> entity != null ? entity.getId() : null;
     }
 
     public final K getId() {
@@ -67,4 +72,5 @@ public abstract class AbstractEntityDTO<K extends Serializable> extends Abstract
     public final void setUpdateUser(String updateUser) {
         this.updateUser = updateUser;
     }
+
 }
