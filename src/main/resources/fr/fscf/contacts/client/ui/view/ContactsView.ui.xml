@@ -7,12 +7,15 @@
     xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
     xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt">
 
+    <ui:with field="cst" type="fr.fscf.contacts.client.i18n.Constants"/>
+    <ui:with field="msg" type="fr.fscf.contacts.client.i18n.Messages"/>
+
     <ui:style>
     </ui:style>
 
     <g:HTMLPanel>
 
-        <b:PageHeader text="Rechercher un contact"/>
+        <b:PageHeader text="{cst.contacts_title}"/>
 
         <b.gwt:CellTable ui:field="cellTable"
                      bordered="true"

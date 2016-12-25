@@ -4,6 +4,9 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
 
+    <ui:with field="cst" type="fr.fscf.contacts.client.i18n.Constants"/>
+    <ui:with field="msg" type="fr.fscf.contacts.client.i18n.Messages"/>
+
     <ui:style>
         li.email-menu > a {
             font-style: italic;
@@ -11,6 +14,7 @@
             color: #ccc;
             cursor: default;
         }
+
         li.email-menu:hover, li.email-menu > a:hover {
             background: inherit;
             color: #ccc;
@@ -20,14 +24,14 @@
     <b:NavbarNav pull="RIGHT">
 
         <!-- Either anonymous menu is displayed... -->
-        <b:AnchorListItem ui:field="loginLink" icon="POWER_OFF">Se connecter</b:AnchorListItem>
+        <b:AnchorListItem ui:field="loginLink" icon="POWER_OFF" text="{cst.menu_auth_login}"/>
 
         <!-- ...or authenticated menu is displayed -->
         <b:ListDropDown ui:field="authenticatedMenu">
-            <b:AnchorButton ui:field="usernameLabel" dataToggle="DROPDOWN" icon="USER" />
+            <b:AnchorButton ui:field="usernameLabel" dataToggle="DROPDOWN" icon="USER"/>
             <b:DropDownMenu>
-                <b:AnchorListItem ui:field="email" addStyleNames="{style.email-menu}" />
-                <b:AnchorListItem ui:field="logoutLink" icon="POWER_OFF">Se déconnecter</b:AnchorListItem>
+                <b:AnchorListItem ui:field="email" addStyleNames="{style.email-menu}"/>
+                <b:AnchorListItem ui:field="logoutLink" icon="POWER_OFF" text="{cst.menu_auth_logout}"/>
             </b:DropDownMenu>
         </b:ListDropDown>
 
