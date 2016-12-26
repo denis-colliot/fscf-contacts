@@ -22,7 +22,6 @@ public final class Contact_ {
     public static volatile SingularAttribute<Contact, String> additionalAddress;
     public static volatile SingularAttribute<Contact, String> zipCode;
     public static volatile SingularAttribute<Contact, String> city;
-    public static volatile SingularAttribute<Contact, String> cedex;
     public static volatile SingularAttribute<Contact, String> email2;
     public static volatile SingularAttribute<Contact, String> phone2;
 

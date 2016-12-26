@@ -1,6 +1,7 @@
 package fr.fscf.contacts.client.ui.presenter;
 
 import com.google.gwt.user.client.ui.HasConstrainedValue;
+import com.google.gwt.user.client.ui.HasVisibility;
 import com.google.inject.ImplementedBy;
 import fr.fscf.contacts.client.dispatch.CommandResultHandler;
 import fr.fscf.contacts.client.dispatch.DispatchQueue;
@@ -21,6 +22,7 @@ import fr.fscf.contacts.shared.command.GetStructuresCommand;
 import fr.fscf.contacts.shared.command.SaveContactCommand;
 import fr.fscf.contacts.shared.command.result.ListResult;
 import fr.fscf.contacts.shared.dto.ContactDTO;
+import fr.fscf.contacts.shared.dto.ContactDTO.RequiredDetailedFunctionGroup;
 import fr.fscf.contacts.shared.dto.FunctionDTO;
 import fr.fscf.contacts.shared.dto.StructureDTO;
 
@@ -45,7 +47,11 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
 
     @Override
     public void onBind() {
+        // Save button click handler.
         view.getFormSubmitButton().addClickHandler(event -> onSubmit());
+
+        // Other function selection.
+        view.getFunction().addValueChangeHandler(event -> onFunctionChange());
     }
 
     @Override
@@ -59,6 +65,7 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
                 .add(new GetFunctionsCommand(), new CommandResultHandler<ListResult<FunctionDTO>>() {
                     @Override
                     protected void onCommandSuccess(final ListResult<FunctionDTO> result) {
+                        result.getList().add(FunctionDTO.getOther());
                         view.getFunction().setAcceptableValues(result.getList());
                     }
                 })
@@ -69,7 +76,7 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
                         view.getStructure().setAcceptableValues(result.getList());
                     }
                 })
-                .onCompleteHandler(() -> {
+                .start(() -> {
                     // Loading contact data (once previous commands have completed).
                     final Long contactId = request.getParameterLong(RequestParameter.ID);
                     if (contactId != null) {
@@ -77,15 +84,15 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
                             @Override
                             protected void onCommandSuccess(ContactDTO result) {
                                 view.getDriver().edit(result);
+                                onFunctionChange();
                             }
                         });
                     }
-                })
-                .start();
+                });
     }
 
     private void onSubmit() {
-        if (!validator.validate(view)) {
+        if (!validator.validate(view, isOtherFunctionSelected() ? RequiredDetailedFunctionGroup.class : null)) {
             return;
         }
 
@@ -100,6 +107,14 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         }, view.getFormSubmitButton());
     }
 
+    private void onFunctionChange() {
+        view.setDetailedFunctionGroupVisible(isOtherFunctionSelected());
+    }
+
+    private boolean isOtherFunctionSelected() {
+        return FunctionDTO.getOther().equals(view.getFunction().getValue());
+    }
+
     /**
      * View interface.
      */
@@ -107,6 +122,8 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
     public interface View extends ViewInterface, IsBeanEditor<ContactDTO> {
 
         Button getFormSubmitButton();
+
+        void setDetailedFunctionGroupVisible(boolean visible);
 
         HasConstrainedValue<FunctionDTO> getFunction();
 

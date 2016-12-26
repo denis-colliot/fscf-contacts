@@ -1,6 +1,5 @@
 package fr.fscf.contacts.client.dispatch;
 
-import fr.fscf.contacts.client.security.SecureDispatchAsync;
 import fr.fscf.contacts.client.ui.view.base.ViewInterface;
 import fr.fscf.contacts.client.ui.widget.Loadable;
 import fr.fscf.contacts.shared.command.base.Command;
@@ -154,31 +153,25 @@ public final class DispatchQueue {
             return this;
         }
 
-        actions.add(new CommandWrapper<C, R>(command, commandResultHandler, loadables));
+        actions.add(new CommandWrapper<>(command, commandResultHandler, loadables));
         return this;
     }
 
     /**
-     * Sets up a callback executed once <b>all</b> executed actions are complete (success or error).<br/>
-     * This method does nothing once dispatch queue is started.
-     *
-     * @param onCompleteHandler The on complete handler implementation.
-     * @return The current queue.
-     */
-    public DispatchQueue onCompleteHandler(final OnCompleteHandler onCompleteHandler) {
-
-        if (running) {
-            return this;
-        }
-
-        this.onCompleteHandler = onCompleteHandler;
-        return this;
-    }
-
-    /**
-     * Starts the queue actions (no new command should be added after this call).
+     * Starts the queue actions (no new command should be added after this call).<br/>
+     * To define a <em>on complete</em> action, use {@link #start(OnCompleteHandler)}.
      */
     public void start() {
+        start(null);
+    }
+
+    /**
+     * Starts the queue actions (no new command should be added after this call).<br/>
+     * The given {@code onCompleteHandler} is executed once <b>all</b> executed actions are complete (success or error).
+     *
+     * @param onCompleteHandler The on complete handler implementation, or {@code null} to ignore.
+     */
+    public void start(final OnCompleteHandler onCompleteHandler) {
 
         if (running) {
             return;
@@ -186,6 +179,7 @@ public final class DispatchQueue {
 
         running = true;
         actionsCount = actions.size();
+        this.onCompleteHandler = onCompleteHandler;
 
         if (actionsCount == 0) {
             actionsCount++;
@@ -193,9 +187,7 @@ public final class DispatchQueue {
             return;
         }
 
-        for (final CommandWrapper<?, ?> action : actions) {
-            action.execute();
-        }
+        actions.forEach(CommandWrapper::execute);
     }
 
     /**
@@ -208,7 +200,7 @@ public final class DispatchQueue {
             return;
         }
 
-        // "try/finally" in case cutom implementation fails.
+        // "try/finally" in case custom implementation fails.
         if (onCompleteHandler != null) {
             try {
 

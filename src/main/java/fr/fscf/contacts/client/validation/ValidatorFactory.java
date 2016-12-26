@@ -25,7 +25,10 @@ public final class ValidatorFactory extends AbstractGwtValidatorFactory {
             LoginDTO.class,
             AssociationDTO.class,
             ContactDTO.class
+    }, groups = {
+            ContactDTO.RequiredDetailedFunctionGroup.class
     })
     public interface GwtValidator extends Validator {
     }
+
 }

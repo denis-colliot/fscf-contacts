@@ -47,9 +47,6 @@ public class Contact extends AbstractEntity<Long> {
     @Column(name = CONTACT_CITY)
     private String city;
 
-    @Column(name = CONTACT_CEDEX)
-    private String cedex;
-
     @Column(name = CONTACT_EMAIL2)
     private String email2;
 
@@ -146,14 +143,6 @@ public class Contact extends AbstractEntity<Long> {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public String getCedex() {
-        return cedex;
-    }
-
-    public void setCedex(String cedex) {
-        this.cedex = cedex;
     }
 
     public String getEmail2() {

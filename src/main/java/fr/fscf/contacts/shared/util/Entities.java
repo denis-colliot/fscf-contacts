@@ -66,7 +66,6 @@ public final class Entities {
     public static final String CONTACT_ADDITIONAL_ADDRESS = "co_adresse_compl";
     public static final String CONTACT_ZIP_CODE = "co_code_postal";
     public static final String CONTACT_CITY = "co_ville";
-    public static final String CONTACT_CEDEX = "co_cedex";
     public static final String CONTACT_EMAIL2 = "co_email2";
     public static final String CONTACT_PHONE2 = "co_telephone2";
 
