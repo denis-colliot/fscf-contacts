@@ -11,6 +11,10 @@ import javax.validation.constraints.Pattern;
  */
 public class ContactDTO extends AbstractEntityDTO<Long> {
 
+    public interface RequiredDetailedFunctionGroup {
+        // Validation group empty interface.
+    }
+
     @NotNull
     private String name;
 
@@ -36,14 +40,15 @@ public class ContactDTO extends AbstractEntityDTO<Long> {
     @NotNull
     private String city;
 
-    private String cedex;
-
     private String email2;
 
     private String phone2;
 
     @NotNull
     private FunctionDTO function;
+
+    @NotNull(groups = RequiredDetailedFunctionGroup.class)
+    private String detailedFunction;
 
     @NotNull
     private StructureDTO structure;
@@ -117,14 +122,6 @@ public class ContactDTO extends AbstractEntityDTO<Long> {
         this.city = city;
     }
 
-    public String getCedex() {
-        return cedex;
-    }
-
-    public void setCedex(String cedex) {
-        this.cedex = cedex;
-    }
-
     public String getEmail2() {
         return email2;
     }
@@ -149,6 +146,14 @@ public class ContactDTO extends AbstractEntityDTO<Long> {
         this.function = function;
     }
 
+    public String getDetailedFunction() {
+        return detailedFunction;
+    }
+
+    public void setDetailedFunction(String detailedFunction) {
+        this.detailedFunction = detailedFunction;
+    }
+
     public StructureDTO getStructure() {
         return structure;
     }
@@ -156,4 +161,5 @@ public class ContactDTO extends AbstractEntityDTO<Long> {
     public void setStructure(StructureDTO structure) {
         this.structure = structure;
     }
+
 }

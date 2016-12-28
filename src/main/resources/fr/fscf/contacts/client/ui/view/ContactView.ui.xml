@@ -2,32 +2,44 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'
-	xmlns:f.btn='urn:import:fr.fscf.contacts.client.ui.widget.button'
-    xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:f.btn='urn:import:fr.fscf.contacts.client.ui.widget.button'
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
 
-    <ui:style>
+    <ui:with field="cst" type="fr.fscf.contacts.client.i18n.Constants"/>
+    <ui:with field="msg" type="fr.fscf.contacts.client.i18n.Messages"/>
+
+    <ui:style src="../../res/style.css">
+        .section-title {
+            border-bottom: 1px solid themeColor;
+            color: themeColor;
+            font-style: italic;
+            padding-bottom: 5px;
+            padding-left: 15px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
     </ui:style>
 
     <g:HTMLPanel>
-        <b:PageHeader text="Contact"/>
+        <b:PageHeader text="{cst.contact_edit_title}"/>
 
         <b:Form type="HORIZONTAL">
 
+            <!-- PERSON SECTION -->
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="name" addStyleNames="col-xs-2 col-md-2 col-lg-2">
-                    Nom
-                </b:FormLabel>
-                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
+                <b:FormLabel showRequiredIndicator="true" for="name" addStyleNames="col-xs-2 col-md-2 col-lg-2"
+                             text="{cst.contact_edit_form_name}"/>
+                <g:FlowPanel styleName="col-xs-3 col-md-3 col-lg-3">
                     <b:Input ui:field="name" type="TEXT" b:id="name"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="firstName" addStyleNames="col-xs-2 col-md-2 col-lg-2">
-                    Prénom
-                </b:FormLabel>
+                <b:FormLabel showRequiredIndicator="true" for="firstName"
+                             addStyleNames="col-xs-2 col-md-2 col-lg-2"
+                             text="{cst.contact_edit_form_firstName}"/>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="firstName" type="TEXT" b:id="firstName"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
@@ -35,9 +47,8 @@
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="email" addStyleNames="col-xs-2 col-md-2 col-lg-2">
-                    Email
-                </b:FormLabel>
+                <b:FormLabel showRequiredIndicator="true" for="email" addStyleNames="col-xs-2 col-md-2 col-lg-2"
+                             text="{cst.contact_edit_form_email}"/>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="email" type="TEXT" b:id="email"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
@@ -45,19 +56,20 @@
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="phone" addStyleNames="col-xs-2 col-md-2 col-lg-2">
-                    Téléphone
-                </b:FormLabel>
+                <b:FormLabel showRequiredIndicator="true" for="phone" addStyleNames="col-xs-2 col-md-2 col-lg-2"
+                             text="{cst.contact_edit_form_phone}"/>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="phone" type="TEXT" b:id="phone"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
             </b:FormGroup>
 
+            <!-- ADDRESS SECTION -->
+            <b:Heading size="H4" addStyleNames="{style.section-title}" text="{cst.contact_edit_form_section_address}"/>
+
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="address" addStyleNames="col-xs-2 col-md-2 col-lg-2">
-                    Adresse
-                </b:FormLabel>
+                <b:FormLabel for="address" addStyleNames="col-xs-2 col-md-2 col-lg-2"
+                             text="{cst.contact_edit_form_address}"/>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="address" type="TEXT" b:id="address"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
@@ -65,9 +77,8 @@
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel for="additionalAddress" addStyleNames="col-xs-2 col-md-2 col-lg-2">
-                    Complément d'adresse
-                </b:FormLabel>
+                <b:FormLabel for="additionalAddress" addStyleNames="col-xs-2 col-md-2 col-lg-2"
+                             text="{cst.contact_edit_form_additionalAddress}"/>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="additionalAddress" type="TEXT" b:id="additionalAddress"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
@@ -75,10 +86,9 @@
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="zipCode" addStyleNames="col-xs-2 col-md-2 col-lg-2">
-                    Code
-                    Postal
-                </b:FormLabel>
+                <b:FormLabel showRequiredIndicator="true" for="zipCode"
+                             addStyleNames="col-xs-2 col-md-2 col-lg-2"
+                             text="{cst.contact_edit_form_zipCode}"/>
                 <g:FlowPanel styleName="col-xs-2 col-md-2 col-lg-2">
                     <b:Input ui:field="zipCode" type="TEXT" b:id="zipCode"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
@@ -86,48 +96,56 @@
             </b:FormGroup>
 
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="city" addStyleNames="col-xs-2 col-md-2 col-lg-2">
-                    Ville
-                </b:FormLabel>
+                <b:FormLabel showRequiredIndicator="true" for="city" addStyleNames="col-xs-2 col-md-2 col-lg-2"
+                             text="{cst.contact_edit_form_city}"/>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="city" type="TEXT" b:id="city"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
             </b:FormGroup>
 
-            <b:FormGroup>
-                <b:FormLabel for="cedex" addStyleNames="col-xs-2 col-md-2 col-lg-2">
-                    Cedex
-                </b:FormLabel>
-                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
-                    <b:Input ui:field="cedex" type="TEXT" b:id="cedex"/>
-                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
-                </g:FlowPanel>
-            </b:FormGroup>
+            <!-- FUNCTION SECTION -->
+            <b:Heading size="H4" addStyleNames="{style.section-title}" text="{cst.contact_edit_form_section_function}"/>
 
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="function" addStyleNames="col-xs-2 col-md-2 col-lg-2">
-                    Fonction
-                </b:FormLabel>
+                <b:FormLabel showRequiredIndicator="true" for="function"
+                             addStyleNames="col-xs-2 col-md-2 col-lg-2"
+                             text="{cst.contact_edit_form_function}"/>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:ValueListBox ui:field="function" b:id="function"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
             </b:FormGroup>
 
+            <b:FormGroup visible="false" ui:field="detailedFunctionFormGroup">
+                <b:FormLabel showRequiredIndicator="true" for="detailedFunction"
+                             addStyleNames="col-xs-2 col-md-2 col-lg-2"
+                             text="{cst.contact_edit_form_function_detail}"/>
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
+                    <b:Input type="TEXT" ui:field="detailedFunction" b:id="detailedFunction"/>
+                    <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
+                </g:FlowPanel>
+            </b:FormGroup>
+
+            <!-- ASSOCIATION SECTION -->
+            <b:Heading size="H4" addStyleNames="{style.section-title}"
+                       text="{cst.contact_edit_form_section_structure}"/>
+
             <b:FormGroup>
-                <b:FormLabel showRequiredIndicator="true" for="structure" addStyleNames="col-xs-2 col-md-2 col-lg-2">
-                    Structure
-                </b:FormLabel>
+                <b:FormLabel showRequiredIndicator="true" for="structure"
+                             addStyleNames="col-xs-2 col-md-2 col-lg-2"
+                             text="{cst.contact_edit_form_structure}"/>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:ValueListBox ui:field="structure" b:id="structure"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
             </b:FormGroup>
 
+            <!-- SAVE BUTTON -->
             <b:FormGroup>
-                <g:FlowPanel addStyleNames="col-xs-offset-2 col-md-offset-2 col-lg-offset-2 col-xs-10 col-md-10 col-lg-10">
-                    <f.btn:Button ui:field="formSubmitButton" type="PRIMARY">Enregistrer le contact</f.btn:Button>
+                <g:FlowPanel
+                        addStyleNames="col-xs-offset-2 col-md-offset-2 col-lg-offset-2 col-xs-10 col-md-10 col-lg-10">
+                    <f.btn:Button ui:field="formSubmitButton" type="PRIMARY" text="{cst.contact_edit_form_btn_save}"/>
                 </g:FlowPanel>
             </b:FormGroup>
 

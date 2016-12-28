@@ -6,6 +6,8 @@
              xmlns:b="urn:import:org.gwtbootstrap3.client.ui">
 
     <ui:with field="res" type="fr.fscf.contacts.client.res.AppResources"/>
+    <ui:with field="cst" type="fr.fscf.contacts.client.i18n.Constants"/>
+    <ui:with field="msg" type="fr.fscf.contacts.client.i18n.Messages"/>
 
     <ui:style>
         @def navbarHeight 50px;
@@ -13,6 +15,7 @@
         body {
             height: 100%;
         }
+
         .container {
             min-height: 100%;
             position: absolute;
@@ -23,6 +26,7 @@
             right: 0;
             bottom: 0;
         }
+
         .navbar {
             position: fixed;
             top: 0;
@@ -30,21 +34,26 @@
             width: 100%;
             z-index: 2;
         }
+
         .logo {
             height: 50px;
             width: auto;
             padding: 5px 0 5px 15px;
             float: left;
         }
+
         .menu-item i {
             margin-right: 5px;
         }
+
         .body {
             min-height: 100%;
         }
+
         .content {
             padding: 35px 15% 35px;
         }
+
         .footer {
             height: footerHeight;
             background: #484e5c;
@@ -52,11 +61,14 @@
             color: #8f96a5;
             font-size: 80%;
         }
+
         .footer .footer-content {
             padding-top: 20px;
         }
+
         .footer-content .copyright {
         }
+
         .footer-content .version {
             margin-left: 7px;
             color: inherit;
@@ -66,8 +78,8 @@
     <g:HTMLPanel styleName="{style.container}">
         <b:Navbar addStyleNames="{style.navbar}">
             <b:NavbarHeader>
-                <g:Image resource="{res.appLogo}" styleName="{style.logo}" />
-                <b:NavbarBrand ui:field="brand">FSCF</b:NavbarBrand>
+                <g:Image resource="{res.appLogo}" styleName="{style.logo}"/>
+                <b:NavbarBrand ui:field="brand" text="{cst.navigation_brand}"/>
                 <b:NavbarCollapseButton dataTarget="#navbar-collapse"/>
             </b:NavbarHeader>
 
@@ -103,8 +115,9 @@
 
         <g:SimplePanel styleName="{style.footer}">
             <g:FlowPanel styleName="{style.footer-content}">
-                <g:InlineLabel ui:field="footerCopyright" styleName="{style.copyright}" text="© 2015 FSCF" />
-                <g:Anchor ui:field="footerVersion" styleName="{style.version}" />
+                <g:InlineLabel ui:field="footerCopyright" styleName="{style.copyright}"
+                               text="{cst.app_footer_copyright}"/>
+                <g:Anchor ui:field="footerVersion" styleName="{style.version}"/>
             </g:FlowPanel>
         </g:SimplePanel>
     </g:HTMLPanel>

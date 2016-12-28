@@ -1,8 +1,10 @@
 package fr.fscf.contacts.client.ui.presenter;
 
 import com.google.gwt.user.client.ui.HasConstrainedValue;
+import com.google.gwt.user.client.ui.HasVisibility;
 import com.google.inject.ImplementedBy;
 import fr.fscf.contacts.client.dispatch.CommandResultHandler;
+import fr.fscf.contacts.client.dispatch.DispatchQueue;
 import fr.fscf.contacts.client.i18n.I18N;
 import fr.fscf.contacts.client.inject.Injector;
 import fr.fscf.contacts.client.navigation.Page;
@@ -20,6 +22,7 @@ import fr.fscf.contacts.shared.command.GetStructuresCommand;
 import fr.fscf.contacts.shared.command.SaveContactCommand;
 import fr.fscf.contacts.shared.command.result.ListResult;
 import fr.fscf.contacts.shared.dto.ContactDTO;
+import fr.fscf.contacts.shared.dto.ContactDTO.RequiredDetailedFunctionGroup;
 import fr.fscf.contacts.shared.dto.FunctionDTO;
 import fr.fscf.contacts.shared.dto.StructureDTO;
 
@@ -44,7 +47,11 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
 
     @Override
     public void onBind() {
+        // Save button click handler.
         view.getFormSubmitButton().addClickHandler(event -> onSubmit());
+
+        // Other function selection.
+        view.getFunction().addValueChangeHandler(event -> onFunctionChange());
     }
 
     @Override
@@ -53,36 +60,39 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         // Clearing form.
         view.getDriver().edit(new ContactDTO());
 
-        // Populating functions field.
-        dispatch.execute(new GetFunctionsCommand(), new CommandResultHandler<ListResult<FunctionDTO>>() {
-            @Override
-            protected void onCommandSuccess(final ListResult<FunctionDTO> result) {
-                view.getFunction().setAcceptableValues(result.getList());
-            }
-        });
-
-        // Populating structures field.
-        dispatch.execute(new GetStructuresCommand(), new CommandResultHandler<ListResult<StructureDTO>>() {
-            @Override
-            protected void onCommandSuccess(final ListResult<StructureDTO> result) {
-                view.getStructure().setAcceptableValues(result.getList());
-            }
-        });
-
-        // Loading contact data.
-        final Long contactId = request.getParameterLong(RequestParameter.ID);
-        if (contactId != null) {
-            dispatch.execute(new GetContactCommand(contactId), new CommandResultHandler<ContactDTO>() {
-                @Override
-                protected void onCommandSuccess(ContactDTO result) {
-                    view.getDriver().edit(result);
-                }
-            });
-        }
+        new DispatchQueue(dispatch)
+                // Populating functions field.
+                .add(new GetFunctionsCommand(), new CommandResultHandler<ListResult<FunctionDTO>>() {
+                    @Override
+                    protected void onCommandSuccess(final ListResult<FunctionDTO> result) {
+                        result.getList().add(FunctionDTO.getOther());
+                        view.getFunction().setAcceptableValues(result.getList());
+                    }
+                })
+                // Populating structures field.
+                .add(new GetStructuresCommand(), new CommandResultHandler<ListResult<StructureDTO>>() {
+                    @Override
+                    protected void onCommandSuccess(final ListResult<StructureDTO> result) {
+                        view.getStructure().setAcceptableValues(result.getList());
+                    }
+                })
+                .start(() -> {
+                    // Loading contact data (once previous commands have completed).
+                    final Long contactId = request.getParameterLong(RequestParameter.ID);
+                    if (contactId != null) {
+                        dispatch.execute(new GetContactCommand(contactId), new CommandResultHandler<ContactDTO>() {
+                            @Override
+                            protected void onCommandSuccess(ContactDTO result) {
+                                view.getDriver().edit(result);
+                                onFunctionChange();
+                            }
+                        });
+                    }
+                });
     }
 
     private void onSubmit() {
-        if (!validator.validate(view)) {
+        if (!validator.validate(view, isOtherFunctionSelected() ? RequiredDetailedFunctionGroup.class : null)) {
             return;
         }
 
@@ -97,6 +107,14 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         }, view.getFormSubmitButton());
     }
 
+    private void onFunctionChange() {
+        view.setDetailedFunctionGroupVisible(isOtherFunctionSelected());
+    }
+
+    private boolean isOtherFunctionSelected() {
+        return FunctionDTO.getOther().equals(view.getFunction().getValue());
+    }
+
     /**
      * View interface.
      */
@@ -104,6 +122,8 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
     public interface View extends ViewInterface, IsBeanEditor<ContactDTO> {
 
         Button getFormSubmitButton();
+
+        void setDetailedFunctionGroupVisible(boolean visible);
 
         HasConstrainedValue<FunctionDTO> getFunction();
 

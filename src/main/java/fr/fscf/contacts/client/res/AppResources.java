@@ -2,6 +2,7 @@ package fr.fscf.contacts.client.res;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.resources.client.ImageResource;
 
 /**
@@ -15,5 +16,17 @@ public interface AppResources extends ClientBundle {
 
     @Source("logo.png")
     ImageResource appLogo();
+
+    @Source("style.css")
+    Style style();
+
+    /**
+     * CSS resources.
+     */
+    interface Style extends CssResource {
+
+        String themeColor();
+
+    }
 
 }
