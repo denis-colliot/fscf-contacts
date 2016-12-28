@@ -153,7 +153,7 @@ public final class DispatchQueue {
             return this;
         }
 
-        actions.add(new CommandWrapper<>(command, commandResultHandler, loadables));
+        actions.add(new CommandWrapper<C, R>(command, commandResultHandler, loadables)); // <C, R> is necessary.
         return this;
     }
 
