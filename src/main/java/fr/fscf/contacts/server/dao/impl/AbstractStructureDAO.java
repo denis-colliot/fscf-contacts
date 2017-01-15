@@ -5,6 +5,7 @@ import fr.fscf.contacts.server.dao.base.AbstractDAO;
 import fr.fscf.contacts.server.dao.base.DAOUtils;
 import fr.fscf.contacts.server.model.Structure;
 import fr.fscf.contacts.server.model.User;
+import fr.fscf.contacts.shared.dto.referential.StructureType;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -22,7 +23,7 @@ abstract class AbstractStructureDAO<E extends Structure> extends AbstractDAO<E, 
      *
      * @return The entity corresponding structure type.
      */
-    protected abstract String getStructureType();
+    protected abstract StructureType getStructureType();
 
     @Override
     @SuppressWarnings("unchecked")
@@ -32,7 +33,7 @@ abstract class AbstractStructureDAO<E extends Structure> extends AbstractDAO<E, 
 
         query.setParameter("userId", user.getId());
         query.setParameter("featureToken", "contacts");
-        query.setParameter("structureType", getStructureType());
+        query.setParameter("structureType", getStructureType().key);
 
         return query.getResultList();
     }

@@ -42,6 +42,6 @@ public interface BeanMapper {
      * @param handler          (facultatif) handler permettant d'accéder à chaque bean durant le mapping.
      * @return Une liste contenant les beans mappés de la {@code collection} source (jamais {@code null}).
      */
-    <S, D> List<D> mapCollection(Collection<S> collection, Class<D> destinationClass, IsMappingHandler<D> handler);
+    <S, D> List<D> mapCollection(Collection<S> collection, Class<D> destinationClass, IsMappingHandler<S, D> handler);
 
 }

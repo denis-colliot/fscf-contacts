@@ -54,7 +54,7 @@ public class DozerBeanMapper implements BeanMapper {
      */
     @Override
     public <S, D> List<D> mapCollection(final Collection<S> collection, final Class<D> destinationClass,
-                                        final IsMappingHandler<D> handler) {
+                                        final IsMappingHandler<S, D> handler) {
 
         return Optional.ofNullable(collection)
                 .map(Collection::stream)
@@ -62,7 +62,7 @@ public class DozerBeanMapper implements BeanMapper {
                 .map(bean -> {
                     final D mapped = map(bean, destinationClass);
                     Optional.ofNullable(handler)
-                            .ifPresent(h -> h.process(Optional.ofNullable(mapped)));
+                            .ifPresent(h -> h.process(Optional.ofNullable(bean), Optional.ofNullable(mapped)));
                     return mapped;
                 })
                 .collect(Collectors.toCollection(ArrayList::new));

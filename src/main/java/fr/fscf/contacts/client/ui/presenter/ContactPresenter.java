@@ -1,7 +1,6 @@
 package fr.fscf.contacts.client.ui.presenter;
 
 import com.google.gwt.user.client.ui.HasConstrainedValue;
-import com.google.gwt.user.client.ui.HasVisibility;
 import com.google.inject.ImplementedBy;
 import fr.fscf.contacts.client.dispatch.CommandResultHandler;
 import fr.fscf.contacts.client.dispatch.DispatchQueue;
@@ -92,7 +91,8 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
     }
 
     private void onSubmit() {
-        if (!validator.validate(view, isOtherFunctionSelected() ? RequiredDetailedFunctionGroup.class : null)) {
+        if (!validator.validate(view, FunctionDTO.isOther(view.getFunction().getValue()) ?
+                RequiredDetailedFunctionGroup.class : null)) {
             return;
         }
 
@@ -108,12 +108,21 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
     }
 
     private void onFunctionChange() {
-        view.setDetailedFunctionGroupVisible(isOtherFunctionSelected());
+        final FunctionDTO selectedFunction = view.getFunction().getValue();
+
+        view.setDetailedFunctionGroupVisible(FunctionDTO.isOther(selectedFunction));
+
+        // Reloading structures.
+        view.setStructureGroupVisible(false);
+        dispatch.execute(new GetStructuresCommand(), new CommandResultHandler<ListResult<StructureDTO>>() {
+            @Override
+            protected void onCommandSuccess(final ListResult<StructureDTO> result) {
+                view.getStructure().setAcceptableValues(result.getList());
+                view.setStructureGroupVisible(true);
+            }
+        });
     }
 
-    private boolean isOtherFunctionSelected() {
-        return FunctionDTO.getOther().equals(view.getFunction().getValue());
-    }
 
     /**
      * View interface.
@@ -124,6 +133,8 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         Button getFormSubmitButton();
 
         void setDetailedFunctionGroupVisible(boolean visible);
+
+        void setStructureGroupVisible(boolean visible);
 
         HasConstrainedValue<FunctionDTO> getFunction();
 

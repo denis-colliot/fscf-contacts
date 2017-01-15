@@ -5,10 +5,12 @@ import fr.fscf.contacts.server.dispatch.impl.UserDispatch;
 import fr.fscf.contacts.server.handler.base.AbstractCommandHandler;
 import fr.fscf.contacts.server.mapper.BeanMapper;
 import fr.fscf.contacts.server.model.Function;
+import fr.fscf.contacts.server.model.FunctionStructureType;
 import fr.fscf.contacts.shared.command.GetFunctionsCommand;
 import fr.fscf.contacts.shared.command.result.ListResult;
 import fr.fscf.contacts.shared.dispatch.CommandException;
 import fr.fscf.contacts.shared.dto.FunctionDTO;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +43,14 @@ public class GetFunctionsHandler extends AbstractCommandHandler<GetFunctionsComm
 
         final List<Function> functions = functionDAO.findAll();
 
-        return new ListResult<>(beanMapper.mapCollection(functions, FunctionDTO.class));
+        return new ListResult<>(beanMapper.mapCollection(functions, FunctionDTO.class, (function, functionDTO) -> {
+            if (function.isPresent() && CollectionUtils.isNotEmpty(function.get().getStructureTypes())) {
+                function.get().getStructureTypes()
+                        .stream()
+                        .map(FunctionStructureType::getStructureType)
+                        .forEach(structureType -> functionDTO.get().addStructureType(structureType));
+            }
+        }));
     }
 
 }

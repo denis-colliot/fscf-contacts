@@ -1,7 +1,7 @@
 package fr.fscf.contacts.server.model;
 
 import fr.fscf.contacts.server.model.base.AbstractEntity;
-import fr.fscf.contacts.server.model.referential.StructureType;
+import fr.fscf.contacts.shared.dto.referential.StructureType;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -83,25 +83,25 @@ public abstract class Structure extends AbstractEntity<Long> {
      * @return The corresponding structure class implementation.
      * @throws IllegalArgumentException If the structure type is invalid or unsupported.
      */
-    public static Class<? extends Structure> getTypeClass(final String structureType) {
+    public static Class<? extends Structure> getTypeClass(final StructureType structureType) {
         if (structureType == null) {
             throw new IllegalArgumentException("Invalid structure type.");
         }
-        switch (structureType.trim().toUpperCase()) {
-            case StructureType.FEDERATION:
+        switch (structureType) {
+            case FEDERATION:
                 return Federation.class;
-            case StructureType.COMITE_REGIONAL:
+            case COMITE_REGIONAL:
                 return RegionalCommittee.class;
-            case StructureType.COMITE_DEPARTEMENTAL:
+            case COMITE_DEPARTEMENTAL:
                 return DepartmentalCommittee.class;
-            case StructureType.ASSOCIATION:
+            case ASSOCIATION:
                 return Association.class;
             default:
                 throw new IllegalArgumentException("Unsupported structure type : " + structureType);
         }
     }
 
-    public abstract String getType();
+    public abstract StructureType getType();
 
     @Override
     protected Collection<String> toStringExcludedFields() {

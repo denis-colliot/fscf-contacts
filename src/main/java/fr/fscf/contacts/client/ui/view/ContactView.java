@@ -134,6 +134,11 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
     }
 
     @Override
+    public void setStructureGroupVisible(boolean visible) {
+
+    }
+
+    @Override
     public HasConstrainedValue<FunctionDTO> getFunction() {
         return function;
     }

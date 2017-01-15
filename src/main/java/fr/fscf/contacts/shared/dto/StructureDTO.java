@@ -1,5 +1,6 @@
 package fr.fscf.contacts.shared.dto;
 
+import fr.fscf.contacts.shared.dto.referential.StructureType;
 import fr.fscf.contacts.shared.dto.base.AbstractEntityDTO;
 
 /**
@@ -7,7 +8,7 @@ import fr.fscf.contacts.shared.dto.base.AbstractEntityDTO;
  */
 public class StructureDTO extends AbstractEntityDTO<Long> {
 
-    private String type;
+    private StructureType type;
 
     private String name;
 
@@ -33,11 +34,11 @@ public class StructureDTO extends AbstractEntityDTO<Long> {
 
     private String comment;
 
-    public String getType() {
+    public StructureType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(StructureType type) {
         this.type = type;
     }
 
