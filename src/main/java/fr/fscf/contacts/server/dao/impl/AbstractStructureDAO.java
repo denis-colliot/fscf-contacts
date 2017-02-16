@@ -8,7 +8,10 @@ import fr.fscf.contacts.server.model.User;
 import fr.fscf.contacts.shared.dto.referential.StructureType;
 
 import javax.persistence.Query;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Abstract methods implementations for {@link Structure} DAOs.
@@ -46,6 +49,22 @@ abstract class AbstractStructureDAO<E extends Structure> extends AbstractDAO<E, 
 
         query.setParameter("userId", user.getId());
         query.setParameter("featureToken", "contacts");
+
+        return query.getResultList();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Structure> findUserAllStructures(User user, Collection<StructureType> types) {
+
+        final Query query = em().createNativeQuery(LIST_QUERY + " WHERE st.st_type IN :types ", Structure.class);
+
+        query.setParameter("userId", user.getId());
+        query.setParameter("featureToken", "contacts");
+        query.setParameter("types", types.stream()
+                .filter(Objects::nonNull)
+                .map(StructureType::name)
+                .collect(Collectors.toList()));
 
         return query.getResultList();
     }

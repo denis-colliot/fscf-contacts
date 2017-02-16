@@ -50,7 +50,7 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         view.getFormSubmitButton().addClickHandler(event -> onSubmit());
 
         // Other function selection.
-        view.getFunction().addValueChangeHandler(event -> onFunctionChange());
+        view.getFunction().addValueChangeHandler(event -> onFunctionChange(null));
     }
 
     @Override
@@ -68,13 +68,6 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
                         view.getFunction().setAcceptableValues(result.getList());
                     }
                 })
-                // Populating structures field.
-                .add(new GetStructuresCommand(), new CommandResultHandler<ListResult<StructureDTO>>() {
-                    @Override
-                    protected void onCommandSuccess(final ListResult<StructureDTO> result) {
-                        view.getStructure().setAcceptableValues(result.getList());
-                    }
-                })
                 .start(() -> {
                     // Loading contact data (once previous commands have completed).
                     final Long contactId = request.getParameterLong(RequestParameter.ID);
@@ -83,7 +76,7 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
                             @Override
                             protected void onCommandSuccess(ContactDTO result) {
                                 view.getDriver().edit(result);
-                                onFunctionChange();
+                                onFunctionChange(result);
                             }
                         });
                     }
@@ -107,18 +100,21 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         }, view.getFormSubmitButton());
     }
 
-    private void onFunctionChange() {
+    private void onFunctionChange(final ContactDTO loadedContact) {
         final FunctionDTO selectedFunction = view.getFunction().getValue();
 
         view.setDetailedFunctionGroupVisible(FunctionDTO.isOther(selectedFunction));
 
         // Reloading structures.
         view.setStructureGroupVisible(false);
-        dispatch.execute(new GetStructuresCommand(), new CommandResultHandler<ListResult<StructureDTO>>() {
+        dispatch.execute(new GetStructuresCommand(selectedFunction.getId()), new CommandResultHandler<ListResult<StructureDTO>>() {
             @Override
             protected void onCommandSuccess(final ListResult<StructureDTO> result) {
                 view.getStructure().setAcceptableValues(result.getList());
                 view.setStructureGroupVisible(true);
+                if (loadedContact != null) {
+                    view.getDriver().edit(loadedContact);
+                }
             }
         });
     }
