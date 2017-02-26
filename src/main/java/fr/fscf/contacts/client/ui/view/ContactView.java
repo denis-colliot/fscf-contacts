@@ -8,6 +8,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.HasVisibility;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
 import fr.fscf.contacts.client.ui.presenter.ContactPresenter;
@@ -18,6 +19,7 @@ import fr.fscf.contacts.shared.dto.FunctionDTO;
 import fr.fscf.contacts.shared.dto.StructureDTO;
 import fr.fscf.contacts.shared.util.ClientUtils;
 import org.gwtbootstrap3.client.ui.FormGroup;
+import org.gwtbootstrap3.client.ui.FormLabel;
 import org.gwtbootstrap3.client.ui.Input;
 import org.gwtbootstrap3.client.ui.ValueListBox;
 
@@ -62,13 +64,25 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
 
     @UiField
     @Ignore
-    protected FormGroup detailedFunctionFormGroup;
+    protected FormLabel detailedFunctionLabel;
 
     @UiField
     protected Input detailedFunction;
 
+    @UiField
+    @Ignore
+    protected HasVisibility structureGroupTitle;
+
+    @UiField
+    @Ignore
+    protected FormGroup structureFormGroup;
+
     @UiField(provided = true)
     protected ValueListBox<StructureDTO> structure;
+
+    @UiField
+    @Ignore
+    protected HasVisibility associationGroupTitle;
 
     @UiField
     protected Button formSubmitButton;
@@ -124,9 +138,9 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
     }
 
     @Override
-    public void setDetailedFunctionGroupVisible(boolean visible) {
-        detailedFunctionFormGroup.setVisible(visible);
-        if (visible) {
+    public void setDetailedFunctionMandatory(boolean mandatory) {
+        detailedFunctionLabel.setShowRequiredIndicator(mandatory);
+        if (mandatory) {
             detailedFunction.setFocus(true);
         } else {
             detailedFunction.reset();
@@ -135,7 +149,11 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
 
     @Override
     public void setStructureGroupVisible(boolean visible) {
+        structureGroupTitle.setVisible(visible);
+        structureFormGroup.setVisible(visible);
 
+        associationGroupTitle.setVisible(!visible);
+        // TODO associationFormGroup.setVisible(!visible);
     }
 
     @Override

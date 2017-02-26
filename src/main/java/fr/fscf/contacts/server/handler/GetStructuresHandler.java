@@ -43,10 +43,15 @@ public class GetStructuresHandler extends AbstractCommandHandler<GetStructuresCo
 
         final Function function = functionDAO.findById(command.getFunctionId());
 
-        final List<StructureType> structureTypes = function.getStructureTypes().stream()
-                .map(FunctionStructureType::getStructureType)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+        final List<StructureType> structureTypes;
+        if (function != null && function.hasStructureTypes()) {
+            structureTypes = function.getStructureTypes().stream()
+                    .map(FunctionStructureType::getStructureType)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+        } else {
+            structureTypes = null;
+        }
 
         final List<Structure> structures;
         if (CollectionUtils.isNotEmpty(structureTypes)) {

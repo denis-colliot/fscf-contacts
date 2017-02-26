@@ -103,15 +103,14 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
     private void onFunctionChange(final ContactDTO loadedContact) {
         final FunctionDTO selectedFunction = view.getFunction().getValue();
 
-        view.setDetailedFunctionGroupVisible(FunctionDTO.isOther(selectedFunction));
+        view.setDetailedFunctionMandatory(FunctionDTO.isOther(selectedFunction));
 
         // Reloading structures.
-        view.setStructureGroupVisible(false);
         dispatch.execute(new GetStructuresCommand(selectedFunction.getId()), new CommandResultHandler<ListResult<StructureDTO>>() {
             @Override
             protected void onCommandSuccess(final ListResult<StructureDTO> result) {
                 view.getStructure().setAcceptableValues(result.getList());
-                view.setStructureGroupVisible(true);
+                view.setStructureGroupVisible(result.isNotEmpty());
                 if (loadedContact != null) {
                     view.getDriver().edit(loadedContact);
                 }
@@ -128,7 +127,7 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
 
         Button getFormSubmitButton();
 
-        void setDetailedFunctionGroupVisible(boolean visible);
+        void setDetailedFunctionMandatory(boolean mandatory);
 
         void setStructureGroupVisible(boolean visible);
 

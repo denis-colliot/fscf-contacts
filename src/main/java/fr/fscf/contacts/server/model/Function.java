@@ -1,6 +1,7 @@
 package fr.fscf.contacts.server.model;
 
 import fr.fscf.contacts.server.model.base.AbstractEntity;
+import org.apache.commons.collections4.CollectionUtils;
 
 import javax.persistence.*;
 
@@ -33,6 +34,10 @@ public class Function extends AbstractEntity<Long> {
 
     public Function(Long id) {
         this.id = id;
+    }
+
+    public boolean hasStructureTypes() {
+        return CollectionUtils.isNotEmpty(structureTypes);
     }
 
     @Override

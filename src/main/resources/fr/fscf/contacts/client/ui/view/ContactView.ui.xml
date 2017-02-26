@@ -30,7 +30,7 @@
             <b:FormGroup>
                 <b:FormLabel showRequiredIndicator="true" for="name" addStyleNames="col-xs-2 col-md-2 col-lg-2"
                              text="{cst.contact_edit_form_name}"/>
-                <g:FlowPanel styleName="col-xs-3 col-md-3 col-lg-3">
+                <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
                     <b:Input ui:field="name" type="TEXT" b:id="name"/>
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
@@ -117,8 +117,8 @@
                 </g:FlowPanel>
             </b:FormGroup>
 
-            <b:FormGroup visible="false" ui:field="detailedFunctionFormGroup">
-                <b:FormLabel showRequiredIndicator="true" for="detailedFunction"
+            <b:FormGroup>
+                <b:FormLabel ui:field="detailedFunctionLabel" showRequiredIndicator="false" for="detailedFunction"
                              addStyleNames="col-xs-2 col-md-2 col-lg-2"
                              text="{cst.contact_edit_form_function_detail}"/>
                 <g:FlowPanel styleName="col-xs-8 col-md-8 col-lg-8">
@@ -127,11 +127,11 @@
                 </g:FlowPanel>
             </b:FormGroup>
 
-            <!-- ASSOCIATION SECTION -->
-            <b:Heading size="H4" addStyleNames="{style.section-title}"
+            <!-- STRUCTURE SECTION -->
+            <b:Heading ui:field="structureGroupTitle" size="H4" addStyleNames="{style.section-title}"
                        text="{cst.contact_edit_form_section_structure}"/>
 
-            <b:FormGroup>
+            <b:FormGroup ui:field="structureFormGroup">
                 <b:FormLabel showRequiredIndicator="true" for="structure"
                              addStyleNames="col-xs-2 col-md-2 col-lg-2"
                              text="{cst.contact_edit_form_structure}"/>
@@ -140,6 +140,10 @@
                     <b:InlineHelpBlock iconType="EXCLAMATION_TRIANGLE"/>
                 </g:FlowPanel>
             </b:FormGroup>
+
+            <!-- TODO ASSOCIATION SECTION -->
+            <b:Heading ui:field="associationGroupTitle" size="H4" addStyleNames="{style.section-title}"
+                       text="{cst.contact_edit_form_section_association}"/>
 
             <!-- SAVE BUTTON -->
             <b:FormGroup>
