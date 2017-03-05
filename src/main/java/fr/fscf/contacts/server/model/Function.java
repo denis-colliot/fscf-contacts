@@ -1,8 +1,11 @@
 package fr.fscf.contacts.server.model;
 
 import fr.fscf.contacts.server.model.base.AbstractEntity;
+import org.apache.commons.collections4.CollectionUtils;
 
 import javax.persistence.*;
+
+import java.util.List;
 
 import static fr.fscf.contacts.shared.util.Entities.*;
 
@@ -23,11 +26,18 @@ public class Function extends AbstractEntity<Long> {
     @Column(name = "fo_nom", nullable = false, unique = true)
     private String name;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "function")
+    private List<FunctionStructureType> structureTypes;
+
     public Function() {
     }
 
     public Function(Long id) {
         this.id = id;
+    }
+
+    public boolean hasStructureTypes() {
+        return CollectionUtils.isNotEmpty(structureTypes);
     }
 
     @Override
@@ -46,5 +56,13 @@ public class Function extends AbstractEntity<Long> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<FunctionStructureType> getStructureTypes() {
+        return structureTypes;
+    }
+
+    public void setStructureTypes(List<FunctionStructureType> structureTypes) {
+        this.structureTypes = structureTypes;
     }
 }

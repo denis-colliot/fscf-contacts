@@ -1,6 +1,6 @@
 package fr.fscf.contacts.server.model;
 
-import fr.fscf.contacts.server.model.referential.StructureType;
+import fr.fscf.contacts.shared.dto.referential.StructureType;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.FetchType;
@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
  * Departmental committee model.
  */
 @javax.persistence.Entity
-@DiscriminatorValue(StructureType.COMITE_DEPARTEMENTAL)
+@DiscriminatorValue(StructureType.COMITE_DEPARTEMENTAL_KEY)
 public class DepartmentalCommittee extends Structure {
 
     /**
@@ -29,7 +29,7 @@ public class DepartmentalCommittee extends Structure {
     }
 
     @Override
-    public String getType() {
+    public StructureType getType() {
         return StructureType.COMITE_DEPARTEMENTAL;
     }
 

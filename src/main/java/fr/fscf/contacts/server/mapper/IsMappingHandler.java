@@ -7,13 +7,14 @@ import java.util.Optional;
  *
  * @author Denis
  */
-public interface IsMappingHandler<D> {
+public interface IsMappingHandler<S, D> {
 
     /**
      * Traite le bean {@code mapped}.
      *
+     * @param source Le bean source (éventuellement absent).
      * @param mapped Le bean mappé (éventuellement absent).
      */
-    void process(Optional<D> mapped);
+    void process(Optional<S> source, Optional<D> mapped);
 
 }

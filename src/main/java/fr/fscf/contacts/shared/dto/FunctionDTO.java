@@ -23,8 +23,26 @@ public class FunctionDTO extends AbstractEntityDTO<Long> {
         return OTHER;
     }
 
+    /**
+     * Returns if the given function is the {@link #OTHER} instance.
+     *
+     * @param function The function, or {@code null}.
+     * @return {@code true} is the given function is the {@link #OTHER} instance, {@code false} otherwise.
+     */
+    public static boolean isOther(final FunctionDTO function) {
+        return getOther().equals(function);
+    }
+
+    /**
+     * Function name.
+     */
     @NotNull
     private String name;
+
+    /**
+     * Is the function related to association structures?
+     */
+    private boolean associationFunction;
 
     public String getName() {
         return name;
@@ -34,4 +52,11 @@ public class FunctionDTO extends AbstractEntityDTO<Long> {
         this.name = name;
     }
 
+    public boolean isAssociationFunction() {
+        return associationFunction;
+    }
+
+    public void setAssociationFunction(boolean associationFunction) {
+        this.associationFunction = associationFunction;
+    }
 }
