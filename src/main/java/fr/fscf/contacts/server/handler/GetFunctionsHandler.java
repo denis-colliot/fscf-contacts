@@ -10,12 +10,16 @@ import fr.fscf.contacts.shared.command.GetFunctionsCommand;
 import fr.fscf.contacts.shared.command.result.ListResult;
 import fr.fscf.contacts.shared.dispatch.CommandException;
 import fr.fscf.contacts.shared.dto.FunctionDTO;
+import fr.fscf.contacts.shared.dto.referential.StructureType;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Handler for {@link GetFunctionsCommand}.
@@ -43,14 +47,16 @@ public class GetFunctionsHandler extends AbstractCommandHandler<GetFunctionsComm
 
         final List<Function> functions = functionDAO.findAll();
 
-        return new ListResult<>(beanMapper.mapCollection(functions, FunctionDTO.class, (function, functionDTO) -> {
-            if (function.isPresent() && CollectionUtils.isNotEmpty(function.get().getStructureTypes())) {
-                function.get().getStructureTypes()
-                        .stream()
-                        .map(FunctionStructureType::getStructureType)
-                        .forEach(structureType -> functionDTO.get().addStructureType(structureType));
-            }
-        }));
+        return new ListResult<>(beanMapper.mapCollection(functions, FunctionDTO.class, (function, functionDTO) -> function.ifPresent(f -> {
+
+            final boolean hasAssociation = Optional.ofNullable(f.getStructureTypes())
+                    .map(Collection::stream)
+                    .orElse(Stream.empty())
+                    .map(FunctionStructureType::getStructureType)
+                    .anyMatch(structureType -> structureType == StructureType.ASSOCIATION);
+
+            functionDTO.get().setAssociationFunction(hasAssociation);
+        })));
     }
 
 }

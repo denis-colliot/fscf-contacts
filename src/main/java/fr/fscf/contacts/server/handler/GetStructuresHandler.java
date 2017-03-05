@@ -11,7 +11,6 @@ import fr.fscf.contacts.server.model.Structure;
 import fr.fscf.contacts.shared.command.GetStructuresCommand;
 import fr.fscf.contacts.shared.command.result.ListResult;
 import fr.fscf.contacts.shared.dispatch.CommandException;
-import fr.fscf.contacts.shared.dto.FunctionDTO;
 import fr.fscf.contacts.shared.dto.StructureDTO;
 import fr.fscf.contacts.shared.dto.referential.StructureType;
 import org.apache.commons.collections4.CollectionUtils;

@@ -27,6 +27,8 @@ import fr.fscf.contacts.shared.dto.StructureDTO;
 
 import javax.inject.Inject;
 
+import static fr.fscf.contacts.client.ui.presenter.ContactPresenter.View.StructureViewMode.*;
+
 /**
  * Contact presenter.
  *
@@ -56,6 +58,8 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
     @Override
     public void onPageRequest(final PageRequest request) {
 
+        final Long contactId = request.getParameterLong(RequestParameter.ID);
+
         // Clearing form.
         view.getDriver().edit(new ContactDTO());
 
@@ -65,20 +69,29 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
                     @Override
                     protected void onCommandSuccess(final ListResult<FunctionDTO> result) {
                         result.getList().add(FunctionDTO.getOther());
+                        if (contactId != null) {
+                            view.getFunction().setValue(FunctionDTO.getOther());
+                        }
                         view.getFunction().setAcceptableValues(result.getList());
                     }
                 })
                 .start(() -> {
                     // Loading contact data (once previous commands have completed).
-                    final Long contactId = request.getParameterLong(RequestParameter.ID);
                     if (contactId != null) {
                         dispatch.execute(new GetContactCommand(contactId), new CommandResultHandler<ContactDTO>() {
                             @Override
                             protected void onCommandSuccess(ContactDTO result) {
+                                if (result == null) {
+                                    N10N.warn("Le contact #" + contactId + " n'existe pas."); // TODO i18n
+                                    eventBus.navigate(null);
+                                    return;
+                                }
                                 view.getDriver().edit(result);
                                 onFunctionChange(result);
                             }
                         });
+                    } else {
+                        view.setStructureView(NONE);
                     }
                 });
     }
@@ -102,22 +115,34 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
 
     private void onFunctionChange(final ContactDTO loadedContact) {
         final FunctionDTO selectedFunction = view.getFunction().getValue();
+        final boolean other = FunctionDTO.isOther(selectedFunction);
 
-        view.setDetailedFunctionMandatory(FunctionDTO.isOther(selectedFunction));
+        view.setDetailedFunctionMandatory(other);
+
+        if (selectedFunction == null) {
+            view.setStructureView(NONE);
+            return;
+        } else if (other) {
+            view.setStructureView(BOTH);
+        } else if (selectedFunction.isAssociationFunction()) {
+            view.setStructureView(ASSOCIATION);
+        } else {
+            view.setStructureView(STRUCTURE);
+        }
 
         // Reloading structures.
         dispatch.execute(new GetStructuresCommand(selectedFunction.getId()), new CommandResultHandler<ListResult<StructureDTO>>() {
             @Override
             protected void onCommandSuccess(final ListResult<StructureDTO> result) {
+                view.getStructure().setValue(loadedContact != null ? loadedContact.getStructure() : null);
                 view.getStructure().setAcceptableValues(result.getList());
-                view.setStructureGroupVisible(result.isNotEmpty());
+
                 if (loadedContact != null) {
                     view.getDriver().edit(loadedContact);
                 }
             }
         });
     }
-
 
     /**
      * View interface.
@@ -129,11 +154,18 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
 
         void setDetailedFunctionMandatory(boolean mandatory);
 
-        void setStructureGroupVisible(boolean visible);
+        void setStructureView(StructureViewMode mode);
 
         HasConstrainedValue<FunctionDTO> getFunction();
 
         HasConstrainedValue<StructureDTO> getStructure();
+
+        enum StructureViewMode {
+            ASSOCIATION,
+            STRUCTURE,
+            BOTH,
+            NONE
+        }
 
     }
 }

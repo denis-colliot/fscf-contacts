@@ -7,10 +7,11 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasVisibility;
-import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
+import fr.fscf.contacts.client.i18n.I18N;
 import fr.fscf.contacts.client.ui.presenter.ContactPresenter;
 import fr.fscf.contacts.client.ui.view.base.AbstractView;
 import fr.fscf.contacts.client.ui.widget.button.Button;
@@ -18,8 +19,8 @@ import fr.fscf.contacts.shared.dto.ContactDTO;
 import fr.fscf.contacts.shared.dto.FunctionDTO;
 import fr.fscf.contacts.shared.dto.StructureDTO;
 import fr.fscf.contacts.shared.util.ClientUtils;
-import org.gwtbootstrap3.client.ui.FormGroup;
 import org.gwtbootstrap3.client.ui.FormLabel;
+import org.gwtbootstrap3.client.ui.Heading;
 import org.gwtbootstrap3.client.ui.Input;
 import org.gwtbootstrap3.client.ui.ValueListBox;
 
@@ -71,18 +72,18 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
 
     @UiField
     @Ignore
-    protected HasVisibility structureGroupTitle;
+    protected Heading structureGroupTitle;
 
     @UiField
     @Ignore
-    protected FormGroup structureFormGroup;
+    protected HasVisibility structureFormGroup;
+
+    @UiField
+    @Ignore
+    protected HasText structureFormLabel;
 
     @UiField(provided = true)
     protected ValueListBox<StructureDTO> structure;
-
-    @UiField
-    @Ignore
-    protected HasVisibility associationGroupTitle;
 
     @UiField
     protected Button formSubmitButton;
@@ -148,12 +149,28 @@ public class ContactView extends AbstractView implements ContactPresenter.View {
     }
 
     @Override
-    public void setStructureGroupVisible(boolean visible) {
-        structureGroupTitle.setVisible(visible);
-        structureFormGroup.setVisible(visible);
+    public void setStructureView(StructureViewMode mode) {
+        structureGroupTitle.setVisible(mode != StructureViewMode.NONE);
+        structureFormGroup.setVisible(mode != StructureViewMode.NONE);
 
-        associationGroupTitle.setVisible(!visible);
-        // TODO associationFormGroup.setVisible(!visible);
+        switch (mode) {
+            case STRUCTURE:
+                structureGroupTitle.setText(I18N.CONSTANTS.contact_edit_form_section_structure());
+                structureFormLabel.setText(I18N.CONSTANTS.contact_edit_form_structure());
+                break;
+            case ASSOCIATION:
+                structureGroupTitle.setText(I18N.CONSTANTS.contact_edit_form_section_association());
+                structureFormLabel.setText(I18N.CONSTANTS.contact_edit_form_association());
+                break;
+            case BOTH:
+                final String title = I18N.CONSTANTS.contact_edit_form_section_structure() + " / "
+                        + I18N.CONSTANTS.contact_edit_form_section_association();
+                final String label = I18N.CONSTANTS.contact_edit_form_structure() + " / "
+                        + I18N.CONSTANTS.contact_edit_form_association();
+                structureGroupTitle.setText(title);
+                structureFormLabel.setText(label);
+                break;
+        }
     }
 
     @Override

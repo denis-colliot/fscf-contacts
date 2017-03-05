@@ -28,16 +28,13 @@ public class ContactDTO extends AbstractEntityDTO<Long> {
     @NotNull
     private String phone;
 
-    @NotNull
     private String address;
 
     private String additionalAddress;
 
-    @NotNull
     @Pattern(regexp = Constraints.ZIP_CODE_PATTERN, flags = Pattern.Flag.CASE_INSENSITIVE)
     private String zipCode;
 
-    @NotNull
     private String city;
 
     private String email2;
