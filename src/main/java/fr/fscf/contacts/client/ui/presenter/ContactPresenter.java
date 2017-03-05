@@ -1,7 +1,6 @@
 package fr.fscf.contacts.client.ui.presenter;
 
 import com.google.gwt.user.client.ui.HasConstrainedValue;
-import com.google.gwt.user.client.ui.HasVisibility;
 import com.google.inject.ImplementedBy;
 import fr.fscf.contacts.client.dispatch.CommandResultHandler;
 import fr.fscf.contacts.client.dispatch.DispatchQueue;
@@ -28,6 +27,8 @@ import fr.fscf.contacts.shared.dto.StructureDTO;
 
 import javax.inject.Inject;
 
+import static fr.fscf.contacts.client.ui.presenter.ContactPresenter.View.StructureViewMode.*;
+
 /**
  * Contact presenter.
  *
@@ -51,11 +52,13 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         view.getFormSubmitButton().addClickHandler(event -> onSubmit());
 
         // Other function selection.
-        view.getFunction().addValueChangeHandler(event -> onFunctionChange());
+        view.getFunction().addValueChangeHandler(event -> onFunctionChange(null));
     }
 
     @Override
     public void onPageRequest(final PageRequest request) {
+
+        final Long contactId = request.getParameterLong(RequestParameter.ID);
 
         // Clearing form.
         view.getDriver().edit(new ContactDTO());
@@ -66,33 +69,36 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
                     @Override
                     protected void onCommandSuccess(final ListResult<FunctionDTO> result) {
                         result.getList().add(FunctionDTO.getOther());
+                        if (contactId != null) {
+                            view.getFunction().setValue(FunctionDTO.getOther());
+                        }
                         view.getFunction().setAcceptableValues(result.getList());
-                    }
-                })
-                // Populating structures field.
-                .add(new GetStructuresCommand(), new CommandResultHandler<ListResult<StructureDTO>>() {
-                    @Override
-                    protected void onCommandSuccess(final ListResult<StructureDTO> result) {
-                        view.getStructure().setAcceptableValues(result.getList());
                     }
                 })
                 .start(() -> {
                     // Loading contact data (once previous commands have completed).
-                    final Long contactId = request.getParameterLong(RequestParameter.ID);
                     if (contactId != null) {
                         dispatch.execute(new GetContactCommand(contactId), new CommandResultHandler<ContactDTO>() {
                             @Override
                             protected void onCommandSuccess(ContactDTO result) {
+                                if (result == null) {
+                                    N10N.warn("Le contact #" + contactId + " n'existe pas."); // TODO i18n
+                                    eventBus.navigate(null);
+                                    return;
+                                }
                                 view.getDriver().edit(result);
-                                onFunctionChange();
+                                onFunctionChange(result);
                             }
                         });
+                    } else {
+                        view.setStructureView(NONE);
                     }
                 });
     }
 
     private void onSubmit() {
-        if (!validator.validate(view, isOtherFunctionSelected() ? RequiredDetailedFunctionGroup.class : null)) {
+        if (!validator.validate(view, FunctionDTO.isOther(view.getFunction().getValue()) ?
+                RequiredDetailedFunctionGroup.class : null)) {
             return;
         }
 
@@ -107,12 +113,35 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
         }, view.getFormSubmitButton());
     }
 
-    private void onFunctionChange() {
-        view.setDetailedFunctionGroupVisible(isOtherFunctionSelected());
-    }
+    private void onFunctionChange(final ContactDTO loadedContact) {
+        final FunctionDTO selectedFunction = view.getFunction().getValue();
+        final boolean other = FunctionDTO.isOther(selectedFunction);
 
-    private boolean isOtherFunctionSelected() {
-        return FunctionDTO.getOther().equals(view.getFunction().getValue());
+        view.setDetailedFunctionMandatory(other);
+
+        if (selectedFunction == null) {
+            view.setStructureView(NONE);
+            return;
+        } else if (other) {
+            view.setStructureView(BOTH);
+        } else if (selectedFunction.isAssociationFunction()) {
+            view.setStructureView(ASSOCIATION);
+        } else {
+            view.setStructureView(STRUCTURE);
+        }
+
+        // Reloading structures.
+        dispatch.execute(new GetStructuresCommand(selectedFunction.getId()), new CommandResultHandler<ListResult<StructureDTO>>() {
+            @Override
+            protected void onCommandSuccess(final ListResult<StructureDTO> result) {
+                view.getStructure().setValue(loadedContact != null ? loadedContact.getStructure() : null);
+                view.getStructure().setAcceptableValues(result.getList());
+
+                if (loadedContact != null) {
+                    view.getDriver().edit(loadedContact);
+                }
+            }
+        });
     }
 
     /**
@@ -123,11 +152,20 @@ public class ContactPresenter extends AbstractPagePresenter<ContactPresenter.Vie
 
         Button getFormSubmitButton();
 
-        void setDetailedFunctionGroupVisible(boolean visible);
+        void setDetailedFunctionMandatory(boolean mandatory);
+
+        void setStructureView(StructureViewMode mode);
 
         HasConstrainedValue<FunctionDTO> getFunction();
 
         HasConstrainedValue<StructureDTO> getStructure();
+
+        enum StructureViewMode {
+            ASSOCIATION,
+            STRUCTURE,
+            BOTH,
+            NONE
+        }
 
     }
 }

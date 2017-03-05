@@ -1,6 +1,6 @@
 package fr.fscf.contacts.server.model;
 
-import fr.fscf.contacts.server.model.referential.StructureType;
+import fr.fscf.contacts.shared.dto.referential.StructureType;
 
 import javax.persistence.DiscriminatorValue;
 
@@ -8,7 +8,7 @@ import javax.persistence.DiscriminatorValue;
  * Federation model.
  */
 @javax.persistence.Entity
-@DiscriminatorValue(StructureType.FEDERATION)
+@DiscriminatorValue(StructureType.FEDERATION_KEY)
 public class Federation extends Structure {
 
     public Federation() {
@@ -19,7 +19,7 @@ public class Federation extends Structure {
     }
 
     @Override
-    public String getType() {
+    public StructureType getType() {
         return StructureType.FEDERATION;
     }
 }

@@ -7,12 +7,14 @@ import fr.fscf.contacts.server.model.*;
 import fr.fscf.contacts.server.model.referential.GrantType;
 import fr.fscf.contacts.server.security.impl.SecuredResources;
 import fr.fscf.contacts.shared.command.GetConfigCommand;
+import fr.fscf.contacts.shared.dto.referential.StructureType;
 import org.apache.commons.lang3.BooleanUtils;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import static fr.fscf.contacts.server.model.referential.AffectationStatus.SALARIE;
+import static fr.fscf.contacts.shared.dto.referential.StructureType.*;
 
 /**
  * Initializes the application database with default set of data.
@@ -70,6 +72,9 @@ final class DatabaseInitialization {
 
     @Inject
     private FunctionDAO functionDAO;
+
+    @Inject
+    private FunctionStructureTypeDAO functionStructureTypeDAO;
 
     /**
      * Triggers the data initialization.
@@ -263,58 +268,58 @@ final class DatabaseInitialization {
         // FUNCTIONS.
         // --
 
-        final Function pratiquant = new Function();
-        pratiquant.setName("Pratiquant(e)");
-
-        final Function federation_president = new Function();
-        federation_president.setName("Président(e) de la fédération");
-
         final Function regional_committee_president = new Function();
         regional_committee_president.setName("Président(e) de comité régional");
 
         final Function departmental_committee_president = new Function();
         departmental_committee_president.setName("Président(e) de comité départemental");
 
-        final Function association_president = new Function();
-        association_president.setName("Président(e) d'association");
-
-        final Function developmentAgent = new Function();
-        developmentAgent.setName("Agent de développement");
-
-        final Function practice_referent = new Function();
-        practice_referent.setName("Référent(e) des pratiques artistiques et culturelles");
+        final Function pratiquant = new Function();
+        pratiquant.setName("Pratiquant(e)");
 
         final Function section_responsible = new Function();
         section_responsible.setName("Responsable de section");
 
+        final Function association_president = new Function();
+        association_president.setName("Président(e) d'association");
+
+        final Function practice_referent = new Function();
+        practice_referent.setName("Référent(e) des pratiques artistiques et culturelles");
+
+        final Function development_agent = new Function();
+        development_agent.setName("Agent de développement");
+
         final Function federal_headquarter_employee = new Function();
         federal_headquarter_employee.setName("Salarié(e) du siège fédéral");
 
-        final Function chore_leader = new Function();
-        chore_leader.setName("Chef de choeur");
-
         final Function activity_teacher = new Function();
-        activity_teacher.setName("Professeur(e) d'activité");
+        activity_teacher.setName("Animateur(trice) d'activité");
 
         final Function national_commission_member = new Function();
         national_commission_member.setName("Membre de commission nationale");
 
-        final Function departmental_commission_member = new Function();
-        departmental_commission_member.setName("Membre de comité départemental");
+        final Function regional_committee_member = new Function();
+        regional_committee_member.setName("Membre de comité régional");
+
+        final Function departmental_committee_member = new Function();
+        departmental_committee_member.setName("Membre de comité départemental");
+
+        final Function federation_president = new Function();
+        federation_president.setName("Président(e) de la fédération");
 
         functionDAO.persist(pratiquant, null);
         functionDAO.persist(federation_president, null);
         functionDAO.persist(regional_committee_president, null);
         functionDAO.persist(departmental_committee_president, null);
         functionDAO.persist(association_president, null);
-        functionDAO.persist(developmentAgent, null);
+        functionDAO.persist(development_agent, null);
         functionDAO.persist(practice_referent, null);
         functionDAO.persist(section_responsible, null);
         functionDAO.persist(federal_headquarter_employee, null);
-        functionDAO.persist(chore_leader, null);
+        functionDAO.persist(regional_committee_member, null);
         functionDAO.persist(activity_teacher, null);
         functionDAO.persist(national_commission_member, null);
-        functionDAO.persist(departmental_commission_member, null);
+        functionDAO.persist(departmental_committee_member, null);
 
         // --
         // AFFECTATIONS.
@@ -340,6 +345,23 @@ final class DatabaseInitialization {
         persistHabilitations(dptCommittee29User, dptCommittee29);
         persistHabilitations(dptCommittee56User, dptCommittee56);
 
+        // --
+        // FONCTIONS - TYPES DE STRUCTURE.
+        // --
+
+        functionStructureTypeDAO.persist(new FunctionStructureType(COMITE_REGIONAL, regional_committee_president), null);
+        functionStructureTypeDAO.persist(new FunctionStructureType(COMITE_REGIONAL, regional_committee_member), null);
+        functionStructureTypeDAO.persist(new FunctionStructureType(COMITE_DEPARTEMENTAL, departmental_committee_president), null);
+        functionStructureTypeDAO.persist(new FunctionStructureType(COMITE_DEPARTEMENTAL, departmental_committee_member), null);
+        functionStructureTypeDAO.persist(new FunctionStructureType(FEDERATION, federation_president), null); // TODO A confirmer
+        functionStructureTypeDAO.persist(new FunctionStructureType(FEDERATION, federal_headquarter_employee), null); // TODO A confirmer
+        functionStructureTypeDAO.persist(new FunctionStructureType(ASSOCIATION, pratiquant), null);
+        functionStructureTypeDAO.persist(new FunctionStructureType(ASSOCIATION, section_responsible), null);
+        functionStructureTypeDAO.persist(new FunctionStructureType(ASSOCIATION, practice_referent), null); // TODO
+        functionStructureTypeDAO.persist(new FunctionStructureType(ASSOCIATION, development_agent), null); // TODO
+        functionStructureTypeDAO.persist(new FunctionStructureType(ASSOCIATION, association_president), null); // TODO
+        functionStructureTypeDAO.persist(new FunctionStructureType(ASSOCIATION, activity_teacher), null); // TODO
+        functionStructureTypeDAO.persist(new FunctionStructureType(FEDERATION, national_commission_member), null); // TODO
     }
 
     private void persistHabilitations(User theUser, Structure structure) {

@@ -4,7 +4,7 @@ import fr.fscf.contacts.server.inject.GuiceJUnitRunner;
 import fr.fscf.contacts.server.inject.MapperTestModule;
 import fr.fscf.contacts.server.inject.UseModules;
 import fr.fscf.contacts.server.model.*;
-import fr.fscf.contacts.server.model.referential.StructureType;
+import fr.fscf.contacts.shared.dto.referential.StructureType;
 import fr.fscf.contacts.shared.dto.StructureDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;

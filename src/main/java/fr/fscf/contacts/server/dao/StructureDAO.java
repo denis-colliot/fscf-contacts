@@ -3,7 +3,9 @@ package fr.fscf.contacts.server.dao;
 import fr.fscf.contacts.server.dao.base.DAO;
 import fr.fscf.contacts.server.model.Structure;
 import fr.fscf.contacts.server.model.User;
+import fr.fscf.contacts.shared.dto.referential.StructureType;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -28,5 +30,15 @@ public interface StructureDAO<E extends Structure> extends DAO<E, Long> {
      * @return The fulle structures list accessible to the given user.
      */
     List<Structure> findUserAllStructures(User user);
+
+    /**
+     * Returns <b>all</b> the structures accessible to the given user.<br/>
+     * Every {@link StructureDAO} implementation returns the same data list.
+     *
+     * @param user  The authenticated user.
+     * @param types A collection of {@link StructureType} filtering the results.
+     * @return The fulle structures list accessible to the given user.
+     */
+    List<Structure> findUserAllStructures(User user, Collection<StructureType> types);
 
 }
