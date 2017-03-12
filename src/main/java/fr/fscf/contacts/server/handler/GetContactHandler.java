@@ -55,11 +55,16 @@ public class GetContactHandler extends AbstractCommandHandler<GetContactCommand,
 
         LOGGER.info("Contact with id {} has {} affectation(s) ; using first one", contactId, affectations.size());
 
+        // TODO Alter 'findFirst()' behavior once multi-affectations is supported.
         final Optional<Affectation> affectation = affectations.stream().findFirst();
 
         final FunctionDTO functionDTO = affectation
                 .map(Affectation::getFunction)
                 .map(aff -> beanMapper.map(aff, FunctionDTO.class))
+                .orElse(null);
+
+        final String detailedFunction = affectation
+                .map(Affectation::getDetailedFunction)
                 .orElse(null);
 
         final StructureDTO structureDTO = affectation
@@ -71,6 +76,7 @@ public class GetContactHandler extends AbstractCommandHandler<GetContactCommand,
                 .map(c -> {
                     final ContactDTO contactDTO = beanMapper.map(c, ContactDTO.class);
                     contactDTO.setFunction(functionDTO);
+                    contactDTO.setDetailedFunction(detailedFunction);
                     contactDTO.setStructure(structureDTO);
                     return contactDTO;
                 })
