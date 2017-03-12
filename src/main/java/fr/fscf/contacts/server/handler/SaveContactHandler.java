@@ -67,7 +67,11 @@ public class SaveContactHandler extends AbstractCommandHandler<SaveContactComman
         LOGGER.info("About to persist following contact: {}", contact);
         contact = contactDAO.persist(contact, context.getUser());
 
-        // TODO Check if contact already exists with a different id.
+        if (contact.getId() != null) {
+            // TODO Alter this behavior once multi-affectations is supported.
+            // Removing contact affectation(s).
+            affectationDAO.deleteContactAffectations(contact.getId());
+        }
 
         LOGGER.info("About to persist contact affectation: {}", contact);
         final Affectation affectation = new Affectation();
@@ -75,6 +79,7 @@ public class SaveContactHandler extends AbstractCommandHandler<SaveContactComman
         affectation.setStructure(structure);
         affectation.setContact(contact);
         affectation.setStatus(AffectationStatus.BENEVOLE);
+        affectation.setDetailedFunction(contactDTO.getDetailedFunction());
         affectationDAO.persist(affectation, context.getUser());
 
         return beanMapper.map(contact, ContactDTO.class);

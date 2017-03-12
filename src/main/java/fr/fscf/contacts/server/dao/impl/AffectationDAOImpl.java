@@ -6,6 +6,7 @@ import fr.fscf.contacts.server.model.*;
 import org.apache.commons.collections4.CollectionUtils;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
@@ -21,6 +22,17 @@ public class AffectationDAOImpl extends AbstractDAO<Affectation, AffectationPK> 
         query.where(builder.equal(root.get(Affectation_.contact), new Contact(contactId)));
 
         return find(query);
+    }
+
+    @Override
+    public int deleteContactAffectations(final Long contactId) {
+        final CriteriaBuilder builder = getCriteriaBuilder();
+        final CriteriaDelete<Affectation> deleteCriteria = getCriteriaBuilder().createCriteriaDelete(entityClass);
+        final Root<Affectation> root = deleteCriteria.from(entityClass);
+
+        deleteCriteria.where(builder.equal(root.get(Affectation_.contact), new Contact(contactId)));
+
+        return remove(deleteCriteria);
     }
 
 }

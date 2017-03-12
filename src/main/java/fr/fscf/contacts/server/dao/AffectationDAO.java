@@ -21,4 +21,12 @@ public interface AffectationDAO extends DAO<Affectation, AffectationPK> {
      */
     List<Affectation> findContactAffectations(Long contactId);
 
+    /**
+     * Removes all the given contact existing affectations.
+     *
+     * @param contactId The contact id.
+     * @return The numner of deleted affectations.
+     */
+    int deleteContactAffectations(Long contactId);
+
 }
