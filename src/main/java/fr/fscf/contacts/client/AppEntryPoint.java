@@ -39,16 +39,12 @@ public class AppEntryPoint implements EntryPoint {
         }
 
         // Uncaught exception handler.
-        GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
-
-            @Override
-            public void onUncaughtException(final Throwable e) {
-                if (Log.isErrorEnabled()) {
-                    Log.error("Uncaught exception on client-side.", e);
-                }
-                // TODO [i18n] Uncaught exception error message.
-                N10N.error("An unexpected error has occurred.");
+        GWT.setUncaughtExceptionHandler(e -> {
+            if (Log.isErrorEnabled()) {
+                Log.error("Uncaught exception on client-side.", e);
             }
+            // TODO [i18n] Uncaught exception error message.
+            N10N.error("An unexpected error has occurred.");
         });
 
         clientInitializing();
