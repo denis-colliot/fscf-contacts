@@ -17,6 +17,7 @@ public enum Page implements IsSerializable {
     LABS("labs"),
     CONTACTS("contacts"),
     CONTACT("contact"),
+    CONTACT_PREVIEW("contact-preview"),
     ASSOCIATIONS("associations"),
     ASSOCIATION("association"),
     USERS("users"),

@@ -1,13 +1,14 @@
 package fr.fscf.contacts.client.ui.view.base;
 
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-import fr.fscf.contacts.client.event.ClosePopupEvent;
 import fr.fscf.contacts.client.event.ClosePopupHandler;
 import fr.fscf.contacts.client.ui.widget.Loadable;
 import fr.fscf.contacts.client.ui.widget.popup.IsPopupWidget;
 import fr.fscf.contacts.client.util.MessageType;
+import org.gwtbootstrap3.client.ui.Modal;
+import org.gwtbootstrap3.client.ui.ModalBody;
+import org.gwtbootstrap3.client.ui.ModalComponent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +22,51 @@ import java.util.Set;
  *
  * @author Denis
  */
-public abstract class AbstractPopupView<P extends IsPopupWidget> implements ViewPopupInterface {
+public abstract class AbstractPopupView implements ViewPopupInterface {
+
+    private static class CustomModal extends Modal implements IsPopupWidget {
+
+        @Override
+        public void setPageMessageVisible(boolean visible) {
+
+        }
+
+        @Override
+        public void setPageMessage(String html, MessageType type) {
+
+        }
+
+        @Override
+        public void setLoading(boolean loading) {
+
+        }
+
+        @Override
+        public boolean isLoading() {
+            return false;
+        }
+
+        @Override
+        public void center() {
+            super.show();
+        }
+
+        @Override
+        public void setContent(Widget widget) {
+            final ModalBody body = new ModalBody();
+            body.add(widget);
+            super.add(body);
+        }
+
+        @Override
+        public void setZIndex(int zIndex) {
+        }
+
+        @Override
+        public void setClosePopupHandler(ClosePopupHandler handler) {
+
+        }
+    }
 
     /**
      * <p>
@@ -32,83 +77,31 @@ public abstract class AbstractPopupView<P extends IsPopupWidget> implements View
      * {@link #equals(Object)} and {@link #hashCode()} methods should not be overridden (declared as {@code final}).
      * </p>
      */
-    private static final Set<IsPopupWidget> visiblePopups = new HashSet<IsPopupWidget>();
+    private static final Set<Modal> visiblePopups = new HashSet<>();
 
     /**
      * Returns if a pop-up view is currently visible.
      *
      * @return {@code true} if a pop-up is currently visible.
      */
-    public static final boolean isPopupDisplayed() {
+    public static boolean isPopupDisplayed() {
         return !visiblePopups.isEmpty();
     }
 
     /**
      * The pop-up implementation.
      */
-    protected final P popup;
-
-    /**
-     * Initializes the popup view.
-     *
-     * @param popup
-     *         The inner {@link IsPopupWidget} implementation.
-     */
-    protected AbstractPopupView(final P popup) {
-        this(popup, (String) null, null);
-    }
-
-    /**
-     * Initializes the popup view with given {@code width}.
-     *
-     * @param popup
-     *         The inner {@link IsPopupWidget} implementation.
-     * @param width
-     *         The popup view width (in pixels). Ignored if {@code null}.
-     */
-    protected AbstractPopupView(final P popup, final Integer width) {
-        this(popup, width, null);
-    }
-
-    /**
-     * Initializes the popup view with given {@code width}.
-     *
-     * @param popup
-     *         The inner {@link IsPopupWidget} implementation.
-     * @param width
-     *         The popup view width. Ignored if {@code null}.
-     */
-    protected AbstractPopupView(final P popup, final String width) {
-        this(popup, width, null);
-    }
-
-    /**
-     * Initializes the popup view with given {@code width} and {@code height}.
-     *
-     * @param popup
-     *         The inner {@link IsPopupWidget} implementation.
-     * @param width
-     *         The popup view width (in pixels). Ignored if {@code null}.
-     * @param height
-     *         The popup view height (in pixels). Ignored if {@code null}.
-     */
-    protected AbstractPopupView(final P popup, final Integer width, final Integer height) {
-        this(popup, width != null ? width + Unit.PX.getType() : null, height != null ? height + Unit.PX.getType() : null);
-    }
+    protected final CustomModal popup;
 
     /**
      * Constructor with dimensions parameters.
      *
-     * @param popup
-     *         The pop-up widget implementation.
-     * @param width
-     *         The width of the pop-up (ignored if {@code null}).
-     * @param height
-     *         The height of the pop-up (ignored if {@code null}).
+     * @param width  The width of the pop-up (ignored if {@code null}).
+     * @param height The height of the pop-up (ignored if {@code null}).
      */
-    protected AbstractPopupView(final P popup, final String width, final String height) {
+    protected AbstractPopupView(final String width, final String height) {
 
-        this.popup = popup;
+        this.popup = new CustomModal();
 
         if (width != null) {
             this.popup.setWidth(width);
@@ -118,34 +111,19 @@ public abstract class AbstractPopupView<P extends IsPopupWidget> implements View
             this.popup.setHeight(height);
         }
 
-        setCloseHandler(new ClosePopupHandler() {
-
-            @Override
-            public void onClosePopup(ClosePopupEvent event) {
-                event.closePopup();
-                visiblePopups.remove(popup);
-            }
-
+        setCloseHandler(event -> {
+            event.closePopup();
+            visiblePopups.remove(popup);
         });
     }
 
     /**
      * Initializes the pop-up widget.
      *
-     * @param widget
-     *         The pop-up widget.
+     * @param widget The pop-up widget.
      */
     protected final void initPopup(final Widget widget) {
         popup.setContent(widget);
-    }
-
-    /**
-     * Retrieves the inner popup widget.
-     *
-     * @return The implentation used by this popup.
-     */
-    public P getPopup() {
-        return popup;
     }
 
     /**
